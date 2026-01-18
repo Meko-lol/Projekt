@@ -7,10 +7,11 @@ public class LoadCharacters {
     private List<Character> loadedCharacters;
 
     public void loadData() {
-        // Implementation to load data from JSON will go here
+        //TODO
     }
 
     public Character getByName(String name) {
+        //TODO
         return null;
     }
 }

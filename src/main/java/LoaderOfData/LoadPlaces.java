@@ -7,10 +7,11 @@ public class LoadPlaces {
     private List<Place> loadedPlaces;
 
     public void loadData() {
-        // Implementation to load data from JSON will go here
+        //TODO
     }
 
     public Place getByName(String name) {
+        //TODO
         return null;
     }
 }

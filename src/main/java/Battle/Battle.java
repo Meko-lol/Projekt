@@ -14,12 +14,11 @@ public class Battle {
     }
 
     public void startBattle() {
-        // Main battle loop logic will go here.
-        // For example, characters take turns attacking until one's health is <= 0.
+        //TODO
     }
 
     public Character getWinner() {
-        // Logic to determine the winner after the battle is over.
+        //TODO
         return null;
     }
 }

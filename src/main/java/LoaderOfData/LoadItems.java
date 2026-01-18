@@ -7,10 +7,11 @@ public class LoadItems {
     private List<Item> loadedItems;
 
     public void loadData() {
-        // Implementation to load data from JSON will go here
+        //TODO
     }
 
     public Item getByName(String name) {
+        //TODO
         return null;
     }
 }

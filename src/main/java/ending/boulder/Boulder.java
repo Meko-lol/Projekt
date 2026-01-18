@@ -8,8 +8,7 @@ public class Boulder {
     }
 
     public void attemptToBrakeBoulder() {
-        // Logic for attempting to break the boulder will go here.
-        // For example, this could reduce the boulder's health.
+        //TODO
     }
 
     public int getBoulderHealth() {
