@@ -1,8 +1,6 @@
 package Commands;
 
 import Characters.Player;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -18,7 +16,7 @@ import Commands.commandList.UseCommand;
 import Commands.commandList.OpenBackpackCommand;
 import Commands.commandList.DropCommand;
 import Commands.commandList.OpenInventoryCommand;
-import Commands.commandList.PutOnBackpackCommand;
+import Commands.commandList.EquipItemCommand;
 import Commands.commandList.RemoveBackpackCommand;
 import Commands.commandList.FightCommand;
 import Commands.commandList.BuyCommand;
@@ -49,7 +47,7 @@ public class CommandProcessor {
         commands.put("open-backpack", new OpenBackpackCommand());
         commands.put("drop", new DropCommand());
         commands.put("open-inventory", new OpenInventoryCommand());
-        commands.put("put-on-backpack", new PutOnBackpackCommand());
+        commands.put("put-on-backpack", new EquipItemCommand());
         commands.put("remove-backpack", new RemoveBackpackCommand());
         commands.put("fight", new FightCommand());
         commands.put("buy", new BuyCommand());
@@ -62,8 +60,6 @@ public class CommandProcessor {
         if (inputLine.isEmpty()) {
             return;
         }
-
-        saveCommandToFile(inputLine);
 
         String[] parts = inputLine.split("\\s+");
         String commandName = parts[0];
@@ -79,24 +75,10 @@ public class CommandProcessor {
     }
 
     public void run() {
-        resetCommandHistoryFile();
         do {
             processInput();
         } while (!shouldExit);
         scanner.close();
     }
 
-    private void saveCommandToFile(String command) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(COMMAND_HISTORY_FILE, true))) {
-            writer.write(command);
-            writer.newLine();
-        } catch (Exception e) {
-        }
-    }
-
-    private void resetCommandHistoryFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(COMMAND_HISTORY_FILE, false))) {
-        } catch (Exception e) {
-        }
-    }
 }
