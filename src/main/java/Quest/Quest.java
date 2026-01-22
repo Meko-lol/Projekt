@@ -18,4 +18,36 @@ public abstract class Quest {
     public void complete() {
 
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
+    }
+
+    public Item getReward() {
+        return reward;
+    }
+
+    public void setReward(Item reward) {
+        this.reward = reward;
+    }
 }

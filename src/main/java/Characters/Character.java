@@ -1,6 +1,9 @@
 package Characters;
 
-public abstract class Character {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties; // Import for the annotation
+
+@JsonIgnoreProperties(ignoreUnknown = true) // Ignore JSON fields not present in this class
+public class Character { // Changed from 'public abstract class Character'
     protected String name;
     protected String race;
     protected double health;
@@ -10,6 +13,11 @@ public abstract class Character {
     protected int strength;
     protected int agility;
     protected int intelligence;
+
+    // No-argument constructor for Jackson deserialization
+    public Character() {
+        // Default values or leave empty for Jackson to fill
+    }
 
     public Character(String name, String race, double health, double weight, double speed, double stamina, int strength, int agility, int intelligence) {
         this.name = name;

@@ -1,10 +1,17 @@
 package Items;
 
-public abstract class Item {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Item { // Changed from 'public abstract class Item'
     protected String name;
     protected double weight;
     protected double durability;
     protected String description;
+
+    public Item() {
+        // No-argument constructor for Jackson
+    }
 
     public Item(String name, double weight, double durability, String description) {
         this.name = name;
