@@ -1,6 +1,6 @@
 package Places;
 
 
-public class Prison implements Place {
+public class Prison extends Location {
     private int security;
 }

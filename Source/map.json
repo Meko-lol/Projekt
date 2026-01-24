@@ -1,0 +1,84 @@
+{
+  "map": [
+    [
+      {"name": "Place_0_0", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_0_1", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_0_2", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_0_3", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_0_4", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_0_5", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_0_6", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_0_7", "obstacles": null, "npcs": null, "resources": null}
+    ],
+    [
+      {"name": "Place_1_0", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_1_1", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_1_2", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_1_3", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_1_4", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_1_5", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_1_6", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_1_7", "obstacles": null, "npcs": null, "resources": null}
+    ],
+    [
+      {"name": "Place_2_0", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_2_1", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_2_2", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_2_3", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_2_4", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_2_5", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_2_6", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_2_7", "obstacles": null, "npcs": null, "resources": null}
+    ],
+    [
+      {"name": "Place_3_0", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_3_1", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_3_2", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_3_3", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_3_4", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_3_5", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_3_6", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_3_7", "obstacles": null, "npcs": null, "resources": null}
+    ],
+    [
+      {"name": "Place_4_0", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_4_1", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_4_2", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_4_3", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_4_4", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_4_5", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_4_6", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_4_7", "obstacles": null, "npcs": null, "resources": null}
+    ],
+    [
+      {"name": "Place_5_0", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_5_1", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_5_2", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_5_3", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_5_4", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_5_5", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_5_6", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_5_7", "obstacles": null, "npcs": null, "resources": null}
+    ],
+    [
+      {"name": "Place_6_0", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_6_1", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_6_2", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_6_3", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_6_4", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_6_5", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_6_6", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_6_7", "obstacles": null, "npcs": null, "resources": null}
+    ],
+    [
+      {"name": "Place_7_0", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_7_1", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_7_2", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_7_3", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_7_4", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_7_5", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_7_6", "obstacles": null, "npcs": null, "resources": null},
+      {"name": "Place_7_7", "obstacles": null, "npcs": null, "resources": null}
+    ]
+  ]
+}

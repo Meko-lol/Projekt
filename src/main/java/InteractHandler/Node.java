@@ -1,4 +1,4 @@
-package Interact;
+package InteractHandler;
 
 import Items.Item;
 

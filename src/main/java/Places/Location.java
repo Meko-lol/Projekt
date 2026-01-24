@@ -5,17 +5,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Place {
+public class Location { // Renamed from Place
     private String name;
     private String[] obstacles;
     private NPC[] npcs;
     private Map<String, Integer> resources;
 
-    public Place() {
+    public Location() {
         // No-argument constructor for Jackson
     }
 
-    public Place(String name, String[] obstacles, NPC[] npcs, Map<String, Integer> resources) {
+    public Location(String name, String[] obstacles, NPC[] npcs, Map<String, Integer> resources) {
         this.name = name;
         this.obstacles = obstacles;
         this.npcs = npcs;

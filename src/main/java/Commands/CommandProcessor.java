@@ -1,6 +1,7 @@
 package Commands;
 
 import Characters.Player;
+import Game.MyGame;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -21,33 +22,39 @@ import Commands.commandList.RemoveBackpackCommand;
 import Commands.commandList.FightCommand;
 import Commands.commandList.BuyCommand;
 import Commands.commandList.SellCommand;
+import Commands.commandList.EndCommand;
+import Commands.commandList.GetCordinatesCommand; // Import the new command
 
 public class CommandProcessor {
     private boolean shouldExit = false;
     private Map<String, Command> commands = new HashMap<>();
     private Scanner scanner = new Scanner(System.in);
     private Player player;
+    private MyGame game;
 
     public static final String COMMAND_HISTORY_FILE = "command_history.txt";
 
-    public CommandProcessor(Player player) {
+    public CommandProcessor(Player player, MyGame game) {
         this.player = player;
+        this.game = game;
         initializeCommands();
     }
 
     private void initializeCommands() {
+        commands.put("cordinates", new GetCordinatesCommand());
         commands.put("help", new HelpCommand());
         commands.put("history", new HistoryCommand());
         commands.put("quit", new QuitCommand());
+        commands.put("end", new EndCommand());
         commands.put("quote", new QuoteCommand());
         commands.put("interact", new InteractCommand());
         commands.put("pickup", new PickUpCommand());
-        commands.put("goto", new GoToCommand());
+        commands.put("move", new GoToCommand());
         commands.put("use", new UseCommand());
         commands.put("open-backpack", new OpenBackpackCommand());
         commands.put("drop", new DropCommand());
         commands.put("open-inventory", new OpenInventoryCommand());
-        commands.put("put-on-backpack", new EquipItemCommand());
+        commands.put("equip", new EquipItemCommand());
         commands.put("remove-backpack", new RemoveBackpackCommand());
         commands.put("fight", new FightCommand());
         commands.put("buy", new BuyCommand());
@@ -67,10 +74,11 @@ public class CommandProcessor {
         Command command = commands.get(commandName);
 
         if (command != null) {
-            command.setContext(player, this, parts);
+            command.setContext(player, game, parts);
             command.execute();
             this.shouldExit = command.exit();
         } else {
+            // Handle unknown command
         }
     }
 
@@ -80,5 +88,4 @@ public class CommandProcessor {
         } while (!shouldExit);
         scanner.close();
     }
-
 }

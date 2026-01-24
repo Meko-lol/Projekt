@@ -4,7 +4,7 @@ import Characters.Character;
 import Characters.NPCs.Enemy;
 import java.util.Map;
 
-public class NaturePlace extends Place {
+public class NaturePlace extends Location { // Changed from Place
     private int forestDensity;
     private Enemy[] enemies;
     private Character[] animals;

@@ -3,7 +3,7 @@ package Places;
 import Characters.NPCs.NPC;
 import java.util.Map;
 
-public class PolulatedPlace extends Place {
+public class PolulatedPlace extends Location { // Changed from Place
     private int villageDensity;
 
     public PolulatedPlace(String name, String[] obstacles, NPC[] npcs, Map<String, Integer> resources, int villageDensity) {

@@ -1,9 +1,9 @@
-package Interact;
+package InteractHandler;
 
 import Items.Item;
 import java.util.Scanner;
 
-public class NodeHandler {
+public class InteractHandler { // Renamed from NodeHandler
     private Item receivedItem;
     private Scanner scanner = new Scanner(System.in);
 
@@ -28,7 +28,7 @@ public class NodeHandler {
             }
 
             int choice = getPlayerChoice(answers.length);
-            
+
             currentNode = currentNode.getNextNode(choice);
         }
 
