@@ -23,7 +23,8 @@ import Commands.commandList.FightCommand;
 import Commands.commandList.BuyCommand;
 import Commands.commandList.SellCommand;
 import Commands.commandList.EndCommand;
-import Commands.commandList.GetCordinatesCommand; // Import the new command
+import Commands.commandList.GetCordinatesCommand;
+import Commands.commandList.GetLocationInfoCommand; // Import the new command
 
 public class CommandProcessor {
     private boolean shouldExit = false;
@@ -42,6 +43,7 @@ public class CommandProcessor {
 
     private void initializeCommands() {
         commands.put("cordinates", new GetCordinatesCommand());
+        commands.put("locationinfo", new GetLocationInfoCommand()); // Add the new command
         commands.put("help", new HelpCommand());
         commands.put("history", new HistoryCommand());
         commands.put("quit", new QuitCommand());

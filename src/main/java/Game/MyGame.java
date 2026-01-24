@@ -27,14 +27,10 @@ public class MyGame {
         this.yCordinate = 0;
         this.currentLocation = this.gameMap.getLocation(this.xCordinate, this.yCordinate);
 
-        // Pass 'this' (the MyGame instance) to the CommandProcessor
         this.commandProcessor = new CommandProcessor(this.player, this); 
         this.commandProcessor.run();
     }
 
-    /**
-     * Moves the player in a given direction. Now public.
-     */
     public void move(String direction) {
         int newX = this.xCordinate;
         int newY = this.yCordinate;
@@ -78,5 +74,9 @@ public class MyGame {
 
     public MyMap getGameMap() {
         return gameMap;
+    }
+
+    public Location getCurrentLocation() {
+        return currentLocation;
     }
 }
