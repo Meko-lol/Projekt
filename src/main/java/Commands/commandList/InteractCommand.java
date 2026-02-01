@@ -3,8 +3,8 @@ package Commands.commandList;
 import Commands.Command;
 import Places.Location;
 import Characters.NPCs.NPC;
-import Interact.InteractHandler;
-import Interact.Node;
+import Quest.Quest;
+import java.util.Scanner;
 
 public class InteractCommand extends Command {
     @Override
@@ -15,7 +15,7 @@ public class InteractCommand extends Command {
         String npcName = args[1];
         Location currentLocation = game.getCurrentLocation();
         
-        if (currentLocation.getNpcs() == null) {
+        if (currentLocation == null || currentLocation.getNpcs() == null || currentLocation.getNpcs().isEmpty()) {
             return "There is no one here to interact with.";
         }
 
@@ -31,23 +31,39 @@ public class InteractCommand extends Command {
             return "There is no one here by that name.";
         }
 
-        String startingNodeName = targetNpc.getDialogueNodeName();
-        if (startingNodeName == null) {
-            return targetNpc.getName() + " has nothing to say.";
+        // --- Quest Logic ---
+        Quest quest = targetNpc.getQuestToGive();
+        if (quest != null) {
+            // Check if the player already has this quest.
+            if (player.getActiveQuests().contains(quest)) {
+                if (quest.isCompleted()) {
+                    player.getInventory().addItem(quest.reward);
+                    targetNpc.setQuestToGive(null);
+                    return targetNpc.getName() + " thanks you and gives you your reward: " + quest.reward.getName();
+                } else {
+                    return targetNpc.getName() + " reminds you: '" + quest.description + "'";
+                }
+            } else {
+                // Offer the quest.
+                System.out.println("\n" + targetNpc.getName() + " has a quest for you: '" + quest.name + "'");
+                System.out.println("Description: " + quest.description);
+                System.out.println("Reward: " + quest.reward.getName());
+                System.out.print("Do you accept? (yes/no) >> ");
+                
+                Scanner scanner = new Scanner(System.in);
+                String choice = scanner.nextLine().trim().toLowerCase();
+                
+                if (choice.equals("yes")) {
+                    // THE FIX: Correctly add the quest to the player's list.
+                    player.addQuest(quest);
+                    return "Quest accepted: " + quest.name;
+                } else {
+                    return "You declined the quest.";
+                }
+            }
         }
 
-        // Find the starting node from the file manager
-        Node startingNode = game.getFileManager().getInteractByName(startingNodeName);
-
-        if (startingNode == null) {
-            return "There seems to be an issue with this character's dialogue.";
-        }
-        
-        // Create a handler and start the interaction
-        InteractHandler handler = new InteractHandler();
-        handler.startInteraction(startingNode, game.getFileManager()); // Pass the file manager
-
-        return "You finish your conversation.";
+        return "You have a pleasant chat with " + targetNpc.getName() + ".";
     }
 
     @Override

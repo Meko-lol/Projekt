@@ -2,43 +2,62 @@ package Places;
 
 import Characters.NPCs.NPC;
 import Items.Item;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Location {
     private String name;
-    private String[] obstacles;
-    private NPC[] npcs;
-    private Map<String, Integer> resources;
-    private List<Item> itemsOnGround; // Added list for items
+    private List<NPC> npcs = new ArrayList<>();
+    private List<Item> itemsOnGround = new ArrayList<>();
+    private HashMap<String, Obstacle> obstacles = new HashMap<>();
+    private HashMap<String, Obstacle> clearedObstacles = new HashMap<>();
 
-    public Location() {
-        this.itemsOnGround = new ArrayList<>();
-    }
+    @JsonIgnore private int x;
+    @JsonIgnore private int y;
 
-    public Location(String name, String[] obstacles, NPC[] npcs, Map<String, Integer> resources) {
+    public Location() {}
+
+    public Location(String name, List<NPC> npcs) {
         this.name = name;
-        this.obstacles = obstacles;
-        this.npcs = npcs;
-        this.resources = resources;
-        this.itemsOnGround = new ArrayList<>();
+        if (npcs != null) {
+            this.npcs = npcs;
+        }
     }
 
-    // --- Getters and Setters ---
+    // Getters
     public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public String[] getObstacles() { return obstacles; }
-    public void setObstacles(String[] obstacles) { this.obstacles = obstacles; }
-    public NPC[] getNpcs() { return npcs; }
-    public void setNpcs(NPC[] npcs) { this.npcs = npcs; }
-    public Map<String, Integer> getResources() { return resources; }
-    public void setResources(Map<String, Integer> resources) { this.resources = resources; }
-    
-    // --- Item Management ---
+    public List<NPC> getNpcs() { return npcs; }
     public List<Item> getItemsOnGround() { return itemsOnGround; }
+    public HashMap<String, Obstacle> getObstacles() { return obstacles; }
+    public Obstacle getObstacle(String direction) { return obstacles.get(direction); }
+    public Obstacle getClearedObstacle(String direction) { return clearedObstacles.get(direction); }
+    public int getX() { return x; }
+    public int getY() { return y; }
+
+    // Setters
+    public void setName(String name) { this.name = name; }
+    public void setX(int x) { this.x = x; }
+    public void setY(int y) { this.y = y; }
+    public void setNpcs(List<NPC> npcs) { this.npcs = (npcs != null) ? npcs : new ArrayList<>(); }
+    public void setItemsOnGround(List<Item> items) { this.itemsOnGround = (items != null) ? items : new ArrayList<>(); }
+    public void setObstacles(HashMap<String, Obstacle> obstacles) { this.obstacles = (obstacles != null) ? obstacles : new HashMap<>(); }
+    public void setClearedObstacles(HashMap<String, Obstacle> clearedObstacles) { this.clearedObstacles = (clearedObstacles != null) ? clearedObstacles : new HashMap<>(); }
+
+    // Management Methods
     public void addItem(Item item) { this.itemsOnGround.add(item); }
     public void removeItem(Item item) { this.itemsOnGround.remove(item); }
+    public void addNpc(NPC npc) { this.npcs.add(npc); }
+    public void removeNpc(NPC npc) { this.npcs.remove(npc); }
+    public void setObstacle(String direction, Obstacle obstacle) { this.obstacles.put(direction, obstacle); }
+    
+    public void removeObstacle(String direction) {
+        Obstacle cleared = this.obstacles.remove(direction);
+        if (cleared != null) {
+            this.clearedObstacles.put(direction, cleared);
+        }
+    }
 }

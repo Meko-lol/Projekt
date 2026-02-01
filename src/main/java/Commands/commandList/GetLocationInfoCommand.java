@@ -2,36 +2,42 @@ package Commands.commandList;
 
 import Commands.Command;
 import Places.Location;
+import Places.Obstacle;
 import Characters.NPCs.NPC;
-import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 public class GetLocationInfoCommand extends Command {
     @Override
     public String execute() {
         Location currentLocation = game.getCurrentLocation();
-
-        if (currentLocation == null) {
-            return "You are in a void. There is nothing here.";
-        }
+        if (currentLocation == null) return "You are in a void.";
 
         StringBuilder info = new StringBuilder();
-        info.append("You are at: ").append(currentLocation.getName()).append("\n");
+        info.append("--- Location: ").append(currentLocation.getName()).append(" ---\n\n");
 
-        // Display Obstacles
-        String[] obstacles = currentLocation.getObstacles();
-        if (obstacles != null && obstacles.length > 0) {
-            info.append("Obstacles: ").append(String.join(", ", obstacles)).append("\n");
+        List<NPC> npcs = currentLocation.getNpcs();
+        if (npcs != null && !npcs.isEmpty()) {
+            info.append("You see the following people here:\n");
+            for (NPC npc : npcs) {
+                info.append("- ").append(npc.getName()).append(npc.isHostile() ? " (Hostile)\n" : "\n");
+            }
+        } else {
+            info.append("You are alone here.\n");
         }
+        info.append("\n");
 
-        // Display NPCs
-        NPC[] npcs = currentLocation.getNpcs();
-        if (npcs != null && npcs.length > 0) {
-            info.append("People here: ");
-            String[] npcNames = Arrays.stream(npcs).map(NPC::getName).toArray(String[]::new);
-            info.append(String.join(", ", npcNames)).append("\n");
+        Map<String, Obstacle> obstacles = currentLocation.getObstacles();
+        if (obstacles != null && !obstacles.isEmpty()) {
+            info.append("Your path is blocked:\n");
+            for (Map.Entry<String, Obstacle> entry : obstacles.entrySet()) {
+                info.append("- To the ").append(entry.getKey()).append(": ").append(entry.getValue().getDescription()).append("\n");
+            }
+        } else {
+            info.append("Your path is clear in all directions.\n");
         }
-
-        System.out.println(info.toString());
+        
+        info.append("---------------------");
         return info.toString();
     }
 

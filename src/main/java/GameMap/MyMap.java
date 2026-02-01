@@ -1,66 +1,45 @@
 package GameMap;
 
 import Places.Location;
-import java.util.ArrayList;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonAlias; // Import the annotation
 
 public class MyMap {
-    private Location[][] map;
+    
+    // THE FIX: This tells the loader that the 'grid' field might also be called 'map' in old save files.
+    @JsonAlias("map") 
+    private Location[][] grid;
 
-    /**
-     * No-argument constructor for Jackson deserialization.
-     */
-    public MyMap() {
-    }
+    public MyMap() {}
 
     public MyMap(int width, int height) {
-        this.map = new Location[width][height];
+        this.grid = new Location[height][width];
     }
 
-    public Location[][] getMap() {
-        return map;
+    public Location[][] getGrid() {
+        return grid;
     }
 
-    public void setMap(Location[][] map) {
-        this.map = map;
+    public void setGrid(Location[][] grid) {
+        this.grid = grid;
     }
 
     public Location getLocation(int x, int y) {
         if (isValid(x, y)) {
-            return map[y][x];
+            return grid[y][x];
         }
         return null;
     }
 
     public void setLocation(int x, int y, Location location) {
         if (isValid(x, y)) {
-            map[y][x] = location;
+            grid[y][x] = location;
         }
-    }
-
-    public List<Location> findNeighbouringLocations(int x, int y) {
-        List<Location> neighbours = new ArrayList<>();
-
-        if (isValid(x, y - 1)) {
-            neighbours.add(map[y - 1][x]);
-        }
-        if (isValid(x, y + 1)) {
-            neighbours.add(map[y + 1][x]);
-        }
-        if (isValid(x - 1, y)) {
-            neighbours.add(map[y][x - 1]);
-        }
-        if (isValid(x + 1, y)) {
-            neighbours.add(map[y][x + 1]);
-        }
-
-        return neighbours;
     }
 
     private boolean isValid(int x, int y) {
-        if (map == null || map.length == 0) {
+        if (grid == null || grid.length == 0) {
             return false;
         }
-        return y >= 0 && y < map.length && x >= 0 && x < map[0].length;
+        return y >= 0 && y < grid.length && x >= 0 && x < grid[0].length;
     }
 }

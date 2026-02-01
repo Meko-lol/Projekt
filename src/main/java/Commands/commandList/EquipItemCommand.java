@@ -3,6 +3,7 @@ package Commands.commandList;
 import Commands.Command;
 import Items.Item;
 import Items.EquippableItems.EquippableItem;
+import Items.Weapons.CloseRangeWeapon;
 
 public class EquipItemCommand extends Command {
     @Override
@@ -12,11 +13,31 @@ public class EquipItemCommand extends Command {
         }
         String itemName = args[1];
 
-        //TODO: Find the item in the player's inventory.
-        //TODO: Check if the item is an instance of EquippableItem.
-        //TODO: Call an 'equip' method on the item and handle the result.
+        Item itemToEquip = player.getInventory().getItemByName(itemName);
+
+        if (itemToEquip == null) {
+            return "You don't have a '" + itemName + "'.";
+        }
+
+        // Handle weapons
+        if (itemToEquip instanceof CloseRangeWeapon) {
+            player.setEquippedWeapon((CloseRangeWeapon) itemToEquip);
+            return "You equip the " + itemName + ".";
+        }
         
-        return "You try to equip the " + itemName + ", but you can't.";
+        // THE FIX: Use the single, all-purpose equipItem method.
+        if (itemToEquip instanceof EquippableItem) {
+            EquippableItem equippable = (EquippableItem) itemToEquip;
+            EquippableItem oldItem = player.equipItem(equippable);
+            
+            String message = "You equip the " + itemName + ".";
+            if (oldItem != null) {
+                message += " You unequipped the " + oldItem.getName() + ".";
+            }
+            return message;
+        }
+
+        return "You can't equip that.";
     }
 
     @Override

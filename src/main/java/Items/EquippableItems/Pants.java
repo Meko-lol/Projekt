@@ -1,22 +1,18 @@
 package Items.EquippableItems;
 
+import Items.EquippableItems.EquippableItem;
+
 public class Pants extends EquippableItem {
     private double defense;
 
     public Pants(String name, double weight, double durability, String description, double defense) {
-        super(name, weight, durability, description);
+        super(name, "equippable", weight, durability, description, "legs");
         this.defense = defense;
     }
 
-    @Override
-    public String equip() {
-        // Logic to equip pants
-        return "The " + getName() + " was equipped.";
+    public Pants() {
+        super();
     }
-
-    @Override
-    public String unequip() {
-        // Logic to unequip pants
-        return "The " + getName() + " was unequipped.";
-    }
+    
+    // The equip() and unequip() methods have been REMOVED.
 }

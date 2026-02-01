@@ -1,0 +1,20 @@
+[
+  {
+    "name": "boulder",
+    "description": "A massive boulder completely blocks the path.",
+    "requiredItemName": "Pickaxe",
+    "durability": 3
+  },
+  {
+    "name": "chasm",
+    "description": "A wide chasm you cannot cross.",
+    "requiredItemName": "Rope",
+    "durability": 1
+  },
+  {
+    "name": "thorns",
+    "description": "A wall of thick, thorny vines blocks the way.",
+    "requiredItemName": "Axe",
+    "durability": 1
+  }
+]

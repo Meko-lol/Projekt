@@ -1,19 +1,38 @@
 package Items;
 
+import Items.EquippableItems.*;
+import Items.Items.EquippableItems.Boots;
+import Items.Items.EquippableItems.Chestplate;
+import Items.Items.EquippableItems.Helmet;
+import Items.Weapons.*;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "itemType")
+@JsonSubTypes({
+    // THE FIX: Register the base Item class with a type name.
+    @JsonSubTypes.Type(value = Item.class, name = "item"),
+    // List all the concrete subclasses.
+    @JsonSubTypes.Type(value = Helmet.class, name = "helmet"),
+    @JsonSubTypes.Type(value = Chestplate.class, name = "chestplate"),
+    @JsonSubTypes.Type(value = Pants.class, name = "pants"),
+    @JsonSubTypes.Type(value = Boots.class, name = "boots"),
+    @JsonSubTypes.Type(value = Backpack.class, name = "backpack"),
+    @JsonSubTypes.Type(value = CloseRangeWeapon.class, name = "closeRangeWeapon"),
+    @JsonSubTypes.Type(value = RangedWeapon.class, name = "rangedWeapon")
+})
 public class Item {
     protected String name;
-    protected String type; // Added for identifying item's purpose
+    protected String type;
     protected double weight;
     protected double durability;
     protected String description;
 
-    public Item() {
-    }
+    public Item() {}
 
-    public Item(String name, double weight, double durability, String description) {
+    public Item(String name, String type, double weight, double durability, String description) {
         this.name = name;
         this.type = type;
         this.weight = weight;
@@ -21,15 +40,7 @@ public class Item {
         this.description = description;
     }
 
-    // Copy constructor
-    public Item(Item other) {
-        this.name = other.name;
-        this.type = other.type;
-        this.weight = other.weight;
-        this.durability = other.durability;
-        this.description = other.description;
-    }
-
+    // Getters and Setters
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public String getType() { return type; }

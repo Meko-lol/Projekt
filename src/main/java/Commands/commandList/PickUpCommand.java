@@ -2,7 +2,7 @@ package Commands.commandList;
 
 import Commands.Command;
 import Items.Item;
-import Places.Location;
+import Places.Location; // THE FIX: Changed the import to the correct package.
 import java.util.List;
 
 public class PickUpCommand extends Command {
@@ -27,8 +27,7 @@ public class PickUpCommand extends Command {
             return "There is no '" + itemName + "' here.";
         }
 
-        // Try to add the item to the player's inventory
-        boolean added = player.getInventory().addItem(itemToPickUp); // Assumes addItem exists
+        boolean added = player.getInventory().addItem(itemToPickUp);
 
         if (added) {
             currentLocation.removeItem(itemToPickUp);

@@ -1,6 +1,7 @@
 package Inventory;
 
 import Items.Item;
+import com.fasterxml.jackson.annotation.JsonIgnore; // Import the annotation
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,10 +47,6 @@ public class Inventory {
         return null;
     }
 
-    /**
-     * Finds an item in the inventory by its name, without removing it.
-     * @return The found Item object, or null if not found.
-     */
     public Item getItemByName(String name) {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
@@ -126,6 +123,8 @@ public class Inventory {
         return null;
     }
 
+    // THE FIX: This tells the save/load system to ignore this calculated value.
+    @JsonIgnore
     public double getTotalWeight() {
         double totalWeight = 0;
         for (Item item : getAllItems()) {

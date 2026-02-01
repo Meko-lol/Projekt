@@ -1,0 +1,18 @@
+[
+  {
+    "name": "generic_greeting",
+    "monologue": "Greetings, traveler. A tough-looking dungeon, isn't it?",
+    "answers": ["Do you have any work for me?", "I must be going."],
+    "nextNodes": ["quest_offer", null],
+    "giveItem": null,
+    "offerQuest": false
+  },
+  {
+    "name": "quest_offer",
+    "monologue": "As a matter of fact, I do. I have a task that needs a brave soul.",
+    "answers": ["I will do it.", "I'm not interested."],
+    "nextNodes": [null, null],
+    "giveItem": null,
+    "offerQuest": true
+  }
+]

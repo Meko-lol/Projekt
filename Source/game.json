@@ -11,399 +11,1477 @@
     "intelligence" : 10,
     "inventory" : {
       "grid" : [ [ null, null, null, null, null ], [ null, null, null, null, null ] ],
-      "allItems" : [ ],
-      "totalWeight" : 0.0
-    }
+      "allItems" : [ ]
+    },
+    "activeQuests" : [ ]
   },
   "gameMap" : {
-    "map" : [ [ {
-      "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+    "grid" : [ [ {
+      "name" : "Town Square",
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : { }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "west" : {
+          "name" : "bush",
+          "description" : "A thick, thorny bush blocks the way.",
+          "requiredItemName" : "Axe",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "south" : {
+          "name" : "bush",
+          "description" : "A thick, thorny bush blocks the way.",
+          "requiredItemName" : "Axe",
+          "durability" : 1
+        },
+        "north" : {
+          "name" : "bush",
+          "description" : "A thick, thorny bush blocks the way.",
+          "requiredItemName" : "Axe",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ {
+        "name" : "Cael",
+        "race" : "Human",
+        "health" : 100.0,
+        "weight" : 70.0,
+        "speed" : 5.0,
+        "stamina" : 100.0,
+        "strength" : 5,
+        "agility" : 5,
+        "intelligence" : 10,
+        "dialogueNodeName" : "elder_quest_offer",
+        "questToGive" : {
+          "type" : "aquireing",
+          "name" : "The Lost Sword",
+          "description" : "Find the legendary lost sword said to be hidden in the mountains.",
+          "reward" : {
+            "itemType" : "helmet",
+            "name" : "Leather Helmet",
+            "type" : "equippable",
+            "weight" : 2.0,
+            "durability" : 80.0,
+            "description" : "A simple leather helmet.",
+            "slot" : null
+          },
+          "questGiverName" : null,
+          "completed" : false
+        },
+        "loot" : [ ],
+        "hostile" : false
+      } ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "south" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ {
+        "name" : "Goblin",
+        "race" : "Goblin",
+        "health" : 50.0,
+        "weight" : 40.0,
+        "speed" : 7.0,
+        "stamina" : 50.0,
+        "strength" : 12,
+        "agility" : 8,
+        "intelligence" : 3,
+        "dialogueNodeName" : null,
+        "questToGive" : null,
+        "loot" : [ {
+          "itemType" : "item",
+          "name" : "Gold Coin",
+          "type" : "currency",
+          "weight" : 0.1,
+          "durability" : 1.0,
+          "description" : "A shiny gold coin."
+        } ],
+        "hostile" : true
+      } ],
+      "itemsOnGround" : [ ],
+      "obstacles" : { }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "east" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "south" : {
+          "name" : "ravine",
+          "description" : "A wide ravine is in front of you. You'll need something to cross it.",
+          "requiredItemName" : "Rope",
+          "durability" : 1
+        },
+        "west" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ {
+        "name" : "Elara",
+        "race" : "Human",
+        "health" : 100.0,
+        "weight" : 70.0,
+        "speed" : 5.0,
+        "stamina" : 100.0,
+        "strength" : 5,
+        "agility" : 5,
+        "intelligence" : 10,
+        "dialogueNodeName" : "elder_quest_offer",
+        "questToGive" : {
+          "type" : "killing",
+          "name" : "Goblin Menace",
+          "description" : "Clear the nearby forest of 5 goblins.",
+          "reward" : {
+            "itemType" : "closeRangeWeapon",
+            "name" : "Iron Sword",
+            "type" : "weapon",
+            "weight" : 5.0,
+            "durability" : 100.0,
+            "description" : "A basic but reliable iron sword.",
+            "damage" : 10
+          },
+          "questGiverName" : null,
+          "targetName" : "Goblin",
+          "requiredKills" : 5,
+          "currentKills" : 0,
+          "completed" : false
+        },
+        "loot" : [ ],
+        "hostile" : false
+      } ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "north" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        },
+        "west" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        }
+      }
     } ], [ {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ {
+        "name" : "Lyra",
+        "race" : "Human",
+        "health" : 100.0,
+        "weight" : 70.0,
+        "speed" : 5.0,
+        "stamina" : 100.0,
+        "strength" : 5,
+        "agility" : 5,
+        "intelligence" : 10,
+        "dialogueNodeName" : "elder_info",
+        "questToGive" : {
+          "type" : "travel",
+          "name" : "A Message to the East",
+          "description" : "Deliver a message to the easternmost settlement.",
+          "reward" : {
+            "itemType" : "item",
+            "name" : "Health Potion",
+            "type" : "potion",
+            "weight" : 0.5,
+            "durability" : 1.0,
+            "description" : "A potion that restores 25 health."
+          },
+          "questGiverName" : null,
+          "destinationName" : "Eastern Outpost",
+          "completed" : false
+        },
+        "loot" : [ ],
+        "hostile" : false
+      } ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "west" : {
+          "name" : "ravine",
+          "description" : "A wide ravine is in front of you. You'll need something to cross it.",
+          "requiredItemName" : "Rope",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "south" : {
+          "name" : "river",
+          "description" : "A deep river flows here, blocking your path.",
+          "requiredItemName" : "Boat",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "west" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ {
+        "name" : "Goblin",
+        "race" : "Goblin",
+        "health" : 50.0,
+        "weight" : 40.0,
+        "speed" : 7.0,
+        "stamina" : 50.0,
+        "strength" : 12,
+        "agility" : 8,
+        "intelligence" : 3,
+        "dialogueNodeName" : null,
+        "questToGive" : null,
+        "loot" : [ {
+          "itemType" : "item",
+          "name" : "Gold Coin",
+          "type" : "currency",
+          "weight" : 0.1,
+          "durability" : 1.0,
+          "description" : "A shiny gold coin."
+        } ],
+        "hostile" : true
+      } ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "south" : {
+          "name" : "river",
+          "description" : "A deep river flows here, blocking your path.",
+          "requiredItemName" : "Boat",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "east" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        },
+        "south" : {
+          "name" : "river",
+          "description" : "A deep river flows here, blocking your path.",
+          "requiredItemName" : "Boat",
+          "durability" : 1
+        },
+        "north" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "east" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        },
+        "south" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        },
+        "north" : {
+          "name" : "bush",
+          "description" : "A thick, thorny bush blocks the way.",
+          "requiredItemName" : "Axe",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ {
+        "name" : "Seraphina",
+        "race" : "Human",
+        "health" : 100.0,
+        "weight" : 70.0,
+        "speed" : 5.0,
+        "stamina" : 100.0,
+        "strength" : 5,
+        "agility" : 5,
+        "intelligence" : 10,
+        "dialogueNodeName" : "elder_quest_offer",
+        "questToGive" : {
+          "type" : "aquireing",
+          "name" : "The Lost Sword",
+          "description" : "Find the legendary lost sword said to be hidden in the mountains.",
+          "reward" : {
+            "itemType" : "helmet",
+            "name" : "Leather Helmet",
+            "type" : "equippable",
+            "weight" : 2.0,
+            "durability" : 80.0,
+            "description" : "A simple leather helmet.",
+            "slot" : null
+          },
+          "questGiverName" : null,
+          "completed" : false
+        },
+        "loot" : [ ],
+        "hostile" : false
+      } ],
+      "itemsOnGround" : [ ],
+      "obstacles" : { }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ {
+        "name" : "Isolde",
+        "race" : "Human",
+        "health" : 100.0,
+        "weight" : 70.0,
+        "speed" : 5.0,
+        "stamina" : 100.0,
+        "strength" : 5,
+        "agility" : 5,
+        "intelligence" : 10,
+        "dialogueNodeName" : "elder_quest_offer",
+        "questToGive" : {
+          "type" : "killing",
+          "name" : "Goblin Menace",
+          "description" : "Clear the nearby forest of 5 goblins.",
+          "reward" : {
+            "itemType" : "closeRangeWeapon",
+            "name" : "Iron Sword",
+            "type" : "weapon",
+            "weight" : 5.0,
+            "durability" : 100.0,
+            "description" : "A basic but reliable iron sword.",
+            "damage" : 10
+          },
+          "questGiverName" : null,
+          "targetName" : "Goblin",
+          "requiredKills" : 5,
+          "currentKills" : 0,
+          "completed" : false
+        },
+        "loot" : [ ],
+        "hostile" : false
+      } ],
+      "itemsOnGround" : [ ],
+      "obstacles" : { }
     } ], [ {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "north" : {
+          "name" : "ravine",
+          "description" : "A wide ravine is in front of you. You'll need something to cross it.",
+          "requiredItemName" : "Rope",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "east" : {
+          "name" : "ravine",
+          "description" : "A wide ravine is in front of you. You'll need something to cross it.",
+          "requiredItemName" : "Rope",
+          "durability" : 1
+        },
+        "north" : {
+          "name" : "ravine",
+          "description" : "A wide ravine is in front of you. You'll need something to cross it.",
+          "requiredItemName" : "Rope",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "south" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "north" : {
+          "name" : "ravine",
+          "description" : "A wide ravine is in front of you. You'll need something to cross it.",
+          "requiredItemName" : "Rope",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "north" : {
+          "name" : "ravine",
+          "description" : "A wide ravine is in front of you. You'll need something to cross it.",
+          "requiredItemName" : "Rope",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "south" : {
+          "name" : "river",
+          "description" : "A deep river flows here, blocking your path.",
+          "requiredItemName" : "Boat",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "west" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ {
+        "name" : "Roric",
+        "race" : "Human",
+        "health" : 100.0,
+        "weight" : 70.0,
+        "speed" : 5.0,
+        "stamina" : 100.0,
+        "strength" : 5,
+        "agility" : 5,
+        "intelligence" : 10,
+        "dialogueNodeName" : "elder_quest_offer",
+        "questToGive" : {
+          "type" : "aquireing",
+          "name" : "The Lost Sword",
+          "description" : "Find the legendary lost sword said to be hidden in the mountains.",
+          "reward" : {
+            "itemType" : "helmet",
+            "name" : "Leather Helmet",
+            "type" : "equippable",
+            "weight" : 2.0,
+            "durability" : 80.0,
+            "description" : "A simple leather helmet.",
+            "slot" : null
+          },
+          "questGiverName" : null,
+          "completed" : false
+        },
+        "loot" : [ ],
+        "hostile" : false
+      } ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "east" : {
+          "name" : "river",
+          "description" : "A deep river flows here, blocking your path.",
+          "requiredItemName" : "Boat",
+          "durability" : 1
+        },
+        "north" : {
+          "name" : "ravine",
+          "description" : "A wide ravine is in front of you. You'll need something to cross it.",
+          "requiredItemName" : "Rope",
+          "durability" : 1
+        },
+        "west" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        }
+      }
     } ], [ {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "south" : {
+          "name" : "ravine",
+          "description" : "A wide ravine is in front of you. You'll need something to cross it.",
+          "requiredItemName" : "Rope",
+          "durability" : 1
+        },
+        "north" : {
+          "name" : "river",
+          "description" : "A deep river flows here, blocking your path.",
+          "requiredItemName" : "Boat",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : { }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ {
+        "name" : "Seraphina",
+        "race" : "Human",
+        "health" : 100.0,
+        "weight" : 70.0,
+        "speed" : 5.0,
+        "stamina" : 100.0,
+        "strength" : 5,
+        "agility" : 5,
+        "intelligence" : 10,
+        "dialogueNodeName" : "village_elder_start",
+        "questToGive" : {
+          "type" : "aquireing",
+          "name" : "The Lost Sword",
+          "description" : "Find the legendary lost sword said to be hidden in the mountains.",
+          "reward" : {
+            "itemType" : "item",
+            "name" : "Health Potion",
+            "type" : "potion",
+            "weight" : 0.5,
+            "durability" : 1.0,
+            "description" : "A potion that restores 25 health."
+          },
+          "questGiverName" : null,
+          "completed" : false
+        },
+        "loot" : [ ],
+        "hostile" : false
+      } ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "east" : {
+          "name" : "ravine",
+          "description" : "A wide ravine is in front of you. You'll need something to cross it.",
+          "requiredItemName" : "Rope",
+          "durability" : 1
+        },
+        "west" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ {
+        "name" : "Daria",
+        "race" : "Human",
+        "health" : 100.0,
+        "weight" : 70.0,
+        "speed" : 5.0,
+        "stamina" : 100.0,
+        "strength" : 5,
+        "agility" : 5,
+        "intelligence" : 10,
+        "dialogueNodeName" : "elder_info",
+        "questToGive" : {
+          "type" : "killing",
+          "name" : "Goblin Menace",
+          "description" : "Clear the nearby forest of 5 goblins.",
+          "reward" : {
+            "itemType" : "helmet",
+            "name" : "Leather Helmet",
+            "type" : "equippable",
+            "weight" : 2.0,
+            "durability" : 80.0,
+            "description" : "A simple leather helmet.",
+            "slot" : null
+          },
+          "questGiverName" : null,
+          "targetName" : "Goblin",
+          "requiredKills" : 5,
+          "currentKills" : 0,
+          "completed" : false
+        },
+        "loot" : [ ],
+        "hostile" : false
+      } ],
+      "itemsOnGround" : [ ],
+      "obstacles" : { }
+    }, {
+      "name" : "The Exit",
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : { }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "east" : {
+          "name" : "ravine",
+          "description" : "A wide ravine is in front of you. You'll need something to cross it.",
+          "requiredItemName" : "Rope",
+          "durability" : 1
+        },
+        "south" : {
+          "name" : "ravine",
+          "description" : "A wide ravine is in front of you. You'll need something to cross it.",
+          "requiredItemName" : "Rope",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ {
+        "name" : "Ulric",
+        "race" : "Human",
+        "health" : 100.0,
+        "weight" : 70.0,
+        "speed" : 5.0,
+        "stamina" : 100.0,
+        "strength" : 5,
+        "agility" : 5,
+        "intelligence" : 10,
+        "dialogueNodeName" : "village_elder_start",
+        "questToGive" : {
+          "type" : "travel",
+          "name" : "A Message to the East",
+          "description" : "Deliver a message to the easternmost settlement.",
+          "reward" : {
+            "itemType" : "closeRangeWeapon",
+            "name" : "Iron Sword",
+            "type" : "weapon",
+            "weight" : 5.0,
+            "durability" : 100.0,
+            "description" : "A basic but reliable iron sword.",
+            "damage" : 10
+          },
+          "questGiverName" : null,
+          "destinationName" : "Eastern Outpost",
+          "completed" : false
+        },
+        "loot" : [ ],
+        "hostile" : false
+      } ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "south" : {
+          "name" : "bush",
+          "description" : "A thick, thorny bush blocks the way.",
+          "requiredItemName" : "Axe",
+          "durability" : 1
+        },
+        "west" : {
+          "name" : "river",
+          "description" : "A deep river flows here, blocking your path.",
+          "requiredItemName" : "Boat",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
-    }, {
-      "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : { }
     } ], [ {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ {
+        "name" : "Veda",
+        "race" : "Human",
+        "health" : 100.0,
+        "weight" : 70.0,
+        "speed" : 5.0,
+        "stamina" : 100.0,
+        "strength" : 5,
+        "agility" : 5,
+        "intelligence" : 10,
+        "dialogueNodeName" : "elder_info",
+        "questToGive" : {
+          "type" : "aquireing",
+          "name" : "The Lost Sword",
+          "description" : "Find the legendary lost sword said to be hidden in the mountains.",
+          "reward" : {
+            "itemType" : "closeRangeWeapon",
+            "name" : "Iron Sword",
+            "type" : "weapon",
+            "weight" : 5.0,
+            "durability" : 100.0,
+            "description" : "A basic but reliable iron sword.",
+            "damage" : 10
+          },
+          "questGiverName" : null,
+          "completed" : false
+        },
+        "loot" : [ ],
+        "hostile" : false
+      } ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "east" : {
+          "name" : "river",
+          "description" : "A deep river flows here, blocking your path.",
+          "requiredItemName" : "Boat",
+          "durability" : 1
+        },
+        "west" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "south" : {
+          "name" : "ravine",
+          "description" : "A wide ravine is in front of you. You'll need something to cross it.",
+          "requiredItemName" : "Rope",
+          "durability" : 1
+        },
+        "north" : {
+          "name" : "river",
+          "description" : "A deep river flows here, blocking your path.",
+          "requiredItemName" : "Boat",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : { }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "east" : {
+          "name" : "ravine",
+          "description" : "A wide ravine is in front of you. You'll need something to cross it.",
+          "requiredItemName" : "Rope",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ {
+        "name" : "Perrin",
+        "race" : "Human",
+        "health" : 100.0,
+        "weight" : 70.0,
+        "speed" : 5.0,
+        "stamina" : 100.0,
+        "strength" : 5,
+        "agility" : 5,
+        "intelligence" : 10,
+        "dialogueNodeName" : "elder_info",
+        "questToGive" : {
+          "type" : "killing",
+          "name" : "Goblin Menace",
+          "description" : "Clear the nearby forest of 5 goblins.",
+          "reward" : {
+            "itemType" : "closeRangeWeapon",
+            "name" : "Iron Sword",
+            "type" : "weapon",
+            "weight" : 5.0,
+            "durability" : 100.0,
+            "description" : "A basic but reliable iron sword.",
+            "damage" : 10
+          },
+          "questGiverName" : null,
+          "targetName" : "Goblin",
+          "requiredKills" : 5,
+          "currentKills" : 0,
+          "completed" : false
+        },
+        "loot" : [ ],
+        "hostile" : false
+      } ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "south" : {
+          "name" : "ravine",
+          "description" : "A wide ravine is in front of you. You'll need something to cross it.",
+          "requiredItemName" : "Rope",
+          "durability" : 1
+        },
+        "north" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        }
+      }
+    }, {
+      "name" : "The Prison",
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : { }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "south" : {
+          "name" : "bush",
+          "description" : "A thick, thorny bush blocks the way.",
+          "requiredItemName" : "Axe",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
-    }, {
-      "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ {
+        "name" : "Elara",
+        "race" : "Human",
+        "health" : 100.0,
+        "weight" : 70.0,
+        "speed" : 5.0,
+        "stamina" : 100.0,
+        "strength" : 5,
+        "agility" : 5,
+        "intelligence" : 10,
+        "dialogueNodeName" : "elder_quest_offer",
+        "questToGive" : {
+          "type" : "aquireing",
+          "name" : "The Lost Sword",
+          "description" : "Find the legendary lost sword said to be hidden in the mountains.",
+          "reward" : {
+            "itemType" : "closeRangeWeapon",
+            "name" : "Iron Sword",
+            "type" : "weapon",
+            "weight" : 5.0,
+            "durability" : 100.0,
+            "description" : "A basic but reliable iron sword.",
+            "damage" : 10
+          },
+          "questGiverName" : null,
+          "completed" : false
+        },
+        "loot" : [ ],
+        "hostile" : false
+      } ],
+      "itemsOnGround" : [ ],
+      "obstacles" : { }
     } ], [ {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "east" : {
+          "name" : "ravine",
+          "description" : "A wide ravine is in front of you. You'll need something to cross it.",
+          "requiredItemName" : "Rope",
+          "durability" : 1
+        },
+        "north" : {
+          "name" : "ravine",
+          "description" : "A wide ravine is in front of you. You'll need something to cross it.",
+          "requiredItemName" : "Rope",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "north" : {
+          "name" : "ravine",
+          "description" : "A wide ravine is in front of you. You'll need something to cross it.",
+          "requiredItemName" : "Rope",
+          "durability" : 1
+        },
+        "west" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ {
+        "name" : "Goblin",
+        "race" : "Goblin",
+        "health" : 50.0,
+        "weight" : 40.0,
+        "speed" : 7.0,
+        "stamina" : 50.0,
+        "strength" : 12,
+        "agility" : 8,
+        "intelligence" : 3,
+        "dialogueNodeName" : null,
+        "questToGive" : null,
+        "loot" : [ {
+          "itemType" : "item",
+          "name" : "Gold Coin",
+          "type" : "currency",
+          "weight" : 0.1,
+          "durability" : 1.0,
+          "description" : "A shiny gold coin."
+        } ],
+        "hostile" : true
+      } ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "north" : {
+          "name" : "ravine",
+          "description" : "A wide ravine is in front of you. You'll need something to cross it.",
+          "requiredItemName" : "Rope",
+          "durability" : 1
+        },
+        "west" : {
+          "name" : "ravine",
+          "description" : "A wide ravine is in front of you. You'll need something to cross it.",
+          "requiredItemName" : "Rope",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : { }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "east" : {
+          "name" : "ravine",
+          "description" : "A wide ravine is in front of you. You'll need something to cross it.",
+          "requiredItemName" : "Rope",
+          "durability" : 1
+        },
+        "south" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        },
+        "west" : {
+          "name" : "bush",
+          "description" : "A thick, thorny bush blocks the way.",
+          "requiredItemName" : "Axe",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "west" : {
+          "name" : "ravine",
+          "description" : "A wide ravine is in front of you. You'll need something to cross it.",
+          "requiredItemName" : "Rope",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "east" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        },
+        "north" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        },
+        "west" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "west" : {
+          "name" : "ravine",
+          "description" : "A wide ravine is in front of you. You'll need something to cross it.",
+          "requiredItemName" : "Rope",
+          "durability" : 1
+        }
+      }
     } ], [ {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "west" : {
+          "name" : "bush",
+          "description" : "A thick, thorny bush blocks the way.",
+          "requiredItemName" : "Axe",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : { }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "east" : {
+          "name" : "river",
+          "description" : "A deep river flows here, blocking your path.",
+          "requiredItemName" : "Boat",
+          "durability" : 1
+        },
+        "south" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        },
+        "west" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ {
+        "name" : "Joric",
+        "race" : "Human",
+        "health" : 100.0,
+        "weight" : 70.0,
+        "speed" : 5.0,
+        "stamina" : 100.0,
+        "strength" : 5,
+        "agility" : 5,
+        "intelligence" : 10,
+        "dialogueNodeName" : "elder_quest_offer",
+        "questToGive" : {
+          "type" : "killing",
+          "name" : "Goblin Menace",
+          "description" : "Clear the nearby forest of 5 goblins.",
+          "reward" : {
+            "itemType" : "item",
+            "name" : "Health Potion",
+            "type" : "potion",
+            "weight" : 0.5,
+            "durability" : 1.0,
+            "description" : "A potion that restores 25 health."
+          },
+          "questGiverName" : null,
+          "targetName" : "Goblin",
+          "requiredKills" : 5,
+          "currentKills" : 0,
+          "completed" : false
+        },
+        "loot" : [ ],
+        "hostile" : false
+      } ],
+      "itemsOnGround" : [ ],
+      "obstacles" : { }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "east" : {
+          "name" : "bush",
+          "description" : "A thick, thorny bush blocks the way.",
+          "requiredItemName" : "Axe",
+          "durability" : 1
+        },
+        "south" : {
+          "name" : "bush",
+          "description" : "A thick, thorny bush blocks the way.",
+          "requiredItemName" : "Axe",
+          "durability" : 1
+        },
+        "west" : {
+          "name" : "river",
+          "description" : "A deep river flows here, blocking your path.",
+          "requiredItemName" : "Boat",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : { }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "north" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ {
+        "name" : "Tegan",
+        "race" : "Human",
+        "health" : 100.0,
+        "weight" : 70.0,
+        "speed" : 5.0,
+        "stamina" : 100.0,
+        "strength" : 5,
+        "agility" : 5,
+        "intelligence" : 10,
+        "dialogueNodeName" : "village_elder_start",
+        "questToGive" : {
+          "type" : "killing",
+          "name" : "Goblin Menace",
+          "description" : "Clear the nearby forest of 5 goblins.",
+          "reward" : {
+            "itemType" : "closeRangeWeapon",
+            "name" : "Iron Sword",
+            "type" : "weapon",
+            "weight" : 5.0,
+            "durability" : 100.0,
+            "description" : "A basic but reliable iron sword.",
+            "damage" : 10
+          },
+          "questGiverName" : null,
+          "targetName" : "Goblin",
+          "requiredKills" : 5,
+          "currentKills" : 0,
+          "completed" : false
+        },
+        "loot" : [ ],
+        "hostile" : false
+      } ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "east" : {
+          "name" : "river",
+          "description" : "A deep river flows here, blocking your path.",
+          "requiredItemName" : "Boat",
+          "durability" : 1
+        },
+        "north" : {
+          "name" : "bush",
+          "description" : "A thick, thorny bush blocks the way.",
+          "requiredItemName" : "Axe",
+          "durability" : 1
+        }
+      }
     } ], [ {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "south" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        },
+        "north" : {
+          "name" : "bush",
+          "description" : "A thick, thorny bush blocks the way.",
+          "requiredItemName" : "Axe",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "east" : {
+          "name" : "bush",
+          "description" : "A thick, thorny bush blocks the way.",
+          "requiredItemName" : "Axe",
+          "durability" : 1
+        },
+        "north" : {
+          "name" : "ravine",
+          "description" : "A wide ravine is in front of you. You'll need something to cross it.",
+          "requiredItemName" : "Rope",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "south" : {
+          "name" : "river",
+          "description" : "A deep river flows here, blocking your path.",
+          "requiredItemName" : "Boat",
+          "durability" : 1
+        },
+        "north" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ {
+        "name" : "Ulric",
+        "race" : "Human",
+        "health" : 100.0,
+        "weight" : 70.0,
+        "speed" : 5.0,
+        "stamina" : 100.0,
+        "strength" : 5,
+        "agility" : 5,
+        "intelligence" : 10,
+        "dialogueNodeName" : "elder_info",
+        "questToGive" : {
+          "type" : "killing",
+          "name" : "Goblin Menace",
+          "description" : "Clear the nearby forest of 5 goblins.",
+          "reward" : {
+            "itemType" : "helmet",
+            "name" : "Leather Helmet",
+            "type" : "equippable",
+            "weight" : 2.0,
+            "durability" : 80.0,
+            "description" : "A simple leather helmet.",
+            "slot" : null
+          },
+          "questGiverName" : null,
+          "targetName" : "Goblin",
+          "requiredKills" : 5,
+          "currentKills" : 0,
+          "completed" : false
+        },
+        "loot" : [ ],
+        "hostile" : false
+      } ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "east" : {
+          "name" : "ravine",
+          "description" : "A wide ravine is in front of you. You'll need something to cross it.",
+          "requiredItemName" : "Rope",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "north" : {
+          "name" : "bush",
+          "description" : "A thick, thorny bush blocks the way.",
+          "requiredItemName" : "Axe",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ {
+        "name" : "Lyra",
+        "race" : "Human",
+        "health" : 100.0,
+        "weight" : 70.0,
+        "speed" : 5.0,
+        "stamina" : 100.0,
+        "strength" : 5,
+        "agility" : 5,
+        "intelligence" : 10,
+        "dialogueNodeName" : "elder_quest_offer",
+        "questToGive" : {
+          "type" : "aquireing",
+          "name" : "The Lost Sword",
+          "description" : "Find the legendary lost sword said to be hidden in the mountains.",
+          "reward" : {
+            "itemType" : "helmet",
+            "name" : "Leather Helmet",
+            "type" : "equippable",
+            "weight" : 2.0,
+            "durability" : 80.0,
+            "description" : "A simple leather helmet.",
+            "slot" : null
+          },
+          "questGiverName" : null,
+          "completed" : false
+        },
+        "loot" : [ ],
+        "hostile" : false
+      } ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "east" : {
+          "name" : "river",
+          "description" : "A deep river flows here, blocking your path.",
+          "requiredItemName" : "Boat",
+          "durability" : 1
+        },
+        "north" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        },
+        "west" : {
+          "name" : "river",
+          "description" : "A deep river flows here, blocking your path.",
+          "requiredItemName" : "Boat",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "east" : {
+          "name" : "boulder",
+          "description" : "A large boulder blocks the path.",
+          "requiredItemName" : "Pickaxe",
+          "durability" : 3
+        },
+        "south" : {
+          "name" : "bush",
+          "description" : "A thick, thorny bush blocks the way.",
+          "requiredItemName" : "Axe",
+          "durability" : 1
+        },
+        "west" : {
+          "name" : "bush",
+          "description" : "A thick, thorny bush blocks the way.",
+          "requiredItemName" : "Axe",
+          "durability" : 1
+        }
+      }
     }, {
       "name" : "An empty field",
-      "obstacles" : null,
-      "npcs" : null,
-      "resources" : null,
-      "itemsOnGround" : [ ]
+      "npcs" : [ {
+        "name" : "Isolde",
+        "race" : "Human",
+        "health" : 100.0,
+        "weight" : 70.0,
+        "speed" : 5.0,
+        "stamina" : 100.0,
+        "strength" : 5,
+        "agility" : 5,
+        "intelligence" : 10,
+        "dialogueNodeName" : "village_elder_start",
+        "questToGive" : {
+          "type" : "travel",
+          "name" : "A Message to the East",
+          "description" : "Deliver a message to the easternmost settlement.",
+          "reward" : {
+            "itemType" : "closeRangeWeapon",
+            "name" : "Iron Sword",
+            "type" : "weapon",
+            "weight" : 5.0,
+            "durability" : 100.0,
+            "description" : "A basic but reliable iron sword.",
+            "damage" : 10
+          },
+          "questGiverName" : null,
+          "destinationName" : "Eastern Outpost",
+          "completed" : false
+        },
+        "loot" : [ ],
+        "hostile" : false
+      } ],
+      "itemsOnGround" : [ ],
+      "obstacles" : {
+        "north" : {
+          "name" : "river",
+          "description" : "A deep river flows here, blocking your path.",
+          "requiredItemName" : "Boat",
+          "durability" : 1
+        },
+        "west" : {
+          "name" : "bush",
+          "description" : "A thick, thorny bush blocks the way.",
+          "requiredItemName" : "Axe",
+          "durability" : 1
+        }
+      }
     } ] ]
   },
-  "xCordinate" : 1,
-  "yCordinate" : 1,
-  "xcordinate" : 1,
-  "ycordinate" : 1
+  "xCordinate" : 2,
+  "yCordinate" : 3,
+  "xcordinate" : 2,
+  "ycordinate" : 3
 }

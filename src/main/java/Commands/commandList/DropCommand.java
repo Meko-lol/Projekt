@@ -2,7 +2,6 @@ package Commands.commandList;
 
 import Commands.Command;
 import Items.Item;
-import Places.Location;
 
 public class DropCommand extends Command {
     @Override

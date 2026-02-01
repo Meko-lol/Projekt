@@ -1,63 +1,84 @@
 package Interact;
 
+import Game.MyGame;
 import Items.Item;
-import MyFileManager.MyFileManager; // Import MyFileManager
+import Quest.Quest;
+import Characters.NPCs.NPC;
 import java.util.Scanner;
 
 public class InteractHandler {
     
     private transient Scanner scanner = new Scanner(System.in);
 
-    public InteractHandler() {}
-
-    /**
-     * Starts and manages a dialogue tree.
-     * @param startingNode The first Node of the conversation.
-     * @param fileManager  The file manager, used to find subsequent nodes by name.
-     */
-    public void startInteraction(Node startingNode, MyFileManager fileManager) {
-        Node currentNode = startingNode;
+    public void startInteraction(NPC npc, MyGame game) {
+        // Find the starting node from the NPC's dialogue name
+        Node currentNode = game.getDialogueNodeByName(npc.getDialogueNodeName());
 
         while (currentNode != null) {
             // 1. Print the NPC's monologue
-            System.out.println(currentNode.getMonologue());
+            System.out.println("\n" + npc.getName() + ": \"" + currentNode.getMonologue() + "\"");
 
-            // 2. Check for a reward and end the conversation if found
-            if (currentNode.getReward() != null) {
-                Item reward = currentNode.getReward();
-                System.out.println("You received: " + reward.getName());
-                // TODO: Add the item to the player's inventory
+            // 2. Handle giving an item to the player
+            if (currentNode.getGiveItem() != null) {
+                Item item = currentNode.getGiveItem();
+                System.out.println("You received: " + item.getName());
+                game.player.getInventory().addItem(item);
+            }
+
+            // 3. Handle offering a quest
+            if (currentNode.isOfferQuest()) {
+                offerQuest(npc, game);
+                break; // End conversation after quest offer
+            }
+
+            // 4. If there are no answers, the conversation ends here
+            if (currentNode.getAnswers() == null || currentNode.getAnswers().length == 0) {
                 break;
             }
 
-            // 3. If there are no answers, the conversation is over
-            String[] answers = currentNode.getAnswers();
-            if (answers == null || answers.length == 0) {
-                break;
+            // 5. Display player's choices
+            for (int i = 0; i < currentNode.getAnswers().length; i++) {
+                System.out.println((i + 1) + ". " + currentNode.getAnswers()[i]);
             }
 
-            // 4. Display the player's choices
-            for (int i = 0; i < answers.length; i++) {
-                System.out.println((i + 1) + ". " + answers[i]);
-            }
-
-            // 5. Get the player's choice
-            int choice = getPlayerChoice(answers.length);
-            
-            // 6. Find the name of the next node based on the player's choice
+            // 6. Get player's choice and find the next node
+            int choice = getPlayerChoice(currentNode.getAnswers().length);
             String nextNodeName = currentNode.getNextNodes()[choice];
             
-            // 7. Find the next node from the file manager's list
-            currentNode = fileManager.getInteractByName(nextNodeName);
+            if (nextNodeName == null) {
+                currentNode = null; // End of conversation branch
+            } else {
+                currentNode = game.getDialogueNodeByName(nextNodeName);
+            }
+        }
+    }
+
+    private void offerQuest(NPC npc, MyGame game) {
+        Quest quest = npc.getQuestToGive();
+        if (quest != null && !game.player.getActiveQuests().contains(quest)) {
+            System.out.println("\n--- Quest Offer ---");
+            System.out.println(npc.getName() + " wants you to complete the quest: '" + quest.name + "'");
+            System.out.println("Description: " + quest.description);
+            System.out.println("Reward: " + quest.reward.getName());
+            System.out.print("Do you accept? (yes/no) >> ");
+            
+            String choice = scanner.nextLine().trim().toLowerCase();
+            if (choice.equals("yes")) {
+                quest.questGiverName = npc.getName();
+                game.player.addQuest(quest);
+                System.out.println("Quest accepted: " + quest.name);
+            } else {
+                System.out.println("You declined the quest.");
+            }
         }
     }
 
     private int getPlayerChoice(int maxChoice) {
         while (true) {
-            System.out.print(">> ");
+            System.out.print("Your choice >> ");
             try {
                 String input = scanner.nextLine();
-                int choice = Integer.parseInt(input) - 1; // Convert string to int and adjust for 0-based index
+                int choice = Integer.parseInt(input) - 1;
                 if (choice >= 0 && choice < maxChoice) {
                     return choice;
                 } else {
@@ -68,6 +89,4 @@ public class InteractHandler {
             }
         }
     }
-
-
 }

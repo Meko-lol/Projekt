@@ -11,4 +11,23 @@ public class AquireingQuest extends Quest {
         this.requiredItem = requiredItem;
         this.hasItem = false;
     }
+
+    // A no-argument constructor is needed for Jackson.
+    public AquireingQuest() {
+        super();
+    }
+
+    /**
+     * Creates a new instance of this quest with the same properties.
+     */
+    @Override
+    public Quest clone() {
+        return new AquireingQuest(this.name, this.description, this.reward, this.requiredItem);
+    }
+
+    @Override
+    public boolean isCompleted() {
+        // In a real game, you would check the player's inventory for the requiredItem.
+        return hasItem;
+    }
 }

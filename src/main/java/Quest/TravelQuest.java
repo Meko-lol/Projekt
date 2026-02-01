@@ -1,15 +1,35 @@
 package Quest;
 
 import Items.Item;
-import Places.Location; // Changed from Places.Place
 
 public class TravelQuest extends Quest {
-    private Location destination; // Changed from Place
+    private String destinationName;
     private boolean hasArrived;
 
-    public TravelQuest(String name, String description, Item reward, Location destination) { // Changed from Place
+    public TravelQuest(String name, String description, Item reward, String destinationName) {
         super(name, description, reward);
-        this.destination = destination;
+        this.destinationName = destinationName;
         this.hasArrived = false;
+    }
+
+    public TravelQuest() {
+        super();
+    }
+
+    public String getDestinationName() {
+        return destinationName;
+    }
+
+    @Override
+    public boolean isCompleted() {
+        return hasArrived;
+    }
+
+    /**
+     * Creates a new instance of this quest with the same properties.
+     */
+    @Override
+    public Quest clone() {
+        return new TravelQuest(this.name, this.description, this.reward, this.destinationName);
     }
 }

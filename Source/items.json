@@ -1,0 +1,36 @@
+[
+  {
+    "itemType": "closeRangeWeapon",
+    "name": "Rusty Sword",
+    "type": "weapon",
+    "weight": 7.0,
+    "durability": 50,
+    "description": "An old, pitted sword. Better than nothing.",
+    "damage": 8
+  },
+  {
+    "itemType": "helmet",
+    "name": "Iron Helmet",
+    "type": "equippable",
+    "weight": 4.0,
+    "durability": 120,
+    "description": "A sturdy iron helmet.",
+    "defense": 8
+  },
+  {
+    "itemType": "item",
+    "name": "Health Potion",
+    "type": "potion",
+    "weight": 0.5,
+    "durability": 1,
+    "description": "A vial of red liquid that restores 25 health."
+  },
+  {
+    "itemType": "item",
+    "name": "Gold Coin",
+    "type": "currency",
+    "weight": 0.1,
+    "durability": 1,
+    "description": "A shiny gold coin."
+  }
+]

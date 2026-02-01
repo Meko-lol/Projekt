@@ -5,12 +5,12 @@ import Commands.Command;
 public class GetCordinatesCommand extends Command {
     @Override
     public String execute() {
-        // Access the game object provided by the Command base class
+        // Get the coordinates from the game instance.
         int x = game.getXCordinate();
         int y = game.getYCordinate();
-
-        System.out.println("Your current cordinates are: [" + x + ", " + y + "]");
-        // The execute method should return a string to be printed by the CommandProcessor.
+        
+        // THE FIX: Only return the string. Do not print it here.
+        // The CommandProcessor is responsible for printing the final result.
         return "Your current cordinates are: [" + x + ", " + y + "]";
     }
 

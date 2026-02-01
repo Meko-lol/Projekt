@@ -1,0 +1,28 @@
+[
+  {
+    "itemType": "closeRangeWeapon",
+    "name": "Iron Sword",
+    "type": "weapon",
+    "weight": 5.0,
+    "durability": 100,
+    "description": "A basic but reliable iron sword.",
+    "damage": 10
+  },
+  {
+    "itemType": "helmet",
+    "name": "Leather Helmet",
+    "type": "equippable",
+    "weight": 2.0,
+    "durability": 80,
+    "description": "A simple leather helmet.",
+    "defense": 5
+  },
+  {
+    "itemType": "item",
+    "name": "Health Potion",
+    "type": "potion",
+    "weight": 0.5,
+    "durability": 1,
+    "description": "A potion that restores 25 health."
+  }
+]

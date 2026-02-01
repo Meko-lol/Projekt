@@ -1,0 +1,23 @@
+[
+  {
+    "type": "killing",
+    "name": "Goblin Problem",
+    "description": "A goblin is menacing the nearby caves. Please get rid of it.",
+    "targetName": "Goblin",
+    "requiredKills": 1
+  },
+  {
+    "type": "travel",
+    "name": "A Message for the Hermit",
+    "description": "I need you to deliver this message to the Hermit's aery.",
+    "destinationName": "Hermit's Aery"
+  },
+  {
+    "type": "aquireing",
+    "name": "The Lost Key",
+    "description": "My key fell into the chasm. If you find a way across, can you retrieve it for me?",
+    "requiredItem": {
+      "name": "Chasm Key"
+    }
+  }
+]

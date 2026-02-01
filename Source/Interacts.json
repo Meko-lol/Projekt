@@ -1,39 +1,29 @@
 [
   {
     "name": "village_elder_start",
-    "monologue": "Greetings, traveler. I have been expecting you. Do you seek the Sword of Destiny, or just some local gossip?",
-    "answers": [
-      "I seek the Sword of Destiny!",
-      "Tell me about the local gossip."
-    ],
-    "nextNodes": [
-      "elder_quest_offer",
-      "elder_gossip"
-    ],
-    "reward": null
-  },
-  {
-    "name": "elder_quest_offer",
-    "monologue": "The Sword of Destiny is a powerful artifact, but it is guarded by a fearsome beast. I can give you this Health Potion to help you on your way.",
-    "answers": null,
-    "nextNodes": null,
-    "reward": {
+    "monologue": "Greetings, traveler. The world is a dangerous place. Take this, it might help.",
+    "answers": ["Thank you. What is this place?", "I have no time for this."],
+    "nextNodes": ["elder_info", null],
+    "giveItem": {
+      "itemType": "item",
       "name": "Health Potion",
       "type": "potion",
       "weight": 0.5,
-      "durability": 1.0,
-      "description": "A simple potion that restores a small amount of health."
+      "description": "A simple potion."
     }
   },
   {
-    "name": "elder_gossip",
-    "monologue": "They say the baker is using sawdust in his bread again. Shocking, I know. Now, is there anything else I can help you with?",
-    "answers": [
-      "I must be going."
-    ],
-    "nextNodes": [
-      null
-    ],
-    "reward": null
+    "name": "elder_info",
+    "monologue": "This is the last safe town. Beyond here, you will find monsters and quests. I have a task for you, if you are interested.",
+    "answers": ["I am interested.", "I must go."],
+    "nextNodes": ["elder_quest_offer", null],
+    "offerQuest": false
+  },
+  {
+    "name": "elder_quest_offer",
+    "monologue": "Excellent! A fearsome goblin has been spotted in the Dark Forest. Please, defeat it for me.",
+    "answers": ["I will do it.", "I cannot."],
+    "nextNodes": [null, null],
+    "offerQuest": true
   }
 ]

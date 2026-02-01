@@ -1,53 +1,36 @@
 package Quest;
 
 import Items.Item;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({
+    @JsonSubTypes.Type(value = KillingQuest.class, name = "killing"),
+    @JsonSubTypes.Type(value = TravelQuest.class, name = "travel"),
+    @JsonSubTypes.Type(value = AquireingQuest.class, name = "aquireing")
+})
 public abstract class Quest {
-    protected String name;
-    protected String description;
+    public String name;
+    public String description;
+    public Item reward;
+    public String questGiverName; // The name of the NPC who gave the quest
     protected boolean isCompleted;
-    protected Item reward;
+
+    public Quest() {}
 
     public Quest(String name, String description, Item reward) {
         this.name = name;
         this.description = description;
+        this.reward = reward;
         this.isCompleted = false;
-        this.reward = reward;
     }
 
-    public void complete() {
+    public String getName() { return name; }
+    public boolean isCompleted() { return isCompleted; }
+    public void complete() { this.isCompleted = true; }
 
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public boolean isCompleted() {
-        return isCompleted;
-    }
-
-    public void setCompleted(boolean completed) {
-        isCompleted = completed;
-    }
-
-    public Item getReward() {
-        return reward;
-    }
-
-    public void setReward(Item reward) {
-        this.reward = reward;
-    }
+    public abstract Quest clone();
 }
