@@ -1,25 +1,31 @@
 package Commands.commandList;
 
 import Commands.Command;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.Random;
 
 public class QuoteCommand extends Command {
+    private static List<String> quotes;
+    private static Random random = new Random();
+
     @Override
     public String execute() {
-        ArrayList<String> list = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("quotes.txt"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                list.add(line);
+        // Load quotes only once for efficiency
+        if (quotes == null) {
+            try {
+                quotes = Files.readAllLines(Paths.get("Source/quotes.txt"));
+            } catch (Exception e) {
+                return "Could not find any quotes.";
             }
-            Random rnd = new Random();
-            return list.get(rnd.nextInt(list.size()));
-        } catch (Exception e) {
-            return "Mother is always right.";
         }
+
+        if (quotes.isEmpty()) {
+            return "No quotes available.";
+        }
+
+        return quotes.get(random.nextInt(quotes.size()));
     }
 
     @Override

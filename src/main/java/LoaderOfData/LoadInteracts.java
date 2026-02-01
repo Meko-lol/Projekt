@@ -1,26 +1,17 @@
 package LoaderOfData;
 
-import InteractHandler.InteractHandler;
+import Interact.Node; // Corrected import
 import MyFileManager.MyFileManager;
 import java.util.List;
 
 public class LoadInteracts {
 
     public static void loadData(MyFileManager fileManager) {
-        List<InteractHandler> loadedList = fileManager.loadListFromFile("Source/Interacts.json", InteractHandler.class);
+        // Load the JSON data into the correct list in the file manager
+        List<Node> loadedList = fileManager.loadListFromFile("Source/Interacts.json", Node[].class);
         fileManager.interacts.addAll(loadedList);
     }
 
-    public static InteractHandler getByName(MyFileManager fileManager, String name) {
-        if (fileManager.interacts == null || fileManager.interacts.isEmpty()) {
-            loadData(fileManager);
-        }
-        for (InteractHandler interact : fileManager.interacts) {
-            // Assuming Interact has a 'name' field or similar identifier
-            // if (interact != null && interact.getName().equalsIgnoreCase(name)) {
-            //     return interact;
-            // }
-        }
-        return null;
-    }
+    // This method is no longer needed here, as the logic is in MyFileManager
+    // public static Node getByName(MyFileManager fileManager, String name) { ... }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 public class LoadQuests {
 
     public static void loadData(MyFileManager fileManager) {
-        List<Quest> loadedList = fileManager.loadListFromFile("Source/Quests.json", Quest.class);
+        List<Quest> loadedList = fileManager.loadListFromFile("Source/Quests.json", Quest[].class);
         fileManager.quests.addAll(loadedList);
     }
 
@@ -16,7 +16,7 @@ public class LoadQuests {
             loadData(fileManager);
         }
         for (Quest quest : fileManager.quests) {
-            if (quest != null && quest.getName().equalsIgnoreCase(name)) { // Assuming Quest has a 'name' field
+            if (quest != null && quest.getName().equalsIgnoreCase(name)) {
                 return quest;
             }
         }

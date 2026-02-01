@@ -7,7 +7,7 @@ import java.util.List;
 public class LoadItems {
 
     public static void loadData(MyFileManager fileManager) {
-        List<Item> loadedList = fileManager.loadListFromFile("Source/Items.json", Item.class);
+        List<Item> loadedList = fileManager.loadListFromFile("Source/Items.json", Item[].class);
         fileManager.items.addAll(loadedList);
     }
 

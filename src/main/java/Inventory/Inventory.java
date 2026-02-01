@@ -1,6 +1,8 @@
 package Inventory;
 
 import Items.Item;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Inventory {
     private Item[][] grid;
@@ -13,6 +15,64 @@ public class Inventory {
     public Inventory() {
         this.grid = new Item[BASE_ROWS][COLUMNS];
         this.hasBackpack = false;
+    }
+
+    public Item[][] getGrid() {
+        return grid;
+    }
+
+    public boolean addItem(Item item) {
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == null) {
+                    grid[i][j] = item;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public Item removeItemByName(String name) {
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] != null && grid[i][j].getName().equalsIgnoreCase(name)) {
+                    Item item = grid[i][j];
+                    grid[i][j] = null;
+                    return item;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Finds an item in the inventory by its name, without removing it.
+     * @return The found Item object, or null if not found.
+     */
+    public Item getItemByName(String name) {
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] != null && grid[i][j].getName().equalsIgnoreCase(name)) {
+                    return grid[i][j];
+                }
+            }
+        }
+        return null;
+    }
+
+    public List<Item> getAllItems() {
+        List<Item> items = new ArrayList<>();
+        if (grid == null) return items;
+
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] != null) {
+                    items.add(grid[i][j]);
+                }
+            }
+        }
+        return items;
     }
 
     public void equipBackpack() {
@@ -68,12 +128,8 @@ public class Inventory {
 
     public double getTotalWeight() {
         double totalWeight = 0;
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[0].length; j++) {
-                if (grid[i][j] != null) {
-                    totalWeight += grid[i][j].getWeight();
-                }
-            }
+        for (Item item : getAllItems()) {
+            totalWeight += item.getWeight();
         }
         return totalWeight;
     }
@@ -84,15 +140,5 @@ public class Inventory {
 
     public boolean hasBackpack() {
         return hasBackpack;
-    }
-
-    public void displayGrid() {
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[0].length; j++) {
-                if (grid[i][j] == null) {
-                } else {
-                }
-            }
-        }
     }
 }

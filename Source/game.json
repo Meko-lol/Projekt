@@ -1,0 +1,409 @@
+{
+  "player" : {
+    "name" : "Hero",
+    "race" : "Human",
+    "health" : 100.0,
+    "weight" : 70.0,
+    "speed" : 5.0,
+    "stamina" : 100.0,
+    "strength" : 10,
+    "agility" : 10,
+    "intelligence" : 10,
+    "inventory" : {
+      "grid" : [ [ null, null, null, null, null ], [ null, null, null, null, null ] ],
+      "allItems" : [ ],
+      "totalWeight" : 0.0
+    }
+  },
+  "gameMap" : {
+    "map" : [ [ {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    } ], [ {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    } ], [ {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    } ], [ {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    } ], [ {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    } ], [ {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    } ], [ {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    } ], [ {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    }, {
+      "name" : "An empty field",
+      "obstacles" : null,
+      "npcs" : null,
+      "resources" : null,
+      "itemsOnGround" : [ ]
+    } ] ]
+  },
+  "xCordinate" : 1,
+  "yCordinate" : 1,
+  "xcordinate" : 1,
+  "ycordinate" : 1
+}
