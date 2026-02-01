@@ -35,11 +35,14 @@ public class MyGame {
     @JsonIgnore private Location currentLocation;
     @JsonIgnore private CommandProcessor commandProcessor;
     @JsonIgnore private List<Node> allDialogueNodes;
+    @JsonIgnore private UserInterface ui; // New UI component
 
-    public MyGame() {}
+    public MyGame() {
+        this.ui = new UserInterface();
+    }
 
     public void startGame() {
-        System.out.println("Welcome!");
+        System.out.println("Welcome to the Dungeon!");
         System.out.println("1. Start New Game");
         System.out.println("2. Load Game");
         System.out.print(">> ");
@@ -61,15 +64,12 @@ public class MyGame {
     }
 
     private MyGame createNewGame() {
-        System.out.println("Creating a new game world...");
+        System.out.println("Generating world...");
         MyGame newGame = new MyGame();
-        
         newGame.gameMap = MapGenerator.generateMap();
-        
         newGame.player = new Player("Hero", "Human", 100, 70, 5, 100, 10, 10, 10);
         newGame.xCordinate = 0;
         newGame.yCordinate = 0;
-        
         return newGame;
     }
 
@@ -78,7 +78,7 @@ public class MyGame {
             ObjectMapper objectMapper = new ObjectMapper();
             return objectMapper.readValue(new File("Source/game.json"), MyGame.class);
         } catch (Exception e) {
-            System.out.println("Failed to load game: " + e.getMessage() + ". Starting a new game.");
+            System.out.println("Failed to load game. Starting new game.");
             return createNewGame();
         }
     }
@@ -88,13 +88,14 @@ public class MyGame {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
             objectMapper.writeValue(new File("Source/game.json"), this);
-            System.out.println("Game saved.");
+            System.out.println("Game saved successfully.");
         } catch (Exception e) {
             System.out.println("Error saving game: " + e.getMessage());
         }
     }
     
     public void initialize() {
+        this.ui = new UserInterface(); // Ensure UI is initialized
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             String jsonContent = new String(Files.readAllBytes(Paths.get("Source/Interacts.json")));
@@ -102,33 +103,43 @@ public class MyGame {
         } catch (Exception e) {
             this.allDialogueNodes = new ArrayList<>();
         }
-        
         this.currentLocation = this.gameMap.getLocation(this.xCordinate, this.yCordinate);
     }
 
     public void handlePlayerDefeat() {
-        System.out.println("\nYou collapse from your wounds...");
+        System.out.println("\n*** YOU HAVE BEEN DEFEATED ***");
+        System.out.println("You wake up in a cold, damp cell...");
+        
         player.setHealth(20);
         Item weapon = player.getEquippedWeapon();
         if (weapon != null) {
             player.setEquippedWeapon(null);
-            int dropX, dropY;
-            Random random = new Random();
-            do {
-                dropX = random.nextInt(gameMap.getGrid()[0].length);
-                dropY = random.nextInt(gameMap.getGrid().length);
-            } while (gameMap.getLocation(dropX, dropY) == null);
-            gameMap.getLocation(dropX, dropY).addItem(weapon);
-            System.out.println("Your " + weapon.getName() + " was dropped somewhere on the map!");
+            dropItemRandomly(weapon);
         }
-        Location prison = findLocationByName("The Prison");
-        if (prison != null) {
-            this.xCordinate = prison.getX();
-            this.yCordinate = prison.getY();
-            this.currentLocation = prison;
-            System.out.println("You wake up in a prison cell.\n");
+        
+        moveToLocation("The Prison");
+    }
+
+    private void dropItemRandomly(Item item) {
+        int dropX, dropY;
+        Random random = new Random();
+        do {
+            dropX = random.nextInt(gameMap.getGrid()[0].length);
+            dropY = random.nextInt(gameMap.getGrid().length);
+        } while (gameMap.getLocation(dropX, dropY) == null);
+        
+        gameMap.getLocation(dropX, dropY).addItem(item);
+        System.out.println("Your " + item.getName() + " was lost!");
+    }
+
+    private void moveToLocation(String locationName) {
+        Location target = findLocationByName(locationName);
+        if (target != null) {
+            this.xCordinate = target.getX();
+            this.yCordinate = target.getY();
+            this.currentLocation = target;
         } else {
-            System.out.println("You wake up, dazed and confused, back where you started.");
+            // Fallback to start
             this.xCordinate = 0;
             this.yCordinate = 0;
             this.currentLocation = gameMap.getLocation(0, 0);
@@ -166,45 +177,11 @@ public class MyGame {
     }
 
     @JsonIgnore
-    private String getMapAsString() {
-        if (gameMap == null || gameMap.getGrid() == null) return "";
-        Location[][] grid = gameMap.getGrid();
-        StringBuilder mapString = new StringBuilder();
-        mapString.append("--- World Map ---\n");
-        for (int y = 0; y < grid.length; y++) {
-            for (int x = 0; x < grid[y].length; x++) {
-                Location loc = grid[y][x];
-                if (x == this.xCordinate && y == this.yCordinate) mapString.append("[P] ");
-                else if (loc != null && "The Prison".equals(loc.getName())) mapString.append("[!] ");
-                else if (loc != null && "The Exit".equals(loc.getName())) mapString.append("[E] ");
-                else if (loc != null) mapString.append("[ ] ");
-                else mapString.append(" .  ");
-            }
-            mapString.append("\n");
-        }
-        mapString.append("-----------------");
-        return mapString.toString();
-    }
-
-    @JsonIgnore
     public String getDashboard() {
-        String[] mapLines = getMapAsString().split("\n");
-        String[] infoLines = player.getPlayerInfo().split("\n");
-        StringBuilder dashboard = new StringBuilder();
-        int maxLines = Math.max(mapLines.length, infoLines.length);
-        for (int i = 0; i < maxLines; i++) {
-            String mapLine = (i < mapLines.length) ? mapLines[i] : "";
-            String infoLine = (i < infoLines.length) ? infoLines[i] : "";
-            dashboard.append(String.format("%-30s", mapLine));
-            dashboard.append(" | ");
-            dashboard.append(infoLine);
-            dashboard.append("\n");
-        }
-        dashboard.append("P = Your Position, [!] = Prison, [E] = Exit");
-        return dashboard.toString();
+        return ui.getDashboard(this, player);
     }
 
-    // --- Getters for Commands ---
+    // Getters
     public int getXCordinate() { return xCordinate; }
     public int getYCordinate() { return yCordinate; }
     public MyMap getGameMap() { return gameMap; }

@@ -15,7 +15,48 @@
     "weight": 4.0,
     "durability": 120,
     "description": "A sturdy iron helmet.",
-    "defense": 8
+    "defense": 8,
+    "slot": "head"
+  },
+  {
+    "itemType": "chestplate",
+    "name": "Leather Tunic",
+    "type": "equippable",
+    "weight": 5.0,
+    "durability": 100,
+    "description": "A simple leather tunic.",
+    "defense": 10,
+    "slot": "chest"
+  },
+  {
+    "itemType": "pants",
+    "name": "Cloth Pants",
+    "type": "equippable",
+    "weight": 2.0,
+    "durability": 80,
+    "description": "Basic cloth pants.",
+    "defense": 2,
+    "slot": "legs"
+  },
+  {
+    "itemType": "boots",
+    "name": "Leather Boots",
+    "type": "equippable",
+    "weight": 1.5,
+    "durability": 90,
+    "description": "Sturdy leather boots.",
+    "speedBonus": 5,
+    "slot": "feet"
+  },
+  {
+    "itemType": "backpack",
+    "name": "Traveler's Backpack",
+    "type": "equippable",
+    "weight": 1.0,
+    "durability": 200,
+    "description": "A large backpack to carry more items.",
+    "capacity": 50,
+    "slot": "backpack"
   },
   {
     "itemType": "item",

@@ -16,7 +16,7 @@ public abstract class Quest {
     public String name;
     public String description;
     public Item reward;
-    public String questGiverName; // The name of the NPC who gave the quest
+    public String questGiverName;
     protected boolean isCompleted;
 
     public Quest() {}
@@ -28,7 +28,6 @@ public abstract class Quest {
         this.isCompleted = false;
     }
 
-    public String getName() { return name; }
     public boolean isCompleted() { return isCompleted; }
     public void complete() { this.isCompleted = true; }
 

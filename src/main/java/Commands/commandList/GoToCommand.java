@@ -1,17 +1,20 @@
 package Commands.commandList;
 
+import Battle.Battle;
 import Commands.Command;
 import Places.Location;
 import Places.Obstacle;
-import Characters.NPCs.NPC; // Import NPC
-import java.util.Scanner;
-import java.util.Map;
-import java.util.LinkedHashMap;
-import java.util.List; // Import List
+import Characters.NPCs.NPC;
+import Items.Item;
+import Quest.Quest;
+import Quest.KillingQuest;
+import java.util.List;
+import java.util.Random;
 
 public class GoToCommand extends Command {
     
     private static boolean hasEscapedPrison = false;
+    private Random random = new Random();
 
     @Override
     public String execute() {
@@ -21,6 +24,14 @@ public class GoToCommand extends Command {
 
         String direction = args[1];
         Location currentLocation = game.getCurrentLocation();
+        
+        if (currentLocation.getNpcs() != null) {
+            for (NPC npc : currentLocation.getNpcs()) {
+                if (npc.isHostile()) {
+                    return "You cannot flee! There are enemies here. You must fight!";
+                }
+            }
+        }
         
         if ("The Prison".equals(currentLocation.getName()) && !hasEscapedPrison) {
             startEscapePuzzle();
@@ -32,25 +43,6 @@ public class GoToCommand extends Command {
             return "The way is blocked. " + obstacle.getDescription();
         }
 
-        // --- THE FIX: Check for Guardians at the Exit ---
-        Location potentialNextLocation = getPotentialNextLocation(direction);
-        if (potentialNextLocation != null && "The Exit".equals(potentialNextLocation.getName())) {
-            // Check if the Exit location has any hostile NPCs.
-            boolean hasGuardians = false;
-            if (potentialNextLocation.getNpcs() != null) {
-                for (NPC npc : potentialNextLocation.getNpcs()) {
-                    if (npc.isHostile()) {
-                        hasGuardians = true;
-                        break;
-                    }
-                }
-            }
-            
-            if (hasGuardians) {
-                return "The exit is blocked by powerful Guardians! You must defeat them to pass.";
-            }
-        }
-
         int oldX = game.getXCordinate();
         int oldY = game.getYCordinate();
         game.move(direction);
@@ -60,24 +52,65 @@ public class GoToCommand extends Command {
         }
         
         Location newLocation = game.getCurrentLocation();
+        
         if ("The Exit".equals(newLocation.getName())) {
-            return "With the Guardians defeated, you pass through the exit. You win!";
+            return "You have entered the final chamber. The exit is guarded!";
+        }
+
+        // --- THE FIX: Random Encounter Logic ---
+        if (newLocation.getNpcs() != null) {
+            for (NPC npc : newLocation.getNpcs()) {
+                if (npc.isHostile()) {
+                    // 40% chance for an immediate ambush
+                    if (random.nextInt(100) < 40) {
+                        return triggerAmbush(npc);
+                    }
+                }
+            }
         }
 
         return "You moved " + direction + ".";
     }
 
-    private Location getPotentialNextLocation(String direction) {
-        int x = game.getXCordinate();
-        int y = game.getYCordinate();
-        switch (direction.toLowerCase()) {
-            case "north": y--; break;
-            case "south": y++; break;
-            case "west":  x--; break;
-            case "east":  x++; break;
-            default: return null;
+    private String triggerAmbush(NPC enemy) {
+        System.out.println("\n!!! AMBUSH !!!");
+        System.out.println("As you enter the area, a " + enemy.getName() + " jumps out and attacks you!");
+        
+        Battle battle = new Battle(player, enemy);
+        boolean playerWasDefeated = battle.start();
+
+        if (playerWasDefeated) {
+            game.handlePlayerDefeat();
+            return "";
+        } else {
+            game.getCurrentLocation().removeNpc(enemy);
+            
+            // Loot Logic
+            List<Item> loot = enemy.getLoot();
+            if (loot != null && !loot.isEmpty()) {
+                for (Item item : loot) {
+                    game.getCurrentLocation().addItem(item);
+                }
+                System.out.println("The " + enemy.getName() + " dropped its loot on the ground!");
+            }
+            
+            // Quest Logic
+            for (Quest quest : player.getActiveQuests()) {
+                if (quest instanceof KillingQuest) {
+                    KillingQuest kQuest = (KillingQuest) quest;
+                    if (kQuest.isTarget(enemy.getName())) {
+                        kQuest.incrementKills();
+                        System.out.println("Quest progress: " + kQuest.getCurrentKills() + "/" + kQuest.getRequiredKills() + " " + kQuest.getTargetName() + "s killed.");
+                    }
+                }
+            }
+            
+            // Gold Reward
+            int goldReward = 75;
+            player.addMoney(goldReward);
+            
+            return "You survived the ambush and defeated the " + enemy.getName() + "! (Received " + goldReward + " gold)";
         }
-        return game.getGameMap().getLocation(x, y);
     }
 
     private void startEscapePuzzle() {
@@ -86,6 +119,6 @@ public class GoToCommand extends Command {
 
     @Override
     public boolean exit() {
-        return "The Exit".equals(game.getCurrentLocation().getName());
+        return false;
     }
 }

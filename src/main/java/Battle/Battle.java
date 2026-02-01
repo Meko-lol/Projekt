@@ -31,9 +31,9 @@ public class Battle {
                 playerBaseDamage += weapon.getDamage();
             }
             
-            int playerDamage = playerBaseDamage + random.nextInt(5); // Add a bit of randomness
+            int playerDamage = playerBaseDamage + random.nextInt(5);
             opponent.setHealth(opponent.getHealth() - playerDamage);
-            System.out.println("You hit the " + opponent.getName() + " for " + playerDamage + " damage. (Opponent's Health: " + opponent.getHealth() + ")");
+            System.out.println("You hit the " + opponent.getName() + " for " + playerDamage + " damage. (Opponent's Health: " + String.format("%.0f", opponent.getHealth()) + ")");
 
             if (opponent.getHealth() <= 0) {
                 System.out.println("--- You defeated the " + opponent.getName() + "! ---");
@@ -43,13 +43,13 @@ public class Battle {
             // --- Opponent's Turn ---
             int opponentDamage = opponent.getStrength() + random.nextInt(3);
             player.setHealth(player.getHealth() - opponentDamage);
-            System.out.println("The " + opponent.getName() + " hits you for " + opponentDamage + " damage. (Your Health: " + player.getHealth() + ")");
+            System.out.println("The " + opponent.getName() + " hits you for " + opponentDamage + " damage. (Your Health: " + String.format("%.0f", player.getHealth()) + ")");
 
             if (player.getHealth() <= 0) {
                 System.out.println("--- You have been defeated! ---");
                 return true; // Player was defeated
             }
         }
-        return false; // Should not be reached, but indicates player was not defeated
+        return false;
     }
 }

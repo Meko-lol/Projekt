@@ -1,0 +1,43 @@
+[
+  {
+    "id": "RAT",
+    "name": "Giant Rat",
+    "role": "Enemy",
+    "biome": "Prison",
+    "health": 20,
+    "strength": 5,
+    "loot": ["HEALTH_POTION"]
+  },
+  {
+    "id": "SKELETON",
+    "name": "Skeleton Warrior",
+    "role": "Enemy",
+    "biome": "Dwarven_Ruins",
+    "health": 50,
+    "strength": 12,
+    "loot": ["OLD_SWORD"]
+  },
+  {
+    "id": "TRADER_BARNABY",
+    "name": "Barnaby",
+    "role": "Trader",
+    "biome": "Dwarven_Ruins",
+    "dialogue": "Greetings, traveler! Care to see my wares?"
+  },
+  {
+    "id": "QUEST_GIVER_GIMLI",
+    "name": "Gimli",
+    "role": "QuestGiver",
+    "biome": "Dwarven_Ruins",
+    "dialogue": "I've lost my pickaxe in these cursed halls... I can't work without it."
+  },
+  {
+    "id": "BOSS_GUARDIAN",
+    "name": "Stone Guardian",
+    "role": "Boss",
+    "biome": "Final_Boss",
+    "health": 200,
+    "strength": 25,
+    "loot": []
+  }
+]

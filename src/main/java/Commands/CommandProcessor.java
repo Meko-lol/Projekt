@@ -5,14 +5,12 @@ import Game.MyGame;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import Commands.commandList.*;
 
 public class CommandProcessor {
     private boolean shouldExit = false;
-    private Map<String, Command> commands = new HashMap<>();
+    private Map<String, Command> commands;
     private Scanner scanner = new Scanner(System.in);
     private Player player;
     private MyGame game;
@@ -22,70 +20,70 @@ public class CommandProcessor {
     public CommandProcessor(Player player, MyGame game) {
         this.player = player;
         this.game = game;
-        initializeCommands();
+        this.commands = CommandRegistry.getCommands();
         resetCommandHistory();
     }
 
-    private void initializeCommands() {
-        commands.put("quests", new QuestsCommand());
-        commands.put("cordinates", new GetCordinatesCommand());
-        commands.put("location", new GetLocationInfoCommand());
-        commands.put("help", new HelpCommand());
-        commands.put("history", new HistoryCommand());
-        commands.put("quit", new QuitCommand());
-        commands.put("end", new EndCommand());
-        commands.put("quote", new QuoteCommand());
-        commands.put("interact", new InteractCommand());
-        commands.put("pickup", new PickUpCommand());
-        commands.put("move", new GoToCommand());
-        commands.put("use", new UseCommand());
-        commands.put("drop", new DropCommand());
-        commands.put("inventory", new InventoryCommand());
-        commands.put("equip", new EquipItemCommand());
-        commands.put("fight", new FightCommand());
-        commands.put("buy", new BuyCommand());
-        commands.put("sell", new SellCommand());
-        commands.put("save", new SaveGameCommand());
-    }
-
+    /**
+     * Clears the terminal by printing many newlines.
+     * This is more reliable than ANSI codes in some IDE consoles.
+     */
     private void clearTerminal() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
     }
 
-    private void processInput() {
+    private String processInput() {
         System.out.print(">> ");
         String inputLine = scanner.nextLine().trim().toLowerCase();
-        clearTerminal();
+
         if (inputLine.isEmpty()) {
-            System.out.println(game.getDashboard());
-            return;
+            return "";
         }
+        
         saveCommandToHistory(inputLine);
+
         String[] parts = inputLine.split("\\s+");
         String commandName = parts[0];
         Command command = commands.get(commandName);
+
         if (command != null) {
             command.setContext(player, game, parts);
             String result = command.execute();
-            if (result != null && !result.isEmpty()) {
-                System.out.println(result);
-                System.out.println();
-            }
             this.shouldExit = command.exit();
+            return result;
         } else {
-            System.out.println("Unknown command. Type 'help' for a list of commands.\n");
+            return "Unknown command. Type 'help' for a list of commands.";
         }
-        System.out.println(game.getDashboard());
     }
 
     public void run() {
-        clearTerminal();
-        System.out.println(game.getDashboard());
+        String commandResult = "";
         do {
-            processInput();
+            clearTerminal();
+            
+            if (shouldExit && commandResult.contains("Congratulations")) {
+                System.out.println("******************************************");
+                System.out.println("*             VICTORY!                   *");
+                System.out.println("******************************************");
+            }
+
+            if (commandResult != null && !commandResult.isEmpty()) {
+                System.out.println(commandResult);
+                System.out.println();
+            }
+            
+            System.out.println(game.getDashboard());
+            
+            if (!shouldExit) {
+                commandResult = processInput();
+            }
+
         } while (!shouldExit);
+        
         scanner.close();
+        System.out.println("Thank you for playing!");
     }
 
     private void saveCommandToHistory(String command) {
@@ -96,8 +94,7 @@ public class CommandProcessor {
     }
 
     private void resetCommandHistory() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(COMMAND_HISTORY_FILE, false))) {
-        } catch (IOException e) {
-        }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(COMMAND_HISTORY_FILE, false))) {} 
+        catch (IOException e) {}
     }
 }

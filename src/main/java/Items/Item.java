@@ -1,34 +1,32 @@
 package Items;
 
-import Items.EquippableItems.*;
+import Items.EquippableItems.Backpack;
+import Items.EquippableItems.Pants;
 import Items.Items.EquippableItems.Boots;
 import Items.Items.EquippableItems.Chestplate;
 import Items.Items.EquippableItems.Helmet;
-import Items.Weapons.*;
+import Items.Weapons.CloseRangeWeapon;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "itemType")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "itemType", defaultImpl = Item.class)
 @JsonSubTypes({
-    // THE FIX: Register the base Item class with a type name.
     @JsonSubTypes.Type(value = Item.class, name = "item"),
-    // List all the concrete subclasses.
+    @JsonSubTypes.Type(value = CloseRangeWeapon.class, name = "closeRangeWeapon"),
     @JsonSubTypes.Type(value = Helmet.class, name = "helmet"),
     @JsonSubTypes.Type(value = Chestplate.class, name = "chestplate"),
     @JsonSubTypes.Type(value = Pants.class, name = "pants"),
     @JsonSubTypes.Type(value = Boots.class, name = "boots"),
-    @JsonSubTypes.Type(value = Backpack.class, name = "backpack"),
-    @JsonSubTypes.Type(value = CloseRangeWeapon.class, name = "closeRangeWeapon"),
-    @JsonSubTypes.Type(value = RangedWeapon.class, name = "rangedWeapon")
+    @JsonSubTypes.Type(value = Backpack.class, name = "backpack")
 })
 public class Item {
-    protected String name;
-    protected String type;
-    protected double weight;
-    protected double durability;
-    protected String description;
+    public String name;
+    public String type;
+    public double weight;
+    public double durability;
+    public String description;
 
     public Item() {}
 
@@ -40,15 +38,10 @@ public class Item {
         this.description = description;
     }
 
-    // Getters and Setters
+    // THE FIX: Add the standard public getter methods back to the class.
     public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
     public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
     public double getWeight() { return weight; }
-    public void setWeight(double weight) { this.weight = weight; }
     public double getDurability() { return durability; }
-    public void setDurability(double durability) { this.durability = durability; }
     public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
 }
