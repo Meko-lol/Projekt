@@ -1,6 +1,7 @@
 package Commands.commandList;
 
 import Commands.Command;
+import Game.ItemFinder;
 import Items.Item;
 import java.util.List;
 
@@ -20,17 +21,23 @@ public class DropCommand extends Command {
             return sb.toString();
         }
 
-        String itemName = args[1];
-        Item droppedItem = player.getInventory().removeItemByName(itemName);
+        String itemName = ItemFinder.joinArgs(args, 1);
+        Item itemToDrop = ItemFinder.findItem(inventoryItems, itemName);
+
+        if (itemToDrop == null) {
+            return "You don't have a '" + itemName + "'.";
+        }
+        
+        // We need to remove it by exact object reference or name, ItemFinder gives us the object.
+        // Inventory.removeItemByName uses name, which is fine.
+        Item droppedItem = player.getInventory().removeItemByName(itemToDrop.getName());
 
         if (droppedItem != null) {
-            // THE FIX: Ensure the item is unequipped if the player was wearing it.
             player.unequipIfEquipped(droppedItem);
-
             game.getCurrentLocation().addItem(droppedItem);
-            return "You dropped the " + itemName + ".";
+            return "You dropped the " + droppedItem.getName() + ".";
         } else {
-            return "You don't have a '" + itemName + "'.";
+            return "Error dropping item.";
         }
     }
 

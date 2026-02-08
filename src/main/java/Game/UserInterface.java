@@ -7,45 +7,68 @@ import Places.Location;
 public class UserInterface {
 
     public String getDashboard(MyGame game, Player player) {
-        String[] mapLines = getMapAsString(game).split("\n");
-        String[] infoLines = player.getPlayerInfo().split("\n");
+        String mapString = getMapAsString(game);
+        String infoString = player.getPlayerInfo();
+        
+        String[] mapLines = mapString.split("\n");
+        String[] infoLines = infoString.split("\n");
 
-        StringBuilder dashboard = new StringBuilder();
-        int maxLines = Math.max(mapLines.length, infoLines.length);
+        String dashboard = ""; // Using simple String concatenation
+        int maxLines = 0;
+        
+        if (mapLines.length > infoLines.length) {
+            maxLines = mapLines.length;
+        } else {
+            maxLines = infoLines.length;
+        }
 
         for (int i = 0; i < maxLines; i++) {
-            String mapLine = (i < mapLines.length) ? mapLines[i] : "";
-            String infoLine = (i < infoLines.length) ? infoLines[i] : "";
+            String mapLine = "";
+            if (i < mapLines.length) {
+                mapLine = mapLines[i];
+            }
+
+            String infoLine = "";
+            if (i < infoLines.length) {
+                infoLine = infoLines[i];
+            }
             
-            dashboard.append(String.format("%-30s", mapLine));
-            dashboard.append(" | ");
-            dashboard.append(infoLine);
-            dashboard.append("\n");
+            // Simple formatting
+            String paddedMapLine = String.format("%-30s", mapLine);
+            dashboard = dashboard + paddedMapLine + " | " + infoLine + "\n";
         }
-        dashboard.append("P = Your Position, [!] = Prison, [E] = Exit");
-        return dashboard.toString();
+        dashboard = dashboard + "P = Your Position, [!] = Prison, [E] = Exit";
+        return dashboard;
     }
 
     private String getMapAsString(MyGame game) {
         MyMap gameMap = game.getGameMap();
-        if (gameMap == null || gameMap.getGrid() == null) return "";
+        if (gameMap == null) return "";
         
         Location[][] grid = gameMap.getGrid();
-        StringBuilder mapString = new StringBuilder();
-        mapString.append("--- World Map ---\n");
+        if (grid == null) return "";
+        
+        String mapString = "--- World Map ---\n";
 
         for (int y = 0; y < grid.length; y++) {
             for (int x = 0; x < grid[y].length; x++) {
                 Location loc = grid[y][x];
-                if (x == game.getXCordinate() && y == game.getYCordinate()) mapString.append("[P] ");
-                else if (loc != null && "The Prison".equals(loc.getName())) mapString.append("[!] ");
-                else if (loc != null && "The Exit".equals(loc.getName())) mapString.append("[E] ");
-                else if (loc != null) mapString.append("[ ] ");
-                else mapString.append(" .  ");
+                
+                if (x == game.getXCordinate() && y == game.getYCordinate()) {
+                    mapString = mapString + "[P] ";
+                } else if (loc != null && loc.getName().equals("The Prison")) {
+                    mapString = mapString + "[!] ";
+                } else if (loc != null && loc.getName().equals("The Exit")) {
+                    mapString = mapString + "[E] ";
+                } else if (loc != null) {
+                    mapString = mapString + "[ ] ";
+                } else {
+                    mapString = mapString + " .  ";
+                }
             }
-            mapString.append("\n");
+            mapString = mapString + "\n";
         }
-        mapString.append("-----------------");
-        return mapString.toString();
+        mapString = mapString + "-----------------";
+        return mapString;
     }
 }

@@ -8,6 +8,7 @@ import Characters.NPCs.NPC;
 import Items.Item;
 import Quest.Quest;
 import Quest.KillingQuest;
+import ending.prison.Prison; // Import the new Prison class
 import java.util.List;
 import java.util.Random;
 
@@ -33,9 +34,16 @@ public class GoToCommand extends Command {
             }
         }
         
+        // THE FIX: Use the dedicated Prison class logic
         if ("The Prison".equals(currentLocation.getName()) && !hasEscapedPrison) {
-            startEscapePuzzle();
-            return hasEscapedPrison ? "You are now free to move." : "You must solve the riddles to escape!";
+            Prison prison = new Prison();
+            boolean success = prison.attemptToBreakOut();
+            if (success) {
+                hasEscapedPrison = true;
+                return "You are now free to move.";
+            } else {
+                return "You must solve the riddles to escape!";
+            }
         }
         
         Obstacle obstacle = currentLocation.getObstacle(direction);
@@ -57,11 +65,9 @@ public class GoToCommand extends Command {
             return "You have entered the final chamber. The exit is guarded!";
         }
 
-        // --- THE FIX: Random Encounter Logic ---
         if (newLocation.getNpcs() != null) {
             for (NPC npc : newLocation.getNpcs()) {
                 if (npc.isHostile()) {
-                    // 40% chance for an immediate ambush
                     if (random.nextInt(100) < 40) {
                         return triggerAmbush(npc);
                     }
@@ -85,7 +91,6 @@ public class GoToCommand extends Command {
         } else {
             game.getCurrentLocation().removeNpc(enemy);
             
-            // Loot Logic
             List<Item> loot = enemy.getLoot();
             if (loot != null && !loot.isEmpty()) {
                 for (Item item : loot) {
@@ -94,7 +99,6 @@ public class GoToCommand extends Command {
                 System.out.println("The " + enemy.getName() + " dropped its loot on the ground!");
             }
             
-            // Quest Logic
             for (Quest quest : player.getActiveQuests()) {
                 if (quest instanceof KillingQuest) {
                     KillingQuest kQuest = (KillingQuest) quest;
@@ -105,16 +109,11 @@ public class GoToCommand extends Command {
                 }
             }
             
-            // Gold Reward
             int goldReward = 75;
             player.addMoney(goldReward);
             
             return "You survived the ambush and defeated the " + enemy.getName() + "! (Received " + goldReward + " gold)";
         }
-    }
-
-    private void startEscapePuzzle() {
-        // ... (puzzle logic remains the same)
     }
 
     @Override

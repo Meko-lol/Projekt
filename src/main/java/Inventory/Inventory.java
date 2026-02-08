@@ -1,7 +1,7 @@
 package Inventory;
 
 import Items.Item;
-import com.fasterxml.jackson.annotation.JsonIgnore; // Import the annotation
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +23,7 @@ public class Inventory {
     }
 
     public boolean addItem(Item item) {
+        // Simple nested for-loop
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
                 if (grid[i][j] == null) {
@@ -37,10 +38,12 @@ public class Inventory {
     public Item removeItemByName(String name) {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
-                if (grid[i][j] != null && grid[i][j].getName().equalsIgnoreCase(name)) {
-                    Item item = grid[i][j];
-                    grid[i][j] = null;
-                    return item;
+                if (grid[i][j] != null) {
+                    if (grid[i][j].getName().equalsIgnoreCase(name)) {
+                        Item item = grid[i][j];
+                        grid[i][j] = null;
+                        return item;
+                    }
                 }
             }
         }
@@ -50,8 +53,10 @@ public class Inventory {
     public Item getItemByName(String name) {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
-                if (grid[i][j] != null && grid[i][j].getName().equalsIgnoreCase(name)) {
-                    return grid[i][j];
+                if (grid[i][j] != null) {
+                    if (grid[i][j].getName().equalsIgnoreCase(name)) {
+                        return grid[i][j];
+                    }
                 }
             }
         }
@@ -88,8 +93,16 @@ public class Inventory {
 
     private void resizeGrid(int newRows, int newCols) {
         Item[][] newGrid = new Item[newRows][newCols];
-        int rowsToCopy = Math.min(grid.length, newRows);
-        int colsToCopy = Math.min(grid[0].length, newCols);
+        
+        int rowsToCopy = grid.length;
+        if (newRows < rowsToCopy) {
+            rowsToCopy = newRows;
+        }
+        
+        int colsToCopy = grid[0].length;
+        if (newCols < colsToCopy) {
+            colsToCopy = newCols;
+        }
 
         for (int i = 0; i < rowsToCopy; i++) {
             for (int j = 0; j < colsToCopy; j++) {
@@ -99,42 +112,15 @@ public class Inventory {
         this.grid = newGrid;
     }
 
-    public boolean setItemAt(int row, int col, Item item) {
-        if (isValidSlot(row, col) && grid[row][col] == null) {
-            grid[row][col] = item;
-            return true;
-        }
-        return false;
-    }
-
-    public Item removeItemAt(int row, int col) {
-        if (isValidSlot(row, col)) {
-            Item item = grid[row][col];
-            grid[row][col] = null;
-            return item;
-        }
-        return null;
-    }
-
-    public Item getItemAt(int row, int col) {
-        if (isValidSlot(row, col)) {
-            return grid[row][col];
-        }
-        return null;
-    }
-
-    // THE FIX: This tells the save/load system to ignore this calculated value.
     @JsonIgnore
     public double getTotalWeight() {
         double totalWeight = 0;
-        for (Item item : getAllItems()) {
-            totalWeight += item.getWeight();
+        List<Item> allItems = getAllItems();
+        for (int i = 0; i < allItems.size(); i++) {
+            Item item = allItems.get(i);
+            totalWeight = totalWeight + item.getWeight();
         }
         return totalWeight;
-    }
-
-    private boolean isValidSlot(int row, int col) {
-        return row >= 0 && row < grid.length && col >= 0 && col < grid[0].length;
     }
 
     public boolean hasBackpack() {

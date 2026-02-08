@@ -7,10 +7,23 @@
     "requiredKills": 1
   },
   {
+    "type": "killing",
+    "name": "Rat Catcher",
+    "description": "Giant rats are infesting the cellar. Kill 3 of them.",
+    "targetName": "Giant Rat",
+    "requiredKills": 3
+  },
+  {
     "type": "travel",
     "name": "A Message for the Hermit",
     "description": "I need you to deliver this message to the Hermit's aery.",
     "destinationName": "Hermit's Aery"
+  },
+  {
+    "type": "travel",
+    "name": "Scout the Ruins",
+    "description": "Go to the Crumbling Ruins and see if it's safe.",
+    "destinationName": "Crumbling Ruins"
   },
   {
     "type": "aquireing",
@@ -18,6 +31,14 @@
     "description": "My key fell into the chasm. If you find a way across, can you retrieve it for me?",
     "requiredItem": {
       "name": "Chasm Key"
+    }
+  },
+  {
+    "type": "aquireing",
+    "name": "Iron Shortage",
+    "description": "The blacksmith needs an Iron Dagger to melt down. Bring him one.",
+    "requiredItem": {
+      "name": "Iron Dagger"
     }
   }
 ]

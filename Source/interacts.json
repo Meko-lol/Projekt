@@ -14,5 +14,44 @@
     "nextNodes": [null, null],
     "giveItem": null,
     "offerQuest": true
+  },
+  {
+    "name": "nervous_greeting",
+    "monologue": "D-don't hurt me! I'm just a simple merchant... well, I used to be.",
+    "answers": ["Calm down. I won't hurt you.", "Hand over your goods!"],
+    "nextNodes": ["nervous_talk", "nervous_flee"],
+    "giveItem": null,
+    "offerQuest": false
+  },
+  {
+    "name": "nervous_talk",
+    "monologue": "Oh, thank the gods. It's dangerous down here. Here, take this potion, I found it earlier.",
+    "answers": ["Thank you.", "Do you know the way out?"],
+    "nextNodes": [null, "nervous_exit_hint"],
+    "giveItem": {
+      "itemType": "item",
+      "name": "Health Potion",
+      "type": "potion",
+      "weight": 0.5,
+      "durability": 1.0,
+      "description": "A simple potion."
+    },
+    "offerQuest": false
+  },
+  {
+    "name": "nervous_exit_hint",
+    "monologue": "The exit? I heard it's guarded by stone monsters. You'll need a strong weapon.",
+    "answers": ["I'll be careful."],
+    "nextNodes": [null],
+    "giveItem": null,
+    "offerQuest": false
+  },
+  {
+    "name": "nervous_flee",
+    "monologue": "Eek! Please, just let me go! I have nothing of value! *The NPC scrambles away in a panic.*",
+    "answers": [],
+    "nextNodes": [],
+    "giveItem": null,
+    "offerQuest": false
   }
 ]

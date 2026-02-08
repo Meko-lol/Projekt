@@ -1,10 +1,8 @@
 package Commands;
 
 import Characters.Player;
+import Game.FileManager; // Use FileManager
 import Game.MyGame;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -15,19 +13,13 @@ public class CommandProcessor {
     private Player player;
     private MyGame game;
 
-    public static final String COMMAND_HISTORY_FILE = "command_history.txt";
-
     public CommandProcessor(Player player, MyGame game) {
         this.player = player;
         this.game = game;
         this.commands = CommandRegistry.getCommands();
-        resetCommandHistory();
+        FileManager.resetCommandHistory();
     }
 
-    /**
-     * Clears the terminal by printing many newlines.
-     * This is more reliable than ANSI codes in some IDE consoles.
-     */
     private void clearTerminal() {
         for (int i = 0; i < 50; i++) {
             System.out.println();
@@ -42,7 +34,7 @@ public class CommandProcessor {
             return "";
         }
         
-        saveCommandToHistory(inputLine);
+        FileManager.saveCommandToHistory(inputLine);
 
         String[] parts = inputLine.split("\\s+");
         String commandName = parts[0];
@@ -84,17 +76,5 @@ public class CommandProcessor {
         
         scanner.close();
         System.out.println("Thank you for playing!");
-    }
-
-    private void saveCommandToHistory(String command) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(COMMAND_HISTORY_FILE, true))) {
-            writer.write(command);
-            writer.newLine();
-        } catch (IOException e) {}
-    }
-
-    private void resetCommandHistory() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(COMMAND_HISTORY_FILE, false))) {} 
-        catch (IOException e) {}
     }
 }

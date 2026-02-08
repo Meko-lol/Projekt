@@ -30,6 +30,9 @@ public class CommandRegistry {
         commands.put("save", new SaveGameCommand());
         commands.put("win", new WinCommand());
         
+        // Developer Tools
+        commands.put("dev", new DevCommand());
+        
         return commands;
     }
 }

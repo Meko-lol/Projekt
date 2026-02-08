@@ -2,6 +2,8 @@ package Places;
 
 import Characters.NPCs.NPC;
 import Items.Item;
+import ending.boulder.Boulder; // Import Boulder
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,10 +17,10 @@ public class Location {
     private List<Item> itemsOnGround = new ArrayList<>();
     private Map<String, Obstacle> obstacles = new HashMap<>();
     private Map<String, Obstacle> clearedObstacles = new HashMap<>();
+    private Boulder boulder; // THE FIX: Added Boulder field
 
-    // THE FIX: Removed @JsonIgnore so these are saved.
-    private int x;
-    private int y;
+    @JsonIgnore private int x;
+    @JsonIgnore private int y;
 
     public Location() {}
 
@@ -38,6 +40,7 @@ public class Location {
     public Obstacle getClearedObstacle(String direction) { return clearedObstacles.get(direction); }
     public int getX() { return x; }
     public int getY() { return y; }
+    public Boulder getBoulder() { return boulder; }
 
     // --- Setters ---
     public void setName(String name) { this.name = name; }
@@ -47,6 +50,7 @@ public class Location {
     public void setItemsOnGround(List<Item> items) { this.itemsOnGround = (items != null) ? items : new ArrayList<>(); }
     public void setObstacles(Map<String, Obstacle> obstacles) { this.obstacles = (obstacles != null) ? obstacles : new HashMap<>(); }
     public void setClearedObstacles(Map<String, Obstacle> clearedObstacles) { this.clearedObstacles = (clearedObstacles != null) ? clearedObstacles : new HashMap<>(); }
+    public void setBoulder(Boulder boulder) { this.boulder = boulder; }
 
     // --- Management Methods ---
     public void addItem(Item item) { this.itemsOnGround.add(item); }

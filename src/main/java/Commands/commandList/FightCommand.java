@@ -3,6 +3,7 @@ package Commands.commandList;
 import Battle.Battle;
 import Characters.NPCs.NPC;
 import Commands.Command;
+import Game.NPCFinder; // Import NPCFinder
 import Items.Item;
 import Places.Location;
 import Quest.Quest;
@@ -32,18 +33,11 @@ public class FightCommand extends Command {
         }
 
         String targetName = args[1];
-        NPC targetEnemy = null;
-        if (npcs != null) {
-            for (NPC npc : npcs) {
-                if (npc.isHostile() && npc.getName().equalsIgnoreCase(targetName)) {
-                    targetEnemy = npc;
-                    break;
-                }
-            }
-        }
+        // THE FIX: Use NPCFinder
+        NPC targetEnemy = NPCFinder.findNPC(npcs, targetName);
 
-        if (targetEnemy == null) {
-            return "There is no '" + targetName + "' here to fight.";
+        if (targetEnemy == null || !targetEnemy.isHostile()) {
+            return "There is no hostile '" + targetName + "' here.";
         }
 
         Battle battle = new Battle(player, targetEnemy);
@@ -57,14 +51,14 @@ public class FightCommand extends Command {
             
             int goldReward = 75;
             player.addMoney(goldReward);
-            System.out.println("You received " + goldReward + " gold for defeating the " + targetEnemy.getName() + "!");
+            System.out.println("You received " + goldReward + " gold!");
             
             List<Item> loot = targetEnemy.getLoot();
             if (loot != null && !loot.isEmpty()) {
                 for (Item item : loot) {
                     currentLocation.addItem(item);
                 }
-                System.out.println("The " + targetEnemy.getName() + " dropped its loot on the ground!");
+                System.out.println("The " + targetEnemy.getName() + " dropped loot!");
             }
             
             for (Quest quest : player.getActiveQuests()) {
@@ -72,7 +66,7 @@ public class FightCommand extends Command {
                     KillingQuest kQuest = (KillingQuest) quest;
                     if (kQuest.isTarget(targetEnemy.getName())) {
                         kQuest.incrementKills();
-                        System.out.println("Quest progress: " + kQuest.getCurrentKills() + "/" + kQuest.getRequiredKills() + " " + kQuest.getTargetName() + "s killed.");
+                        System.out.println("Quest progress: " + kQuest.getCurrentKills() + "/" + kQuest.getRequiredKills());
                     }
                 }
             }

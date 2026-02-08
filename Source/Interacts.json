@@ -1,6 +1,6 @@
 [
   {
-    "name": "village_elder_start",
+    "name": "generic_greeting",
     "monologue": "Greetings, traveler. The world is a dangerous place. Take this, it might help.",
     "answers": ["Thank you. What is this place?", "I have no time for this."],
     "nextNodes": ["elder_info", null],
@@ -9,14 +9,17 @@
       "name": "Health Potion",
       "type": "potion",
       "weight": 0.5,
+      "durability": 1.0,
       "description": "A simple potion."
-    }
+    },
+    "offerQuest": false
   },
   {
     "name": "elder_info",
     "monologue": "This is the last safe town. Beyond here, you will find monsters and quests. I have a task for you, if you are interested.",
     "answers": ["I am interested.", "I must go."],
     "nextNodes": ["elder_quest_offer", null],
+    "giveItem": null,
     "offerQuest": false
   },
   {
@@ -24,6 +27,7 @@
     "monologue": "Excellent! A fearsome goblin has been spotted in the Dark Forest. Please, defeat it for me.",
     "answers": ["I will do it.", "I cannot."],
     "nextNodes": [null, null],
+    "giveItem": null,
     "offerQuest": true
   }
 ]

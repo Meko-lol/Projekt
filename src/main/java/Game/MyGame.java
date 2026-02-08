@@ -5,6 +5,12 @@ import Commands.CommandProcessor;
 import GameMap.MyMap;
 import Interact.Node;
 import Items.Item;
+import Items.EquippableItems.Backpack;
+import Items.EquippableItems.Pants;
+import Items.Items.EquippableItems.Boots;
+import Items.Items.EquippableItems.Chestplate;
+import Items.Items.EquippableItems.Helmet;
+import Items.Weapons.CloseRangeWeapon;
 import MyGenerator.MapGenerator;
 import Places.Location;
 import com.fasterxml.jackson.annotation.JsonAlias;
@@ -13,12 +19,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
 
 public class MyGame {
@@ -31,119 +33,168 @@ public class MyGame {
     
     @JsonAlias("ycordinate")
     public int yCordinate;
+    
+    // THE FIX: Removed @JsonIgnore so settings are saved/loaded
+    public GameSettings settings;
 
     @JsonIgnore private Location currentLocation;
     @JsonIgnore private CommandProcessor commandProcessor;
     @JsonIgnore private List<Node> allDialogueNodes;
-    @JsonIgnore private UserInterface ui; // New UI component
+    @JsonIgnore private UserInterface ui;
+    @JsonIgnore private GameEventManager eventManager;
 
     public MyGame() {
         this.ui = new UserInterface();
+        this.eventManager = new GameEventManager();
+        this.settings = new GameSettings(); // Default settings
     }
 
     public void startGame() {
-        System.out.println("Welcome to the Dungeon!");
-        System.out.println("1. Start New Game");
-        System.out.println("2. Load Game");
-        System.out.print(">> ");
-
         Scanner scanner = new Scanner(System.in);
-        String choice = scanner.nextLine();
+        while (true) {
+            System.out.println("\n=== Welcome to the Dungeon! ===");
+            System.out.println("1. Start New Game");
+            System.out.println("2. Load Game");
+            System.out.println("3. Settings");
+            System.out.println("4. Exit");
+            System.out.print(">> ");
 
-        MyGame gameInstance;
-        if (choice.equals("2")) {
-            gameInstance = loadGame();
-        } else {
-            gameInstance = createNewGame();
+            String choice = scanner.nextLine();
+
+            if (choice.equals("1")) {
+                MyGame gameInstance = createNewGame();
+                gameInstance.initialize();
+                gameInstance.commandProcessor = new CommandProcessor(gameInstance.player, gameInstance);
+                gameInstance.commandProcessor.run();
+                break;
+            } else if (choice.equals("2")) {
+                MyGame gameInstance = loadGame();
+                // THE FIX: Ensure we only run if load was successful
+                if (gameInstance != null) {
+                    gameInstance.initialize();
+                    gameInstance.commandProcessor = new CommandProcessor(gameInstance.player, gameInstance);
+                    gameInstance.commandProcessor.run();
+                    break;
+                }
+            } else if (choice.equals("3")) {
+                openSettingsMenu(scanner);
+            } else if (choice.equals("4")) {
+                System.out.println("Goodbye!");
+                System.exit(0);
+            } else {
+                System.out.println("Invalid choice.");
+            }
         }
+    }
 
-        gameInstance.initialize();
-        
-        gameInstance.commandProcessor = new CommandProcessor(gameInstance.player, gameInstance);
-        gameInstance.commandProcessor.run();
+    private void openSettingsMenu(Scanner scanner) {
+        while (true) {
+            System.out.println("\n--- Settings ---");
+            System.out.println("1. Map Size: " + settings.getMapWidth() + "x" + settings.getMapHeight());
+            System.out.println("2. Difficulty: " + settings.getDifficulty());
+            System.out.println("3. NPC Spawn Chance: " + settings.getNpcSpawnChance() + "%");
+            System.out.println("4. Enemy Spawn Chance: " + settings.getEnemySpawnChance() + "%");
+            System.out.println("5. Item Spawn Chance: " + settings.getItemSpawnChance() + "%");
+            System.out.println("6. Back");
+            System.out.print(">> ");
+
+            String choice = scanner.nextLine();
+
+            if (choice.equals("1")) {
+                System.out.print("Enter new size (e.g., 10 for 10x10): ");
+                try {
+                    int size = Integer.parseInt(scanner.nextLine());
+                    if (size >= 5 && size <= 20) {
+                        settings.setMapWidth(size);
+                        settings.setMapHeight(size);
+                    } else {
+                        System.out.println("Size must be between 5 and 20.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid number.");
+                }
+            } else if (choice.equals("2")) {
+                System.out.println("Choose difficulty: 1. Easy, 2. Normal, 3. Hard");
+                String diff = scanner.nextLine();
+                if (diff.equals("1")) settings.setDifficulty("Easy");
+                else if (diff.equals("2")) settings.setDifficulty("Normal");
+                else if (diff.equals("3")) settings.setDifficulty("Hard");
+            } else if (choice.equals("3")) {
+                settings.setNpcSpawnChance(getIntInput(scanner, "Enter NPC spawn chance (0-100): "));
+            } else if (choice.equals("4")) {
+                settings.setEnemySpawnChance(getIntInput(scanner, "Enter Enemy spawn chance (0-100): "));
+            } else if (choice.equals("5")) {
+                settings.setItemSpawnChance(getIntInput(scanner, "Enter Item spawn chance (0-100): "));
+            } else if (choice.equals("6")) {
+                break;
+            }
+        }
+    }
+
+    private int getIntInput(Scanner scanner, String prompt) {
+        System.out.print(prompt);
+        try {
+            int val = Integer.parseInt(scanner.nextLine());
+            return Math.max(0, Math.min(100, val));
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 
     private MyGame createNewGame() {
-        System.out.println("Generating world...");
+        System.out.println("Generating world with settings: " + settings.getDifficulty() + ", " + settings.getMapWidth() + "x" + settings.getMapHeight());
         MyGame newGame = new MyGame();
-        newGame.gameMap = MapGenerator.generateMap();
+        newGame.settings = this.settings;
+        newGame.gameMap = MapGenerator.generateMap(this.settings);
+        
         newGame.player = new Player("Hero", "Human", 100, 70, 5, 100, 10, 10, 10);
         newGame.xCordinate = 0;
         newGame.yCordinate = 0;
+        
+        newGame.player.getInventory().addItem(new Item("Axe", "tool", 3.0, 100, "A sturdy axe."));
+        newGame.player.getInventory().addItem(new Item("Pickaxe", "tool", 5.0, 100, "A heavy pickaxe."));
+        newGame.player.getInventory().addItem(new Helmet("Iron Helmet", 4.0, 100, "A sturdy iron helmet.", 5));
+        newGame.player.getInventory().addItem(new Chestplate("Leather Tunic", 5.0, 100, "A simple leather tunic.", 8));
+        newGame.player.getInventory().addItem(new Pants("Cloth Pants", 2.0, 80, "Basic cloth pants.", 2));
+        newGame.player.getInventory().addItem(new Boots("Leather Boots", 1.5, 90, "Sturdy leather boots.", 5));
+        newGame.player.getInventory().addItem(new Backpack("Traveler's Backpack", 1.0, 200, "A large backpack.", 50));
+        newGame.player.getInventory().addItem(new CloseRangeWeapon("Steel Sword", 5.0, 100, "A sharp steel blade.", 25));
+        newGame.player.getInventory().addItem(new Item("Health Potion", "potion", 0.5, 1, "Restores 25 health."));
+        newGame.player.getInventory().addItem(new Item("Health Potion", "potion", 0.5, 1, "Restores 25 health."));
+        newGame.player.getInventory().addItem(new Item("Health Potion", "potion", 0.5, 1, "Restores 25 health."));
+        
         return newGame;
     }
 
     private MyGame loadGame() {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readValue(new File("Source/game.json"), MyGame.class);
-        } catch (Exception e) {
-            System.out.println("Failed to load game. Starting new game.");
-            return createNewGame();
+        MyGame loadedGame = FileManager.loadGame();
+        if (loadedGame != null) {
+            System.out.println("Game loaded successfully.");
+            return loadedGame;
+        } else {
+            System.out.println("Failed to load game. Please start a new game.");
+            return null; // Return null to indicate failure
         }
     }
 
     public void saveGame() {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-            objectMapper.writeValue(new File("Source/game.json"), this);
-            System.out.println("Game saved successfully.");
-        } catch (Exception e) {
-            System.out.println("Error saving game: " + e.getMessage());
-        }
+        FileManager.saveGame(this);
     }
     
     public void initialize() {
-        this.ui = new UserInterface(); // Ensure UI is initialized
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            String jsonContent = new String(Files.readAllBytes(Paths.get("Source/Interacts.json")));
-            this.allDialogueNodes = new ArrayList<>(Arrays.asList(objectMapper.readValue(jsonContent, Node[].class)));
-        } catch (Exception e) {
-            this.allDialogueNodes = new ArrayList<>();
+        // Re-initialize transient fields
+        this.ui = new UserInterface();
+        this.eventManager = new GameEventManager();
+        this.allDialogueNodes = FileManager.loadDialogues();
+        
+        // Ensure map and location are valid
+        if (this.gameMap != null) {
+            this.currentLocation = this.gameMap.getLocation(this.xCordinate, this.yCordinate);
         }
-        this.currentLocation = this.gameMap.getLocation(this.xCordinate, this.yCordinate);
     }
 
     public void handlePlayerDefeat() {
-        System.out.println("\n*** YOU HAVE BEEN DEFEATED ***");
-        System.out.println("You wake up in a cold, damp cell...");
-        
-        player.setHealth(20);
-        Item weapon = player.getEquippedWeapon();
-        if (weapon != null) {
-            player.setEquippedWeapon(null);
-            dropItemRandomly(weapon);
-        }
-        
-        moveToLocation("The Prison");
-    }
-
-    private void dropItemRandomly(Item item) {
-        int dropX, dropY;
-        Random random = new Random();
-        do {
-            dropX = random.nextInt(gameMap.getGrid()[0].length);
-            dropY = random.nextInt(gameMap.getGrid().length);
-        } while (gameMap.getLocation(dropX, dropY) == null);
-        
-        gameMap.getLocation(dropX, dropY).addItem(item);
-        System.out.println("Your " + item.getName() + " was lost!");
-    }
-
-    private void moveToLocation(String locationName) {
-        Location target = findLocationByName(locationName);
-        if (target != null) {
-            this.xCordinate = target.getX();
-            this.yCordinate = target.getY();
-            this.currentLocation = target;
-        } else {
-            // Fallback to start
-            this.xCordinate = 0;
-            this.yCordinate = 0;
-            this.currentLocation = gameMap.getLocation(0, 0);
-        }
+        eventManager.handlePlayerDefeat(this);
     }
 
     public void move(String direction) {
@@ -164,28 +215,17 @@ public class MyGame {
         }
     }
 
-    private Location findLocationByName(String name) {
-        if (gameMap == null || gameMap.getGrid() == null) return null;
-        for (Location[] row : gameMap.getGrid()) {
-            for (Location loc : row) {
-                if (loc != null && name.equals(loc.getName())) {
-                    return loc;
-                }
-            }
-        }
-        return null;
-    }
-
     @JsonIgnore
     public String getDashboard() {
         return ui.getDashboard(this, player);
     }
 
-    // Getters
+    // Getters and Setters
     public int getXCordinate() { return xCordinate; }
     public int getYCordinate() { return yCordinate; }
     public MyMap getGameMap() { return gameMap; }
     public Location getCurrentLocation() { return currentLocation; }
+    public void setCurrentLocation(Location location) { this.currentLocation = location; }
     public Node getDialogueNodeByName(String name) {
         if (allDialogueNodes == null) return null;
         for (Node node : allDialogueNodes) {

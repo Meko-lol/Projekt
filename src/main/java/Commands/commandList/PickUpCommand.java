@@ -1,13 +1,14 @@
 package Commands.commandList;
 
 import Commands.Command;
+import Game.ItemFinder; // Import ItemFinder
 import Items.Item;
 import Places.Location;
 import java.util.List;
 
 public class PickUpCommand extends Command {
     
-    private static final double MAX_WEIGHT = 50.0; // Define a weight limit
+    private static final double MAX_WEIGHT = 50.0;
 
     @Override
     public String execute() {
@@ -25,21 +26,13 @@ public class PickUpCommand extends Command {
             return sb.toString();
         }
 
-        String itemName = args[1];
-        Item itemToPickUp = null;
-        
-        for (Item item : itemsOnGround) {
-            if (item.getName().equalsIgnoreCase(itemName)) {
-                itemToPickUp = item;
-                break;
-            }
-        }
+        String itemName = ItemFinder.joinArgs(args, 1);
+        Item itemToPickUp = ItemFinder.findItem(itemsOnGround, itemName);
 
         if (itemToPickUp == null) {
             return "There is no '" + itemName + "' here.";
         }
 
-        // THE FIX: Check weight limit
         double currentWeight = player.getInventory().getTotalWeight();
         if (currentWeight + itemToPickUp.getWeight() > MAX_WEIGHT) {
             return "You cannot pick that up. It's too heavy! (Current: " + currentWeight + "/" + MAX_WEIGHT + ")";
@@ -49,7 +42,7 @@ public class PickUpCommand extends Command {
 
         if (addedSuccessfully) {
             currentLocation.removeItem(itemToPickUp);
-            return "You picked up the " + itemName + ".";
+            return "You picked up the " + itemToPickUp.getName() + ".";
         } else {
             return "Your inventory is full (no slots left).";
         }

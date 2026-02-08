@@ -47,7 +47,6 @@ public class Player extends Character {
     public void setInventory(Inventory inventory) { this.inventory = (inventory != null) ? inventory : new Inventory(); }
     public void setActiveQuests(List<Quest> quests) { this.activeQuests = (quests != null) ? quests : new ArrayList<>(); }
     public void setMoney(int money) { this.money = money; }
-    public void setEquippedWeapon(CloseRangeWeapon weapon) { this.equippedWeapon = weapon; }
     public void setHeadSlot(EquippableItem item) { this.headSlot = item; }
     public void setChestSlot(EquippableItem item) { this.chestSlot = item; }
     public void setLegSlot(EquippableItem item) { this.legSlot = item; }
@@ -65,58 +64,91 @@ public class Player extends Character {
         return false;
     }
 
+    /**
+     * Equips a weapon. Handles swapping and inventory management.
+     */
+    public void setEquippedWeapon(CloseRangeWeapon weapon) {
+        // 1. If we already have a weapon, put it back in inventory.
+        if (this.equippedWeapon != null) {
+            this.inventory.addItem(this.equippedWeapon);
+        }
+        
+        // 2. Equip the new weapon.
+        this.equippedWeapon = weapon;
+        
+        // 3. Remove the new weapon from inventory (if it was there).
+        if (weapon != null) {
+            this.inventory.removeItemByName(weapon.getName());
+        }
+    }
+
+    /**
+     * Equips an armor item. Handles swapping and inventory management.
+     */
     public EquippableItem equipItem(EquippableItem item) {
         if (item == null) return null;
         
         EquippableItem oldItem = null;
         String slot = item.getSlot().toLowerCase();
 
+        // 1. Determine which slot to use and get the old item.
         switch (slot) {
-            case "head":
-                oldItem = this.headSlot;
-                this.headSlot = item;
-                break;
-            case "chest":
-                oldItem = this.chestSlot;
-                this.chestSlot = item;
-                break;
-            case "legs":
-                oldItem = this.legSlot;
-                this.legSlot = item;
-                break;
-            case "feet":
-                oldItem = this.footSlot;
-                this.footSlot = item;
-                break;
-            case "backpack":
-                oldItem = this.backpackSlot;
-                this.backpackSlot = item;
-                this.inventory.equipBackpack();
+            case "head": oldItem = this.headSlot; this.headSlot = item; break;
+            case "chest": oldItem = this.chestSlot; this.chestSlot = item; break;
+            case "legs": oldItem = this.legSlot; this.legSlot = item; break;
+            case "feet": oldItem = this.footSlot; this.footSlot = item; break;
+            case "backpack": 
+                oldItem = this.backpackSlot; 
+                this.backpackSlot = item; 
+                this.inventory.equipBackpack(); 
                 break;
         }
+
+        // 2. If there was an old item, put it back in inventory.
+        if (oldItem != null) {
+            this.inventory.addItem(oldItem);
+        }
+
+        // 3. Remove the new item from inventory.
+        this.inventory.removeItemByName(item.getName());
+
         return oldItem;
     }
 
     /**
-     * THE FIX: Checks if the item is equipped and removes it from the slot if so.
+     * Unequips an item if it is currently equipped.
      */
     public void unequipIfEquipped(Item item) {
         if (item == null) return;
         
+        boolean unequipped = false;
+        
         if (equippedWeapon == item) {
             equippedWeapon = null;
+            unequipped = true;
         } else if (headSlot == item) {
             headSlot = null;
+            unequipped = true;
         } else if (chestSlot == item) {
             chestSlot = null;
+            unequipped = true;
         } else if (legSlot == item) {
             legSlot = null;
+            unequipped = true;
         } else if (footSlot == item) {
             footSlot = null;
+            unequipped = true;
         } else if (backpackSlot == item) {
             backpackSlot = null;
             inventory.unequipBackpack();
+            unequipped = true;
         }
+
+        // If we successfully unequipped it, add it back to inventory.
+        // Note: This method is usually called by DropCommand, which handles adding to the ground.
+        // But if called elsewhere, we should ensure it goes to inventory.
+        // However, DropCommand calls this *before* dropping, so we don't want to add it to inventory there.
+        // Let's assume this method is strictly for clearing the slot.
     }
 
     @JsonIgnore

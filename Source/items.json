@@ -9,6 +9,51 @@
     "damage": 8
   },
   {
+    "itemType": "closeRangeWeapon",
+    "name": "Iron Dagger",
+    "type": "weapon",
+    "weight": 2.0,
+    "durability": 80,
+    "description": "A small but sharp dagger.",
+    "damage": 5
+  },
+  {
+    "itemType": "closeRangeWeapon",
+    "name": "Steel Sword",
+    "type": "weapon",
+    "weight": 5.0,
+    "durability": 100,
+    "description": "A sharp steel blade.",
+    "damage": 25
+  },
+  {
+    "itemType": "closeRangeWeapon",
+    "name": "Battleaxe",
+    "type": "weapon",
+    "weight": 12.0,
+    "durability": 150,
+    "description": "A heavy two-handed axe.",
+    "damage": 15
+  },
+  {
+    "itemType": "closeRangeWeapon",
+    "name": "Warhammer",
+    "type": "weapon",
+    "weight": 15.0,
+    "durability": 200,
+    "description": "Crushes armor with ease.",
+    "damage": 35
+  },
+  {
+    "itemType": "closeRangeWeapon",
+    "name": "Magic Wand",
+    "type": "weapon",
+    "weight": 1.0,
+    "durability": 50,
+    "description": "Crackles with arcane energy.",
+    "damage": 40
+  },
+  {
     "itemType": "helmet",
     "name": "Iron Helmet",
     "type": "equippable",
@@ -17,6 +62,16 @@
     "description": "A sturdy iron helmet.",
     "defense": 8,
     "slot": "head"
+  },
+  {
+    "itemType": "chestplate",
+    "name": "Chainmail Vest",
+    "type": "equippable",
+    "weight": 15.0,
+    "durability": 200,
+    "description": "A heavy vest made of interlocking metal rings.",
+    "defense": 15,
+    "slot": "chest"
   },
   {
     "itemType": "chestplate",
@@ -29,6 +84,16 @@
     "slot": "chest"
   },
   {
+    "itemType": "chestplate",
+    "name": "Plate Armor",
+    "type": "equippable",
+    "weight": 25.0,
+    "durability": 300,
+    "description": "Heavy steel plate armor.",
+    "defense": 30,
+    "slot": "chest"
+  },
+  {
     "itemType": "pants",
     "name": "Cloth Pants",
     "type": "equippable",
@@ -36,6 +101,16 @@
     "durability": 80,
     "description": "Basic cloth pants.",
     "defense": 2,
+    "slot": "legs"
+  },
+  {
+    "itemType": "pants",
+    "name": "Iron Greaves",
+    "type": "equippable",
+    "weight": 10.0,
+    "durability": 150,
+    "description": "Armored leg protection.",
+    "defense": 12,
     "slot": "legs"
   },
   {
@@ -68,10 +143,50 @@
   },
   {
     "itemType": "item",
+    "name": "Stamina Potion",
+    "type": "potion",
+    "weight": 0.5,
+    "durability": 1,
+    "description": "A green potion that restores energy."
+  },
+  {
+    "itemType": "item",
+    "name": "Strength Elixir",
+    "type": "potion",
+    "weight": 0.5,
+    "durability": 1,
+    "description": "Temporarily boosts strength."
+  },
+  {
+    "itemType": "item",
     "name": "Gold Coin",
     "type": "currency",
     "weight": 0.1,
     "durability": 1,
     "description": "A shiny gold coin."
+  },
+  {
+    "itemType": "item",
+    "name": "Rope",
+    "type": "tool",
+    "weight": 2.0,
+    "durability": 10,
+    "description": "A sturdy rope."
+  },
+  {
+    "itemType": "item",
+    "name": "Pickaxe",
+    "type": "tool",
+    "weight": 5.0,
+    "durability": 50,
+    "description": "A heavy pickaxe."
+  },
+  {
+    "itemType": "item",
+    "name": "Axe",
+    "type": "tool",
+    "weight": 3.0,
+    "durability": 40,
+    "description": "A sharp axe."
   }
 ]

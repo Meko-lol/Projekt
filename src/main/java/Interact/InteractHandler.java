@@ -8,49 +8,61 @@ import java.util.Scanner;
 
 public class InteractHandler {
     
-    private transient Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
 
     public void startInteraction(NPC npc, MyGame game) {
-        // Find the starting node from the NPC's dialogue name
-        Node currentNode = game.getDialogueNodeByName(npc.getDialogueNodeName());
+        String startNodeName = npc.getDialogueNodeName();
+        if (startNodeName == null) {
+            System.out.println(npc.getName() + " has nothing to say.");
+            wait(2000);
+            return;
+        }
+
+        Node currentNode = game.getDialogueNodeByName(startNodeName);
+
+        if (currentNode == null) {
+            System.out.println("Error: Dialogue node '" + startNodeName + "' not found.");
+            wait(2000);
+            return;
+        }
+
+        System.out.println("\n--- Conversation with " + npc.getName() + " ---");
 
         while (currentNode != null) {
-            // 1. Print the NPC's monologue
-            System.out.println("\n" + npc.getName() + ": \"" + currentNode.getMonologue() + "\"");
+            System.out.println(npc.getName() + ": \"" + currentNode.getMonologue() + "\"");
 
-            // 2. Handle giving an item to the player
             if (currentNode.getGiveItem() != null) {
                 Item item = currentNode.getGiveItem();
                 System.out.println("You received: " + item.getName());
                 game.player.getInventory().addItem(item);
             }
 
-            // 3. Handle offering a quest
             if (currentNode.isOfferQuest()) {
                 offerQuest(npc, game);
-                break; // End conversation after quest offer
+                break;
             }
 
-            // 4. If there are no answers, the conversation ends here
             if (currentNode.getAnswers() == null || currentNode.getAnswers().length == 0) {
                 break;
             }
 
-            // 5. Display player's choices
             for (int i = 0; i < currentNode.getAnswers().length; i++) {
                 System.out.println((i + 1) + ". " + currentNode.getAnswers()[i]);
             }
 
-            // 6. Get player's choice and find the next node
             int choice = getPlayerChoice(currentNode.getAnswers().length);
             String nextNodeName = currentNode.getNextNodes()[choice];
             
             if (nextNodeName == null) {
-                currentNode = null; // End of conversation branch
+                currentNode = null;
             } else {
                 currentNode = game.getDialogueNodeByName(nextNodeName);
             }
         }
+        System.out.println("--- End of Conversation ---");
+        
+        // THE FIX: Wait 2 seconds before returning to the main loop
+        wait(2000);
     }
 
     private void offerQuest(NPC npc, MyGame game) {
@@ -87,6 +99,14 @@ public class InteractHandler {
             } catch (NumberFormatException e) {
                 System.out.println("Please enter a number.");
             }
+        }
+    }
+    
+    private void wait(int milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
     }
 }

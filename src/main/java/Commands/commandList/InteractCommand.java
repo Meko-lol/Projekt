@@ -1,15 +1,14 @@
 package Commands.commandList;
 
 import Commands.Command;
+import Game.NPCFinder; // Import NPCFinder
 import Places.Location;
 import Characters.NPCs.NPC;
 import Interact.InteractHandler;
-import Interact.Node;
 import Quest.Quest;
-import Quest.AquireingQuest; // Import the specific quest type
+import Quest.AquireingQuest;
 import Items.Item;
 import java.util.List;
-import java.util.Scanner;
 
 public class InteractCommand extends Command {
     @Override
@@ -31,32 +30,19 @@ public class InteractCommand extends Command {
         }
 
         String npcName = args[1];
-        NPC targetNpc = null;
-        if (npcs != null) {
-            for (NPC npc : npcs) {
-                if (npc.getName().equalsIgnoreCase(npcName)) {
-                    targetNpc = npc;
-                    break;
-                }
-            }
-        }
+        // THE FIX: Use NPCFinder
+        NPC targetNpc = NPCFinder.findNPC(npcs, npcName);
 
         if (targetNpc == null) {
             return "There is no one here by that name.";
         }
 
-        // --- Quest Completion Check ---
         Quest quest = targetNpc.getQuestToGive();
         if (quest != null && player.getActiveQuests().contains(quest)) {
-            
-            // THE FIX: Check for "Acquire" quests
             if (quest instanceof AquireingQuest) {
                 AquireingQuest aQuest = (AquireingQuest) quest;
-                // Check if player has the item
                 Item requiredItem = player.getInventory().getItemByName(aQuest.getRequiredItem().getName());
-                
                 if (requiredItem != null) {
-                    // Take the item and complete the quest
                     player.getInventory().removeItemByName(requiredItem.getName());
                     aQuest.complete();
                     System.out.println("You handed over the " + requiredItem.getName() + ".");
@@ -67,9 +53,8 @@ public class InteractCommand extends Command {
                 player.getInventory().addItem(quest.reward);
                 String rewardName = quest.reward.getName();
                 targetNpc.setQuestToGive(null);
-                // Remove from active quests
                 player.getActiveQuests().remove(quest);
-                return targetNpc.getName() + " thanks you for your help and gives you your reward: " + rewardName;
+                return targetNpc.getName() + " thanks you and gives you: " + rewardName;
             }
         }
 
