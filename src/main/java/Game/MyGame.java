@@ -46,11 +46,13 @@ public class MyGame {
     @JsonIgnore private List<Node> allDialogueNodes;
     @JsonIgnore private UserInterface ui;
     @JsonIgnore private GameEventManager eventManager;
+    @JsonIgnore private TestManager testManager;
 
     public MyGame() {
         this.ui = new UserInterface();
         this.eventManager = new GameEventManager();
         this.settings = new GameSettings();
+        this.testManager = new TestManager();
     }
 
     public void startGame() {
@@ -102,30 +104,34 @@ public class MyGame {
             System.out.println("4. Test Win Screen");
             System.out.println("5. Test Boulder Breaking");
             System.out.println("6. Test Equipment");
-            System.out.println("7. Back");
+            System.out.println("7. Test All Commands");
+            System.out.println("8. Back");
             System.out.print(">> ");
 
             String choice = scanner.nextLine().trim();
 
             if (choice.equals("1")) {
-                testBattle();
-                waitForInput();
+                testManager.testBattle();
+                waitForInput(scanner);
             } else if (choice.equals("2")) {
-                testPrison();
-                waitForInput();
+                testManager.testPrison();
+                waitForInput(scanner);
             } else if (choice.equals("3")) {
-                testNPC();
-                waitForInput();
+                testManager.testNPC();
+                waitForInput(scanner);
             } else if (choice.equals("4")) {
-                testWin();
-                waitForInput();
+                testManager.testWin();
+                waitForInput(scanner);
             } else if (choice.equals("5")) {
-                testBoulder();
-                waitForInput();
+                testManager.testBoulder();
+                waitForInput(scanner);
             } else if (choice.equals("6")) {
-                testEquipment();
-                waitForInput();
+                testManager.testEquipment();
+                waitForInput(scanner);
             } else if (choice.equals("7")) {
+                testManager.runAllTests();
+                waitForInput(scanner);
+            } else if (choice.equals("8")) {
                 break;
             } else {
                 System.out.println("Invalid choice.");
@@ -133,96 +139,10 @@ public class MyGame {
         }
     }
 
-    // THE FIX: Use System.in.read() to force a pause
-    private void waitForInput() {
+    // THE FIX: Use the Scanner to wait for input.
+    private void waitForInput(Scanner scanner) {
         System.out.println("\nPress Enter to continue...");
-        try {
-            System.in.read(); // Wait for a key press
-            // Consume any remaining characters in the line buffer to avoid skipping the next menu input
-            while (System.in.available() > 0) {
-                System.in.read();
-            }
-        } catch (Exception e) {
-            // Ignore
-        }
-    }
-
-    private void testBattle() {
-        System.out.println("\n--- Testing Battle ---");
-        Player testPlayer = new Player("Tester", "Human", 100, 100, 10, 100, 10, 10, 10);
-        testPlayer.setEquippedWeapon(new CloseRangeWeapon("Test Sword", 1, 100, "Test", 15));
-        NPC testEnemy = new NPC("Test Goblin", "Goblin", 50, 50, 5, 50, 8, 5, 5, null, true);
-        
-        Battle battle = new Battle(testPlayer, testEnemy);
-        battle.start();
-        System.out.println("--- Battle Test Complete ---");
-    }
-
-    private void testPrison() {
-        System.out.println("\n--- Testing Prison Escape ---");
-        Prison prison = new Prison();
-        boolean success = prison.attemptToBreakOut();
-        if (success) System.out.println("Result: Escaped!");
-        else System.out.println("Result: Failed!");
-        System.out.println("--- Prison Test Complete ---");
-    }
-
-    private void testNPC() {
-        System.out.println("\n--- Testing NPC Interaction ---");
-        this.allDialogueNodes = FileManager.loadDialogues();
-        MyGame tempGame = new MyGame();
-        tempGame.player = new Player("Tester", "Human", 100, 100, 10, 100, 10, 10, 10);
-        tempGame.allDialogueNodes = this.allDialogueNodes;
-        
-        NPC testNPC = new NPC("Test Villager", "Human", 100, 100, 5, 100, 5, 5, 10, "generic_greeting", false);
-        
-        InteractHandler handler = new InteractHandler();
-        handler.startInteraction(testNPC, tempGame);
-        System.out.println("--- NPC Test Complete ---");
-    }
-
-    private void testWin() {
-        System.out.println("\n--- Testing Win Screen ---");
-        System.out.println("With the Guardians defeated, you step through the final gate and into the light. You have escaped! Congratulations!");
-        System.out.println("******************************************");
-        System.out.println("*             VICTORY!                   *");
-        System.out.println("******************************************");
-        System.out.println("--- Win Test Complete ---");
-    }
-
-    private void testBoulder() {
-        System.out.println("\n--- Testing Boulder Breaking ---");
-        Player testPlayer = new Player("Strongman", "Human", 100, 100, 10, 100, 20, 10, 10);
-        testPlayer.setEquippedWeapon(new CloseRangeWeapon("Sledgehammer", 10, 100, "Heavy", 30));
-        Boulder boulder = new Boulder(100);
-        
-        System.out.println("Player Strength: " + testPlayer.getStrength());
-        System.out.println("Weapon Damage: " + testPlayer.getEquippedWeapon().getDamage());
-        
-        while (!boulder.isBroken()) {
-            boulder.attemptToBreakBoulder(testPlayer);
-        }
-        System.out.println("--- Boulder Test Complete ---");
-    }
-
-    private void testEquipment() {
-        System.out.println("\n--- Testing Equipment ---");
-        Player testPlayer = new Player("Knight", "Human", 100, 100, 10, 100, 10, 10, 10);
-        
-        System.out.println("Before Equip:");
-        System.out.println(testPlayer.getPlayerInfo());
-        
-        System.out.println("\nEquipping full set...");
-        testPlayer.equipItem(new Helmet("Test Helmet", 1, 100, "Test", 5));
-        testPlayer.equipItem(new Chestplate("Test Chest", 1, 100, "Test", 10));
-        testPlayer.equipItem(new Pants("Test Pants", 1, 100, "Test", 5));
-        testPlayer.equipItem(new Boots("Test Boots", 1, 100, "Test", 5));
-        testPlayer.equipItem(new Backpack("Test Backpack", 1, 100, "Test", 50));
-        testPlayer.setEquippedWeapon(new CloseRangeWeapon("Test Sword", 1, 100, "Test", 20));
-        
-        System.out.println("\nAfter Equip:");
-        System.out.println(testPlayer.getPlayerInfo());
-        System.out.println("--- Equipment Test Complete ---");
+        scanner.nextLine();
     }
 
     private void openSettingsMenu(Scanner scanner) {
@@ -318,6 +238,7 @@ public class MyGame {
         this.ui = new UserInterface();
         this.eventManager = new GameEventManager();
         this.allDialogueNodes = FileManager.loadDialogues();
+        this.testManager = new TestManager();
         if (this.gameMap != null) {
             this.currentLocation = this.gameMap.getLocation(this.xCordinate, this.yCordinate);
         }
