@@ -13,7 +13,7 @@ public class UserInterface {
         String[] mapLines = mapString.split("\n");
         String[] infoLines = infoString.split("\n");
 
-        String dashboard = ""; // Using simple String concatenation
+        String dashboard = "";
         int maxLines = 0;
         
         if (mapLines.length > infoLines.length) {
@@ -33,7 +33,6 @@ public class UserInterface {
                 infoLine = infoLines[i];
             }
             
-            // Simple formatting
             String paddedMapLine = String.format("%-30s", mapLine);
             dashboard = dashboard + paddedMapLine + " | " + infoLine + "\n";
         }
@@ -56,9 +55,9 @@ public class UserInterface {
                 
                 if (x == game.getXCordinate() && y == game.getYCordinate()) {
                     mapString = mapString + "[P] ";
-                } else if (loc != null && loc.getName().equals("The Prison")) {
+                } else if (loc != null && loc.getName().trim().equalsIgnoreCase("The Prison")) {
                     mapString = mapString + "[!] ";
-                } else if (loc != null && loc.getName().equals("The Exit")) {
+                } else if (loc != null && loc.getName().trim().equalsIgnoreCase("The Exit")) {
                     mapString = mapString + "[E] ";
                 } else if (loc != null) {
                     mapString = mapString + "[ ] ";

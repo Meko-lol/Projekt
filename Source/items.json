@@ -1,169 +1,115 @@
 [
   {
     "itemType": "closeRangeWeapon",
-    "name": "Rusty Sword",
+    "name": "Rusty Iron Bar",
     "type": "weapon",
-    "weight": 7.0,
-    "durability": 50,
-    "description": "An old, pitted sword. Better than nothing.",
-    "damage": 8
-  },
-  {
-    "itemType": "closeRangeWeapon",
-    "name": "Iron Dagger",
-    "type": "weapon",
-    "weight": 2.0,
-    "durability": 80,
-    "description": "A small but sharp dagger.",
+    "weight": 5.0,
+    "durability": 30,
+    "description": "A piece of scrap metal. Better than fists.",
     "damage": 5
   },
   {
     "itemType": "closeRangeWeapon",
-    "name": "Steel Sword",
+    "name": "Dwarven Dagger",
     "type": "weapon",
-    "weight": 5.0,
+    "weight": 2.0,
     "durability": 100,
-    "description": "A sharp steel blade.",
-    "damage": 25
+    "description": "A finely crafted dagger, still sharp.",
+    "damage": 10
   },
   {
     "itemType": "closeRangeWeapon",
-    "name": "Battleaxe",
+    "name": "Ancient Battleaxe",
     "type": "weapon",
     "weight": 12.0,
     "durability": 150,
-    "description": "A heavy two-handed axe.",
-    "damage": 15
+    "description": "A heavy axe covered in runes.",
+    "damage": 20
   },
   {
     "itemType": "closeRangeWeapon",
-    "name": "Warhammer",
+    "name": "Hammer of the Ancients",
     "type": "weapon",
-    "weight": 15.0,
-    "durability": 200,
-    "description": "Crushes armor with ease.",
-    "damage": 35
-  },
-  {
-    "itemType": "closeRangeWeapon",
-    "name": "Magic Wand",
-    "type": "weapon",
-    "weight": 1.0,
-    "durability": 50,
-    "description": "Crackles with arcane energy.",
-    "damage": 40
+    "weight": 20.0,
+    "durability": 500,
+    "description": "A legendary weapon capable of shattering magical barriers.",
+    "damage": 50
   },
   {
     "itemType": "helmet",
-    "name": "Iron Helmet",
+    "name": "Miner's Helmet",
     "type": "equippable",
-    "weight": 4.0,
-    "durability": 120,
-    "description": "A sturdy iron helmet.",
-    "defense": 8,
+    "weight": 3.0,
+    "durability": 80,
+    "description": "Protects your head from falling rocks.",
+    "defense": 5,
     "slot": "head"
   },
   {
     "itemType": "chestplate",
-    "name": "Chainmail Vest",
+    "name": "Dwarven Chainmail",
     "type": "equippable",
     "weight": 15.0,
     "durability": 200,
-    "description": "A heavy vest made of interlocking metal rings.",
+    "description": "Heavy interlocking rings of steel.",
     "defense": 15,
     "slot": "chest"
   },
   {
     "itemType": "chestplate",
-    "name": "Leather Tunic",
+    "name": "Ragged Tunic",
     "type": "equippable",
-    "weight": 5.0,
-    "durability": 100,
-    "description": "A simple leather tunic.",
-    "defense": 10,
-    "slot": "chest"
-  },
-  {
-    "itemType": "chestplate",
-    "name": "Plate Armor",
-    "type": "equippable",
-    "weight": 25.0,
-    "durability": 300,
-    "description": "Heavy steel plate armor.",
-    "defense": 30,
+    "weight": 2.0,
+    "durability": 20,
+    "description": "Barely holds together.",
+    "defense": 2,
     "slot": "chest"
   },
   {
     "itemType": "pants",
-    "name": "Cloth Pants",
+    "name": "Leather Breeches",
     "type": "equippable",
     "weight": 2.0,
     "durability": 80,
-    "description": "Basic cloth pants.",
-    "defense": 2,
-    "slot": "legs"
-  },
-  {
-    "itemType": "pants",
-    "name": "Iron Greaves",
-    "type": "equippable",
-    "weight": 10.0,
-    "durability": 150,
-    "description": "Armored leg protection.",
-    "defense": 12,
+    "description": "Standard adventurer pants.",
+    "defense": 3,
     "slot": "legs"
   },
   {
     "itemType": "boots",
-    "name": "Leather Boots",
+    "name": "Heavy Boots",
     "type": "equippable",
-    "weight": 1.5,
-    "durability": 90,
-    "description": "Sturdy leather boots.",
-    "speedBonus": 5,
+    "weight": 3.0,
+    "durability": 100,
+    "description": "Good for kicking goblins.",
+    "speedBonus": 2,
     "slot": "feet"
   },
   {
     "itemType": "backpack",
-    "name": "Traveler's Backpack",
+    "name": "Scavenger's Pack",
     "type": "equippable",
     "weight": 1.0,
     "durability": 200,
-    "description": "A large backpack to carry more items.",
+    "description": "A large bag for loot.",
     "capacity": 50,
     "slot": "backpack"
   },
   {
     "itemType": "item",
-    "name": "Health Potion",
+    "name": "Dwarven Ale",
     "type": "potion",
     "weight": 0.5,
     "durability": 1,
-    "description": "A vial of red liquid that restores 25 health."
+    "description": "A strong brew that heals wounds."
   },
   {
     "itemType": "item",
-    "name": "Stamina Potion",
-    "type": "potion",
-    "weight": 0.5,
-    "durability": 1,
-    "description": "A green potion that restores energy."
-  },
-  {
-    "itemType": "item",
-    "name": "Strength Elixir",
-    "type": "potion",
-    "weight": 0.5,
-    "durability": 1,
-    "description": "Temporarily boosts strength."
-  },
-  {
-    "itemType": "item",
-    "name": "Gold Coin",
+    "name": "Gold Nugget",
     "type": "currency",
-    "weight": 0.1,
+    "weight": 0.2,
     "durability": 1,
-    "description": "A shiny gold coin."
+    "description": "Raw gold found in the mines."
   },
   {
     "itemType": "item",
@@ -179,14 +125,6 @@
     "type": "tool",
     "weight": 5.0,
     "durability": 50,
-    "description": "A heavy pickaxe."
-  },
-  {
-    "itemType": "item",
-    "name": "Axe",
-    "type": "tool",
-    "weight": 3.0,
-    "durability": 40,
-    "description": "A sharp axe."
+    "description": "Essential for mining."
   }
 ]

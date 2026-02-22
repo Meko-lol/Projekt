@@ -1,8 +1,11 @@
 package Game;
 
+import Battle.Battle;
+import Characters.NPCs.NPC;
 import Characters.Player;
 import Commands.CommandProcessor;
 import GameMap.MyMap;
+import Interact.InteractHandler;
 import Interact.Node;
 import Items.Item;
 import Items.EquippableItems.Backpack;
@@ -13,6 +16,8 @@ import Items.Items.EquippableItems.Helmet;
 import Items.Weapons.CloseRangeWeapon;
 import MyGenerator.MapGenerator;
 import Places.Location;
+import ending.boulder.Boulder;
+import ending.prison.Prison;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,7 +39,6 @@ public class MyGame {
     @JsonAlias("ycordinate")
     public int yCordinate;
     
-    // THE FIX: Removed @JsonIgnore so settings are saved/loaded
     public GameSettings settings;
 
     @JsonIgnore private Location currentLocation;
@@ -46,20 +50,21 @@ public class MyGame {
     public MyGame() {
         this.ui = new UserInterface();
         this.eventManager = new GameEventManager();
-        this.settings = new GameSettings(); // Default settings
+        this.settings = new GameSettings();
     }
 
     public void startGame() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("\n=== Welcome to the Dungeon! ===");
+            System.out.println("\n=== ESCAPE FROM THE DWARVEN RUINS ===");
             System.out.println("1. Start New Game");
             System.out.println("2. Load Game");
             System.out.println("3. Settings");
-            System.out.println("4. Exit");
+            System.out.println("4. Test Functions");
+            System.out.println("5. Exit");
             System.out.print(">> ");
 
-            String choice = scanner.nextLine();
+            String choice = scanner.nextLine().trim();
 
             if (choice.equals("1")) {
                 MyGame gameInstance = createNewGame();
@@ -69,7 +74,6 @@ public class MyGame {
                 break;
             } else if (choice.equals("2")) {
                 MyGame gameInstance = loadGame();
-                // THE FIX: Ensure we only run if load was successful
                 if (gameInstance != null) {
                     gameInstance.initialize();
                     gameInstance.commandProcessor = new CommandProcessor(gameInstance.player, gameInstance);
@@ -79,12 +83,146 @@ public class MyGame {
             } else if (choice.equals("3")) {
                 openSettingsMenu(scanner);
             } else if (choice.equals("4")) {
+                openTestMenu(scanner);
+            } else if (choice.equals("5")) {
                 System.out.println("Goodbye!");
                 System.exit(0);
             } else {
                 System.out.println("Invalid choice.");
             }
         }
+    }
+
+    private void openTestMenu(Scanner scanner) {
+        while (true) {
+            System.out.println("\n--- Test Functions ---");
+            System.out.println("1. Test Battle");
+            System.out.println("2. Test Prison Escape");
+            System.out.println("3. Test NPC Interaction");
+            System.out.println("4. Test Win Screen");
+            System.out.println("5. Test Boulder Breaking");
+            System.out.println("6. Test Equipment");
+            System.out.println("7. Back");
+            System.out.print(">> ");
+
+            String choice = scanner.nextLine().trim();
+
+            if (choice.equals("1")) {
+                testBattle();
+                waitForInput();
+            } else if (choice.equals("2")) {
+                testPrison();
+                waitForInput();
+            } else if (choice.equals("3")) {
+                testNPC();
+                waitForInput();
+            } else if (choice.equals("4")) {
+                testWin();
+                waitForInput();
+            } else if (choice.equals("5")) {
+                testBoulder();
+                waitForInput();
+            } else if (choice.equals("6")) {
+                testEquipment();
+                waitForInput();
+            } else if (choice.equals("7")) {
+                break;
+            } else {
+                System.out.println("Invalid choice.");
+            }
+        }
+    }
+
+    // THE FIX: Use System.in.read() to force a pause
+    private void waitForInput() {
+        System.out.println("\nPress Enter to continue...");
+        try {
+            System.in.read(); // Wait for a key press
+            // Consume any remaining characters in the line buffer to avoid skipping the next menu input
+            while (System.in.available() > 0) {
+                System.in.read();
+            }
+        } catch (Exception e) {
+            // Ignore
+        }
+    }
+
+    private void testBattle() {
+        System.out.println("\n--- Testing Battle ---");
+        Player testPlayer = new Player("Tester", "Human", 100, 100, 10, 100, 10, 10, 10);
+        testPlayer.setEquippedWeapon(new CloseRangeWeapon("Test Sword", 1, 100, "Test", 15));
+        NPC testEnemy = new NPC("Test Goblin", "Goblin", 50, 50, 5, 50, 8, 5, 5, null, true);
+        
+        Battle battle = new Battle(testPlayer, testEnemy);
+        battle.start();
+        System.out.println("--- Battle Test Complete ---");
+    }
+
+    private void testPrison() {
+        System.out.println("\n--- Testing Prison Escape ---");
+        Prison prison = new Prison();
+        boolean success = prison.attemptToBreakOut();
+        if (success) System.out.println("Result: Escaped!");
+        else System.out.println("Result: Failed!");
+        System.out.println("--- Prison Test Complete ---");
+    }
+
+    private void testNPC() {
+        System.out.println("\n--- Testing NPC Interaction ---");
+        this.allDialogueNodes = FileManager.loadDialogues();
+        MyGame tempGame = new MyGame();
+        tempGame.player = new Player("Tester", "Human", 100, 100, 10, 100, 10, 10, 10);
+        tempGame.allDialogueNodes = this.allDialogueNodes;
+        
+        NPC testNPC = new NPC("Test Villager", "Human", 100, 100, 5, 100, 5, 5, 10, "generic_greeting", false);
+        
+        InteractHandler handler = new InteractHandler();
+        handler.startInteraction(testNPC, tempGame);
+        System.out.println("--- NPC Test Complete ---");
+    }
+
+    private void testWin() {
+        System.out.println("\n--- Testing Win Screen ---");
+        System.out.println("With the Guardians defeated, you step through the final gate and into the light. You have escaped! Congratulations!");
+        System.out.println("******************************************");
+        System.out.println("*             VICTORY!                   *");
+        System.out.println("******************************************");
+        System.out.println("--- Win Test Complete ---");
+    }
+
+    private void testBoulder() {
+        System.out.println("\n--- Testing Boulder Breaking ---");
+        Player testPlayer = new Player("Strongman", "Human", 100, 100, 10, 100, 20, 10, 10);
+        testPlayer.setEquippedWeapon(new CloseRangeWeapon("Sledgehammer", 10, 100, "Heavy", 30));
+        Boulder boulder = new Boulder(100);
+        
+        System.out.println("Player Strength: " + testPlayer.getStrength());
+        System.out.println("Weapon Damage: " + testPlayer.getEquippedWeapon().getDamage());
+        
+        while (!boulder.isBroken()) {
+            boulder.attemptToBreakBoulder(testPlayer);
+        }
+        System.out.println("--- Boulder Test Complete ---");
+    }
+
+    private void testEquipment() {
+        System.out.println("\n--- Testing Equipment ---");
+        Player testPlayer = new Player("Knight", "Human", 100, 100, 10, 100, 10, 10, 10);
+        
+        System.out.println("Before Equip:");
+        System.out.println(testPlayer.getPlayerInfo());
+        
+        System.out.println("\nEquipping full set...");
+        testPlayer.equipItem(new Helmet("Test Helmet", 1, 100, "Test", 5));
+        testPlayer.equipItem(new Chestplate("Test Chest", 1, 100, "Test", 10));
+        testPlayer.equipItem(new Pants("Test Pants", 1, 100, "Test", 5));
+        testPlayer.equipItem(new Boots("Test Boots", 1, 100, "Test", 5));
+        testPlayer.equipItem(new Backpack("Test Backpack", 1, 100, "Test", 50));
+        testPlayer.setEquippedWeapon(new CloseRangeWeapon("Test Sword", 1, 100, "Test", 20));
+        
+        System.out.println("\nAfter Equip:");
+        System.out.println(testPlayer.getPlayerInfo());
+        System.out.println("--- Equipment Test Complete ---");
     }
 
     private void openSettingsMenu(Scanner scanner) {
@@ -98,12 +236,12 @@ public class MyGame {
             System.out.println("6. Back");
             System.out.print(">> ");
 
-            String choice = scanner.nextLine();
+            String choice = scanner.nextLine().trim();
 
             if (choice.equals("1")) {
                 System.out.print("Enter new size (e.g., 10 for 10x10): ");
                 try {
-                    int size = Integer.parseInt(scanner.nextLine());
+                    int size = Integer.parseInt(scanner.nextLine().trim());
                     if (size >= 5 && size <= 20) {
                         settings.setMapWidth(size);
                         settings.setMapHeight(size);
@@ -115,7 +253,7 @@ public class MyGame {
                 }
             } else if (choice.equals("2")) {
                 System.out.println("Choose difficulty: 1. Easy, 2. Normal, 3. Hard");
-                String diff = scanner.nextLine();
+                String diff = scanner.nextLine().trim();
                 if (diff.equals("1")) settings.setDifficulty("Easy");
                 else if (diff.equals("2")) settings.setDifficulty("Normal");
                 else if (diff.equals("3")) settings.setDifficulty("Hard");
@@ -134,7 +272,7 @@ public class MyGame {
     private int getIntInput(Scanner scanner, String prompt) {
         System.out.print(prompt);
         try {
-            int val = Integer.parseInt(scanner.nextLine());
+            int val = Integer.parseInt(scanner.nextLine().trim());
             return Math.max(0, Math.min(100, val));
         } catch (NumberFormatException e) {
             return 0;
@@ -142,26 +280,21 @@ public class MyGame {
     }
 
     private MyGame createNewGame() {
-        System.out.println("Generating world with settings: " + settings.getDifficulty() + ", " + settings.getMapWidth() + "x" + settings.getMapHeight());
+        System.out.println("You wake up in a cold, damp cell. Your head throbs, and you remember nothing.");
+        System.out.println("The air smells of ancient stone and decay. You must find a way out.");
+        
         MyGame newGame = new MyGame();
         newGame.settings = this.settings;
         newGame.gameMap = MapGenerator.generateMap(this.settings);
         
-        newGame.player = new Player("Hero", "Human", 100, 70, 5, 100, 10, 10, 10);
+        newGame.player = new Player("Survivor", "Human", 100, 70, 5, 100, 10, 10, 10);
         newGame.xCordinate = 0;
         newGame.yCordinate = 0;
         
-        newGame.player.getInventory().addItem(new Item("Axe", "tool", 3.0, 100, "A sturdy axe."));
-        newGame.player.getInventory().addItem(new Item("Pickaxe", "tool", 5.0, 100, "A heavy pickaxe."));
-        newGame.player.getInventory().addItem(new Helmet("Iron Helmet", 4.0, 100, "A sturdy iron helmet.", 5));
-        newGame.player.getInventory().addItem(new Chestplate("Leather Tunic", 5.0, 100, "A simple leather tunic.", 8));
-        newGame.player.getInventory().addItem(new Pants("Cloth Pants", 2.0, 80, "Basic cloth pants.", 2));
-        newGame.player.getInventory().addItem(new Boots("Leather Boots", 1.5, 90, "Sturdy leather boots.", 5));
-        newGame.player.getInventory().addItem(new Backpack("Traveler's Backpack", 1.0, 200, "A large backpack.", 50));
-        newGame.player.getInventory().addItem(new CloseRangeWeapon("Steel Sword", 5.0, 100, "A sharp steel blade.", 25));
-        newGame.player.getInventory().addItem(new Item("Health Potion", "potion", 0.5, 1, "Restores 25 health."));
-        newGame.player.getInventory().addItem(new Item("Health Potion", "potion", 0.5, 1, "Restores 25 health."));
-        newGame.player.getInventory().addItem(new Item("Health Potion", "potion", 0.5, 1, "Restores 25 health."));
+        newGame.player.getInventory().addItem(new Item("Rusty Iron Bar", "weapon", 5.0, 30, "Better than nothing."));
+        newGame.player.getInventory().addItem(new Item("Rope", "tool", 2.0, 10, "A sturdy rope."));
+        newGame.player.getInventory().addItem(new Item("Pickaxe", "tool", 5.0, 50, "Essential for mining."));
+        newGame.player.getInventory().addItem(new Backpack("Scavenger's Pack", 1.0, 200, "A large bag.", 50));
         
         return newGame;
     }
@@ -173,7 +306,7 @@ public class MyGame {
             return loadedGame;
         } else {
             System.out.println("Failed to load game. Please start a new game.");
-            return null; // Return null to indicate failure
+            return null;
         }
     }
 
@@ -182,12 +315,9 @@ public class MyGame {
     }
     
     public void initialize() {
-        // Re-initialize transient fields
         this.ui = new UserInterface();
         this.eventManager = new GameEventManager();
         this.allDialogueNodes = FileManager.loadDialogues();
-        
-        // Ensure map and location are valid
         if (this.gameMap != null) {
             this.currentLocation = this.gameMap.getLocation(this.xCordinate, this.yCordinate);
         }
@@ -220,7 +350,6 @@ public class MyGame {
         return ui.getDashboard(this, player);
     }
 
-    // Getters and Setters
     public int getXCordinate() { return xCordinate; }
     public int getYCordinate() { return yCordinate; }
     public MyMap getGameMap() { return gameMap; }

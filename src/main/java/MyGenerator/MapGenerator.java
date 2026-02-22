@@ -3,7 +3,7 @@ package MyGenerator;
 import Characters.NPCs.NPC;
 import Characters.NPCs.TraderNPC;
 import Game.FileManager;
-import Game.GameSettings; // Import GameSettings
+import Game.GameSettings;
 import GameMap.MyMap;
 import Interact.Node;
 import Items.Item;
@@ -32,7 +32,6 @@ public class MapGenerator {
         "Sunlit Meadow", "Forgotten Graveyard", "Whispering Woods", "Muddy Bog"
     );
 
-    // THE FIX: Accept GameSettings
     public static MyMap generateMap(GameSettings settings) {
         npcNames = FileManager.loadNames();
         questTemplates = FileManager.loadQuests();
@@ -44,60 +43,15 @@ public class MapGenerator {
         int height = settings.getMapHeight();
         MyMap map = new MyMap(width, height);
 
+        // 1. Fill the map with generic locations first
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 String randomName = locationNames.get(random.nextInt(locationNames.size()));
                 Location loc = new Location(randomName, null);
                 loc.setX(x);
                 loc.setY(y);
-                map.setLocation(x, y, loc);
-            }
-        }
-
-        placeSpecialLocations(map, width, height);
-        populateWorld(map, width, height, settings); // Pass settings
-
-        return map;
-    }
-
-    private static void placeSpecialLocations(MyMap map, int width, int height) {
-        int prisonX, prisonY;
-        do {
-            prisonX = random.nextInt(width);
-            prisonY = random.nextInt(height);
-        } while (prisonX == 0 && prisonY == 0);
-        map.getLocation(prisonX, prisonY).setName("The Prison");
-
-        int exitX, exitY;
-        do {
-            exitX = random.nextInt(width);
-            exitY = random.nextInt(height);
-        } while ((exitX == 0 && exitY == 0) || (exitX == prisonX && exitY == prisonY));
-        Location exitLocation = map.getLocation(exitX, exitY);
-        exitLocation.setName("The Exit");
-        
-        NPC guardian1 = new NPC("Guardian", "Stone Sentinel", 150, 500, 2, 200, 20, 5, 5, null, true);
-        NPC guardian2 = new NPC("Guardian", "Stone Sentinel", 150, 500, 2, 200, 20, 5, 5, null, true);
-        exitLocation.addNpc(guardian1);
-        exitLocation.addNpc(guardian2);
-        exitLocation.setBoulder(new Boulder(100));
-        
-        Location townSquare = map.getLocation(0, 0);
-        townSquare.setName("Town Square");
-        TraderNPC trader = new TraderNPC("Barnaby", "generic_greeting");
-        trader.addItemForSale(new Item("Health Potion", "potion", 0.5, 1, "Restores 25 health."), 50);
-        townSquare.addNpc(trader);
-    }
-
-    private static void populateWorld(MyMap map, int width, int height, GameSettings settings) {
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                Location loc = map.getLocation(x, y);
-                if ("The Prison".equals(loc.getName()) || "The Exit".equals(loc.getName()) || "Town Square".equals(loc.getName())) {
-                    continue;
-                }
                 
-                // Use settings for spawn chances
+                // Add random content
                 if (random.nextInt(100) < settings.getNpcSpawnChance()) {
                     if (random.nextInt(10) == 0) {
                         if (random.nextBoolean()) loc.addNpc(createWeaponsmith());
@@ -106,18 +60,14 @@ public class MapGenerator {
                         loc.addNpc(createRandomNPC());
                     }
                 }
-                
                 if (random.nextInt(100) < settings.getEnemySpawnChance()) {
                     loc.addNpc(createGoblin(settings.getDifficulty()));
                 }
-                
                 if (random.nextInt(100) < settings.getItemSpawnChance() && !itemTemplates.isEmpty()) {
                     loc.addItem(itemTemplates.get(random.nextInt(itemTemplates.size())));
-                    if (random.nextBoolean()) {
-                        loc.addItem(itemTemplates.get(random.nextInt(itemTemplates.size())));
-                    }
                 }
                 
+                // Add obstacles
                 List<String> validDirections = new ArrayList<>();
                 if (y > 0) validDirections.add("north");
                 if (y < height - 1) validDirections.add("south");
@@ -127,8 +77,56 @@ public class MapGenerator {
                 for (int i = 1; i < validDirections.size(); i++) {
                     addRandomObstacle(loc, validDirections.get(i));
                 }
+
+                map.setLocation(x, y, loc);
             }
         }
+
+        // 2. FORCE place special locations (overwriting whatever was there)
+        
+        // Town Square (Start)
+        Location townSquare = new Location("Town Square", null);
+        townSquare.setX(0);
+        townSquare.setY(0);
+        TraderNPC trader = new TraderNPC("Barnaby", "generic_greeting");
+        trader.addItemForSale(new Item("Health Potion", "potion", 0.5, 1, "Restores 25 health."), 50);
+        townSquare.addNpc(trader);
+        map.setLocation(0, 0, townSquare);
+
+        // Prison
+        int prisonX, prisonY;
+        do {
+            prisonX = random.nextInt(width);
+            prisonY = random.nextInt(height);
+        } while (prisonX == 0 && prisonY == 0);
+        
+        Location prison = new Location("The Prison", null);
+        prison.setX(prisonX);
+        prison.setY(prisonY);
+        map.setLocation(prisonX, prisonY, prison);
+        System.out.println("DEBUG: Prison placed at " + prisonX + ", " + prisonY);
+
+        // Exit
+        int exitX, exitY;
+        do {
+            exitX = random.nextInt(width);
+            exitY = random.nextInt(height);
+        } while ((exitX == 0 && exitY == 0) || (exitX == prisonX && exitY == prisonY));
+        
+        Location exitLocation = new Location("The Exit", null);
+        exitLocation.setX(exitX);
+        exitLocation.setY(exitY);
+        
+        NPC guardian1 = new NPC("Guardian", "Stone Sentinel", 150, 500, 2, 200, 20, 5, 5, null, true);
+        NPC guardian2 = new NPC("Guardian", "Stone Sentinel", 150, 500, 2, 200, 20, 5, 5, null, true);
+        exitLocation.addNpc(guardian1);
+        exitLocation.addNpc(guardian2);
+        exitLocation.setBoulder(new Boulder(100));
+        
+        map.setLocation(exitX, exitY, exitLocation);
+        System.out.println("DEBUG: Exit placed at " + exitX + ", " + exitY);
+
+        return map;
     }
 
     private static TraderNPC createWeaponsmith() {
