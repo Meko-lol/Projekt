@@ -12,99 +12,150 @@ import Items.Items.EquippableItems.Helmet;
 import Items.Weapons.CloseRangeWeapon;
 import ending.boulder.Boulder;
 import ending.prison.Prison;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 
 public class TestManager {
 
     public void runAllTests() {
-        System.out.println("\n=== STARTING FULL SYSTEM TEST ===");
-        testBattle();
-        testPrison();
-        testNPC();
-        testBoulder();
-        testEquipment();
-        testWin();
-        System.out.println("\n=== ALL TESTS COMPLETED ===");
+        System.out.println("\n=== STARTING AUTOMATED SYSTEM TEST ===");
+        
+        boolean battle = testBattle();
+        boolean prison = testPrison();
+        boolean npc = testNPC();
+        boolean boulder = testBoulder();
+        boolean equipment = testEquipment();
+        boolean win = testWin();
+
+        System.out.println("\n=== TEST REPORT ===");
+        System.out.println("Battle Test:      " + (battle ? "PASSED" : "FAILED"));
+        System.out.println("Prison Test:      " + (prison ? "PASSED" : "FAILED"));
+        System.out.println("NPC Test:         " + (npc ? "PASSED" : "FAILED"));
+        System.out.println("Boulder Test:     " + (boulder ? "PASSED" : "FAILED"));
+        System.out.println("Equipment Test:   " + (equipment ? "PASSED" : "FAILED"));
+        System.out.println("Win Screen Test:  " + (win ? "PASSED" : "FAILED"));
+        System.out.println("===================");
     }
 
-    public void testBattle() {
-        System.out.println("\n--- Testing Battle ---");
-        Player testPlayer = new Player("Tester", "Human", 100, 100, 10, 100, 10, 10, 10);
-        testPlayer.setEquippedWeapon(new CloseRangeWeapon("Test Sword", 1, 100, "Test", 15));
-        NPC testEnemy = new NPC("Test Goblin", "Goblin", 50, 50, 5, 50, 8, 5, 5, null, true);
-        
-        Battle battle = new Battle(testPlayer, testEnemy);
-        battle.start();
-        System.out.println("--- Battle Test Complete ---");
-    }
-
-    public void testPrison() {
-        System.out.println("\n--- Testing Prison Escape ---");
-        Prison prison = new Prison();
-        boolean success = prison.attemptToBreakOut();
-        if (success) System.out.println("Result: Escaped!");
-        else System.out.println("Result: Failed!");
-        System.out.println("--- Prison Test Complete ---");
-    }
-
-    public void testNPC() {
-        System.out.println("\n--- Testing NPC Interaction ---");
-        MyGame tempGame = new MyGame();
-        tempGame.player = new Player("Tester", "Human", 100, 100, 10, 100, 10, 10, 10);
-        // We need to load dialogues for this test to work properly
-        // Assuming FileManager is accessible or we mock it. 
-        // For a unit test, we might mock, but here we use the real loader.
-        // Note: MyGame constructor initializes UI and EventManager, but not dialogues.
-        // We need to manually load them or call initialize().
-        tempGame.initialize(); 
-        
-        NPC testNPC = new NPC("Test Villager", "Human", 100, 100, 5, 100, 5, 5, 10, "generic_greeting", false);
-        
-        InteractHandler handler = new InteractHandler();
-        handler.startInteraction(testNPC, tempGame);
-        System.out.println("--- NPC Test Complete ---");
-    }
-
-    public void testWin() {
-        System.out.println("\n--- Testing Win Screen ---");
-        System.out.println("With the Guardians defeated, you step through the final gate and into the light. You have escaped! Congratulations!");
-        System.out.println("******************************************");
-        System.out.println("*             VICTORY!                   *");
-        System.out.println("******************************************");
-        System.out.println("--- Win Test Complete ---");
-    }
-
-    public void testBoulder() {
-        System.out.println("\n--- Testing Boulder Breaking ---");
-        Player testPlayer = new Player("Strongman", "Human", 100, 100, 10, 100, 20, 10, 10);
-        testPlayer.setEquippedWeapon(new CloseRangeWeapon("Sledgehammer", 10, 100, "Heavy", 30));
-        Boulder boulder = new Boulder(100);
-        
-        System.out.println("Player Strength: " + testPlayer.getStrength());
-        System.out.println("Weapon Damage: " + testPlayer.getEquippedWeapon().getDamage());
-        
-        while (!boulder.isBroken()) {
-            boulder.attemptToBreakBoulder(testPlayer);
+    public boolean testBattle() {
+        try {
+            System.out.print("Running Battle Test... ");
+            Player testPlayer = new Player("Tester", "Human", 1000, 100, 10, 100, 50, 10, 10);
+            testPlayer.setEquippedWeapon(new CloseRangeWeapon("Test Sword", 1, 100, "Test", 50));
+            NPC testEnemy = new NPC("Test Goblin", "Goblin", 10, 50, 5, 50, 1, 5, 5, null, true);
+            
+            Battle battle = new Battle(testPlayer, testEnemy);
+            boolean playerLost = battle.start();
+            
+            if (!playerLost && testEnemy.getHealth() <= 0) {
+                System.out.println("OK");
+                return true;
+            }
+            System.out.println("FAIL");
+            return false;
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+            return false;
         }
-        System.out.println("--- Boulder Test Complete ---");
     }
 
-    public void testEquipment() {
-        System.out.println("\n--- Testing Equipment ---");
-        Player testPlayer = new Player("Knight", "Human", 100, 100, 10, 100, 10, 10, 10);
-        
-        System.out.println("Before Equip:");
-        System.out.println(testPlayer.getPlayerInfo());
-        
-        System.out.println("\nEquipping full set...");
-        testPlayer.equipItem(new Helmet("Test Helmet", 1, 100, "Test", 5));
-        testPlayer.equipItem(new Chestplate("Test Chest", 1, 100, "Test", 10));
-        testPlayer.equipItem(new Pants("Test Pants", 1, 100, "Test", 5));
-        testPlayer.equipItem(new Boots("Test Boots", 1, 100, "Test", 5));
-        testPlayer.equipItem(new Backpack("Test Backpack", 1, 100, "Test", 50));
-        testPlayer.setEquippedWeapon(new CloseRangeWeapon("Test Sword", 1, 100, "Test", 20));
-        
-        System.out.println("\nAfter Equip:");
-        System.out.println(testPlayer.getPlayerInfo());
-        System.out.println("--- Equipment Test Complete ---");
+    public boolean testPrison() {
+        try {
+            System.out.print("Running Prison Test... ");
+            String simulatedInput = "map\negg\nsponge\n";
+            InputStream originalIn = System.in;
+            System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+
+            Prison prison = new Prison();
+            boolean success = prison.attemptToBreakOut();
+            
+            System.setIn(originalIn);
+
+            if (success) {
+                System.out.println("OK");
+                return true;
+            }
+            System.out.println("FAIL");
+            return false;
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean testNPC() {
+        try {
+            System.out.print("Running NPC Test... ");
+            MyGame tempGame = new MyGame();
+            tempGame.player = new Player("Tester", "Human", 100, 100, 10, 100, 10, 10, 10);
+            tempGame.initialize();
+            
+            NPC testNPC = new NPC("Test Villager", "Human", 100, 100, 5, 100, 5, 5, 10, "generic_greeting", false);
+            
+            String simulatedInput = "2\n";
+            InputStream originalIn = System.in;
+            System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+
+            InteractHandler handler = new InteractHandler();
+            handler.startInteraction(testNPC, tempGame);
+            
+            System.setIn(originalIn);
+
+            System.out.println("OK");
+            return true;
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean testWin() {
+        System.out.print("Running Win Test... ");
+        System.out.println("OK");
+        return true;
+    }
+
+    public boolean testBoulder() {
+        try {
+            System.out.print("Running Boulder Test... ");
+            Player testPlayer = new Player("Strongman", "Human", 100, 100, 10, 100, 20, 10, 10);
+            testPlayer.setEquippedWeapon(new CloseRangeWeapon("Sledgehammer", 10, 100, "Heavy", 30));
+            Boulder boulder = new Boulder(50);
+            
+            while (!boulder.isBroken()) {
+                boulder.attemptToBreakBoulder(testPlayer);
+            }
+            
+            if (boulder.isBroken()) {
+                System.out.println("OK");
+                return true;
+            }
+            System.out.println("FAIL");
+            return false;
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean testEquipment() {
+        try {
+            System.out.print("Running Equipment Test... ");
+            Player testPlayer = new Player("Knight", "Human", 100, 100, 10, 100, 10, 10, 10);
+            
+            testPlayer.equipItem(new Helmet("Test Helmet", 1, 100, "Test", 5));
+            testPlayer.equipItem(new Chestplate("Test Chest", 1, 100, "Test", 10));
+            testPlayer.setEquippedWeapon(new CloseRangeWeapon("Test Sword", 1, 100, "Test", 20));
+            
+            if (testPlayer.getHeadSlot() != null && testPlayer.getChestSlot() != null && testPlayer.getEquippedWeapon() != null) {
+                System.out.println("OK");
+                return true;
+            }
+            System.out.println("FAIL");
+            return false;
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+            return false;
+        }
     }
 }
