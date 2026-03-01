@@ -10,6 +10,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+/**
+ * Abstract base class for all items in the game.
+ * Defines common attributes like name, weight, and description.
+ * Uses Jackson annotations for polymorphism when loading from JSON.
+ * 
+ * @author Jan Petrak
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "itemType", defaultImpl = Item.class)
 @JsonSubTypes({

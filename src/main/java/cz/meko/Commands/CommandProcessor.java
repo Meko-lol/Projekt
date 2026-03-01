@@ -1,11 +1,17 @@
 package cz.meko.Commands;
 
 import cz.meko.Characters.Player;
-import cz.meko.Game.FileManager; // Use FileManager
+import cz.meko.Game.FileManager;
 import cz.meko.Game.MyGame;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * Processes user input and executes the corresponding commands.
+ * Manages the main game loop.
+ * 
+ * @author Jan Petrak
+ */
 public class CommandProcessor {
     private boolean shouldExit = false;
     private Map<String, Command> commands;
@@ -13,6 +19,11 @@ public class CommandProcessor {
     private Player player;
     private MyGame game;
 
+    /**
+     * Constructs a new CommandProcessor.
+     * @param player The player instance.
+     * @param game The game instance.
+     */
     public CommandProcessor(Player player, MyGame game) {
         this.player = player;
         this.game = game;
@@ -20,12 +31,19 @@ public class CommandProcessor {
         FileManager.resetCommandHistory();
     }
 
+    /**
+     * Clears the terminal screen by printing multiple newlines.
+     */
     private void clearTerminal() {
         for (int i = 0; i < 50; i++) {
             System.out.println();
         }
     }
 
+    /**
+     * Reads and processes a single line of user input.
+     * @return The result string from the executed command.
+     */
     private String processInput() {
         System.out.print(">> ");
         String inputLine = scanner.nextLine().trim().toLowerCase();
@@ -50,6 +68,9 @@ public class CommandProcessor {
         }
     }
 
+    /**
+     * Starts and runs the main game loop.
+     */
     public void run() {
         String commandResult = "";
         do {

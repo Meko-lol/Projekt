@@ -1,23 +1,23 @@
 package cz.meko.Characters;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties; // Import for the annotation
+/**
+ * Abstract base class for all characters in the game, including the player and NPCs.
+ * Defines common attributes like health, strength, etc.
+ * 
+ * @author Jan Petrak
+ */
+public abstract class Character {
+    private String name;
+    private String race;
+    private double health;
+    private double weight;
+    private double speed;
+    private double stamina;
+    private int strength;
+    private int agility;
+    private int intelligence;
 
-@JsonIgnoreProperties(ignoreUnknown = true) // Ignore JSON fields not present in this class
-public class Character { // Changed from 'public abstract class Character'
-    protected String name;
-    protected String race;
-    protected double health;
-    protected double weight;
-    protected double speed;
-    protected double stamina;
-    protected int strength;
-    protected int agility;
-    protected int intelligence;
-
-    // No-argument constructor for Jackson deserialization
-    public Character() {
-        // Default values or leave empty for Jackson to fill
-    }
+    public Character() {}
 
     public Character(String name, String race, double health, double weight, double speed, double stamina, int strength, int agility, int intelligence) {
         this.name = name;
@@ -31,22 +31,25 @@ public class Character { // Changed from 'public abstract class Character'
         this.intelligence = intelligence;
     }
 
+    // Getters
     public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
     public String getRace() { return race; }
-    public void setRace(String race) { this.race = race; }
     public double getHealth() { return health; }
-    public void setHealth(double health) { this.health = health; }
     public double getWeight() { return weight; }
-    public void setWeight(double weight) { this.weight = weight; }
     public double getSpeed() { return speed; }
-    public void setSpeed(double speed) { this.speed = speed; }
     public double getStamina() { return stamina; }
-    public void setStamina(double stamina) { this.stamina = stamina; }
     public int getStrength() { return strength; }
-    public void setStrength(int strength) { this.strength = strength; }
     public int getAgility() { return agility; }
-    public void setAgility(int agility) { this.agility = agility; }
     public int getIntelligence() { return intelligence; }
+
+    // Setters
+    public void setName(String name) { this.name = name; }
+    public void setRace(String race) { this.race = race; }
+    public void setHealth(double health) { this.health = health; }
+    public void setWeight(double weight) { this.weight = weight; }
+    public void setSpeed(double speed) { this.speed = speed; }
+    public void setStamina(double stamina) { this.stamina = stamina; }
+    public void setStrength(int strength) { this.strength = strength; }
+    public void setAgility(int agility) { this.agility = agility; }
     public void setIntelligence(int intelligence) { this.intelligence = intelligence; }
 }
