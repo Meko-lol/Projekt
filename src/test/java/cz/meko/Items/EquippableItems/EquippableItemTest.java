@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests the EquippableItem classes.
  * This class makes sure that items you can wear, like a helmet,
  * actually know which body part or equipment slot they belong to.
- * * @author Petrák
+ * @author Petrák
  */
 class EquippableItemTest {
 

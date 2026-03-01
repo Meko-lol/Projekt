@@ -13,8 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests the NPCFinder utility class.
  * This class checks if the game can correctly search through a list of NPCs
  * and find the right one based on the player's text input.
- * * @author [Your Name/Student ID]
- * @version 1.0
+ * @author Petrák
  */
 class NPCFinderTest {
 

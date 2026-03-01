@@ -9,8 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests the functionality of the TraderNPC class.
  * This class checks if shop mechanics, like adding items for sale,
  * work correctly for the trader.
- * * @author [Your Name/Student ID]
- * @version 1.0
+ * @author Petrák
  */
 class TraderNPCTest {
 

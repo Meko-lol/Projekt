@@ -11,8 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests the base Command class.
  * Since Command is likely an interface or abstract class, this test uses
  * a dummy implementation to check the standard methods.
- * * @author [Your Name/Student ID]
- * @version 1.0
+ * @author Petrák
  */
 class CommandTest {
 

@@ -8,8 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests the CommandRegistry class.
  * This class makes sure that our game successfully loads and stores
  * the list of available commands that the player can type.
- * * @author [Your Name/Student ID]
- * @version 1.0
+ * @author Petrák
  */
 class CommandRegistryTest {
 

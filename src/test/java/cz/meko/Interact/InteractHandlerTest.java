@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests the InteractHandler class.
  * This class checks if the system for talking to NPCs and choosing
  * dialogue options works correctly.
- * * @author Petrák
+ * @author Petrák
  */
 class InteractHandlerTest {
 

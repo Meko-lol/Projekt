@@ -12,8 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests the functionality of the Battle class.
  * This class verifies that the combat mechanics work correctly and checks
  * the win and lose conditions for the player.
- * * @author [Your Name/Student ID]
- * @version 1.0
+ * @author Petrák
  */
 class BattleTest {
 

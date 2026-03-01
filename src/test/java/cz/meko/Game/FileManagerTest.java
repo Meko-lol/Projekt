@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * and dialogues from external files, and tests if saving and loading
  * the game state actually works.
  * * @author [Your Name/Student ID]
- * @version 1.0
+ * @author Petrák
  */
 class FileManagerTest {
 

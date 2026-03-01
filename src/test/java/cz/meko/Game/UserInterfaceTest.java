@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests the UserInterface class.
  * This class checks if the text-based UI, specifically the dashboard,
  * generates correctly and displays the right information to the player.
- * * @author Petrák
+ * @author Petrák
  */
 class UserInterfaceTest {
 

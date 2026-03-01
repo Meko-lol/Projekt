@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests for the KillingQuest class.
  * This class checks the logic for hunting quests, making sure the kill counter
  * works correctly and the quest completes only when the target goal is reached.
- * * @author Petrák
+ * @author Petrák
  */
 class KillingQuestTest {
 

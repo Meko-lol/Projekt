@@ -10,8 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests the CommandProcessor class.
  * This class just makes sure we can actually create the command processor
  * without any issues or crashes.
- * * @author [Your Name/Student ID]
- * @version 1.0
+ * @author Petrák
  */
 class CommandProcessorTest {
 

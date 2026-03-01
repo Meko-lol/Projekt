@@ -11,8 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests the functionality of the NPC class.
  * This class checks if we can correctly set dialogue nodes, assign quests,
  * and add loot items to an NPC.
- * * @author [Your Name/Student ID]
- * @version 1.0
+ * @author Petrák
  */
 class NPCTest {
 

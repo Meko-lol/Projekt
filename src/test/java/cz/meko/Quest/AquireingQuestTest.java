@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests for the AquireingQuest class.
  * This class checks the logic for quests where the player needs to find
  * a specific item to finish the task.
- * * @author Petrák
+ * @author Petrák
  */
 class AquireingQuestTest {
 

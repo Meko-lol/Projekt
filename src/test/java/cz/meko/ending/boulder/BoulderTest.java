@@ -9,8 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests the Boulder class.
  * This class checks if the player is able to successfully break the boulder
  * that blocks the path using their equipped weapon.
- * * @author [Your Name/Student ID]
- * @version 1.0
+ * @author Petrák
  */
 class BoulderTest {
 

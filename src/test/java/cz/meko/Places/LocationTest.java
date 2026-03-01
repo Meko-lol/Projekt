@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests for the Location class.
  * This class verifies that a specific spot on the map can correctly
  * hold items, NPCs, and obstacles like walls or locked paths.
- * * @author Petrák
+ * @author Petrák
  */
 class LocationTest {
 

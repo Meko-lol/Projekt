@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests the MapGenerator class.
  * This class checks if the game correctly builds the world map grid
  * based on the sizes we give it in the settings.
- * * @author Petrák
+ * @author Petrák
  */
 class MapGeneratorTest {
 

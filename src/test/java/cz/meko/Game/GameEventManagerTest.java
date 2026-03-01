@@ -11,8 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests the GameEventManager class.
  * This class checks the events that happen during the game, like what
  * the game should do when the player loses all their health.
- * * @author [Your Name/Student ID]
- * @version 1.0
+ * @author Petrák
  */
 class GameEventManagerTest {
 

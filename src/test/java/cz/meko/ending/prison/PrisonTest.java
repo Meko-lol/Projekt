@@ -9,8 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests the Prison class.
  * This class checks the logic for breaking out of prison, specifically
  * testing how the game handles user input for the escape sequence (like riddles).
- * * @author [Your Name/Student ID]
- * @version 1.0
+ * @author Petrák
  */
 class PrisonTest {
 

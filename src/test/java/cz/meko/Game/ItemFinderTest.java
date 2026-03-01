@@ -13,8 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests the ItemFinder utility class.
  * This class checks if the game can correctly search for items in a list
  * and piece together multi-word item names from player commands.
- * * @author [Your Name/Student ID]
- * @version 1.0
+ * @author Petrák
  */
 class ItemFinderTest {
 

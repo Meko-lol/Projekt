@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * This class checks if we can successfully add items to the inventory grid
  * and remove them by name, while also testing some weird edge cases to make
  * sure the game doesn't crash.
- * * @author Petrák
+ * @author Petrák
  */
 class InventoryTest {
 

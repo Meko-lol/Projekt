@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests for the TravelQuest class.
  * This class ensures that quests related to visiting specific map locations
  * are working correctly and can be cloned properly.
- * * @author Petrák
+ * @author Petrák
  */
 class TravelQuestTest {
 

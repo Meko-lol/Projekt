@@ -12,8 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests the main MyGame class.
  * This class checks if the core game mechanics work, like moving around the map,
  * loading the dashboard, getting defeated, and setting up the initial game state.
- * * @author [Your Name/Student ID]
- * @version 1.0
+ * @author Petrák
  */
 class MyGameTest {
 

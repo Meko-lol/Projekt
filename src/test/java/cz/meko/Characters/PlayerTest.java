@@ -14,8 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests the functionality of the Player class.
  * This class checks player mechanics like managing money, handling quests,
  * and equipping or unequipping items and weapons.
- * * @author [Your Name/Student ID]
- * @version 1.0
+ * @author Petrák
  */
 class PlayerTest {
 
