@@ -1,5 +1,6 @@
-package cz.meko.Items.EquippableItems;
+package cz.meko.Items.Items.EquippableItems;
 
+import cz.meko.Items.EquippableItems.EquippableItem;
 import cz.meko.Items.Item;
 import java.util.ArrayList;
 import java.util.List;

@@ -42,7 +42,6 @@ public class MapGenerator {
         int width = settings.getMapWidth();
         int height = settings.getMapHeight();
         MyMap map = new MyMap(width, height);
-
         // 1. Fill the map with generic locations first
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {

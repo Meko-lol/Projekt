@@ -1,7 +1,7 @@
 package cz.meko.Items;
 
-import cz.meko.Items.EquippableItems.Backpack;
-import cz.meko.Items.EquippableItems.Pants;
+import cz.meko.Items.Items.EquippableItems.Backpack;
+import cz.meko.Items.Items.EquippableItems.Pants;
 import cz.meko.Items.Items.EquippableItems.Boots;
 import cz.meko.Items.Items.EquippableItems.Chestplate;
 import cz.meko.Items.Items.EquippableItems.Helmet;

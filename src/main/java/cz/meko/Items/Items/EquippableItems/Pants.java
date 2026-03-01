@@ -1,4 +1,4 @@
-package cz.meko.Items.EquippableItems;
+package cz.meko.Items.Items.EquippableItems;
 
 import cz.meko.Items.EquippableItems.EquippableItem;
 

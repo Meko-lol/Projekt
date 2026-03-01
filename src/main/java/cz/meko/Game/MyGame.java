@@ -1,29 +1,16 @@
 package cz.meko.Game;
 
-import cz.meko.Battle.Battle;
 import cz.meko.Characters.Player;
 import cz.meko.Commands.CommandProcessor;
 import cz.meko.GameMap.MyMap;
-import cz.meko.Interact.InteractHandler;
 import cz.meko.Interact.Node;
 import cz.meko.Items.Item;
-import cz.meko.Items.EquippableItems.Backpack;
-import cz.meko.Items.EquippableItems.Pants;
-import cz.meko.Items.Items.EquippableItems.Boots;
-import cz.meko.Items.Items.EquippableItems.Chestplate;
-import cz.meko.Items.Items.EquippableItems.Helmet;
-import cz.meko.Items.Weapons.CloseRangeWeapon;
+import cz.meko.Items.Items.EquippableItems.Backpack;
 import cz.meko.MyGenerator.MapGenerator;
 import cz.meko.Places.Location;
-import cz.meko.ending.boulder.Boulder;
-import cz.meko.ending.prison.Prison;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -45,13 +32,11 @@ public class MyGame {
     @JsonIgnore private List<Node> allDialogueNodes;
     @JsonIgnore private UserInterface ui;
     @JsonIgnore private GameEventManager eventManager;
-    @JsonIgnore private TestManager testManager;
 
     public MyGame() {
         this.ui = new UserInterface();
         this.eventManager = new GameEventManager();
         this.settings = new GameSettings();
-        this.testManager = new TestManager();
     }
 
     public void startGame() {
@@ -61,8 +46,7 @@ public class MyGame {
             System.out.println("1. Start New Game");
             System.out.println("2. Load Game");
             System.out.println("3. Settings");
-            System.out.println("4. Test Functions");
-            System.out.println("5. Exit");
+            System.out.println("4. Exit");
             System.out.print(">> ");
 
             String choice = scanner.nextLine().trim();
@@ -84,54 +68,8 @@ public class MyGame {
             } else if (choice.equals("3")) {
                 openSettingsMenu(scanner);
             } else if (choice.equals("4")) {
-                openTestMenu(scanner);
-            } else if (choice.equals("5")) {
                 System.out.println("Goodbye!");
                 System.exit(0);
-            } else {
-                System.out.println("Invalid choice.");
-            }
-        }
-    }
-
-    private void openTestMenu(Scanner scanner) {
-        while (true) {
-            System.out.println("\n--- Test Functions ---");
-            System.out.println("1. Test Battle");
-            System.out.println("2. Test Prison Escape");
-            System.out.println("3. Test NPC Interaction");
-            System.out.println("4. Test Win Screen");
-            System.out.println("5. Test Boulder Breaking");
-            System.out.println("6. Test Equipment");
-            System.out.println("7. Test All Commands");
-            System.out.println("8. Back");
-            System.out.print(">> ");
-
-            String choice = scanner.nextLine().trim();
-
-            if (choice.equals("1")) {
-                testManager.testBattle();
-                waitForInput(scanner);
-            } else if (choice.equals("2")) {
-                testManager.testPrison();
-                waitForInput(scanner);
-            } else if (choice.equals("3")) {
-                testManager.testNPC();
-                waitForInput(scanner);
-            } else if (choice.equals("4")) {
-                testManager.testWin();
-                waitForInput(scanner);
-            } else if (choice.equals("5")) {
-                testManager.testBoulder();
-                waitForInput(scanner);
-            } else if (choice.equals("6")) {
-                testManager.testEquipment();
-                waitForInput(scanner);
-            } else if (choice.equals("7")) {
-                testManager.runAllTests();
-                waitForInput(scanner);
-            } else if (choice.equals("8")) {
-                break;
             } else {
                 System.out.println("Invalid choice.");
             }
@@ -237,7 +175,6 @@ public class MyGame {
         this.ui = new UserInterface();
         this.eventManager = new GameEventManager();
         this.allDialogueNodes = FileManager.loadDialogues();
-        this.testManager = new TestManager();
         if (this.gameMap != null) {
             this.currentLocation = this.gameMap.getLocation(this.xCordinate, this.yCordinate);
         }
