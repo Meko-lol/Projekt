@@ -2,8 +2,8 @@ package cz.meko.Commands.commandList;
 
 import cz.meko.Commands.Command;
 import cz.meko.Items.Item;
-import cz.meko.Items.Items.EquippableItems.Backpack;
-import cz.meko.Items.Items.EquippableItems.Helmet;
+import cz.meko.Items.EquippableItems.Backpack;
+import cz.meko.Items.EquippableItems.Helmet;
 import cz.meko.Items.Weapons.CloseRangeWeapon;
 import cz.meko.Places.Location;
 

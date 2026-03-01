@@ -5,7 +5,7 @@ import cz.meko.Commands.CommandProcessor;
 import cz.meko.GameMap.MyMap;
 import cz.meko.Interact.Node;
 import cz.meko.Items.Item;
-import cz.meko.Items.Items.EquippableItems.Backpack;
+import cz.meko.Items.EquippableItems.Backpack;
 import cz.meko.MyGenerator.MapGenerator;
 import cz.meko.Places.Location;
 import com.fasterxml.jackson.annotation.JsonAlias;

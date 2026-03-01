@@ -1,10 +1,10 @@
 package cz.meko.Items;
 
-import cz.meko.Items.Items.EquippableItems.Backpack;
-import cz.meko.Items.Items.EquippableItems.Pants;
-import cz.meko.Items.Items.EquippableItems.Boots;
-import cz.meko.Items.Items.EquippableItems.Chestplate;
-import cz.meko.Items.Items.EquippableItems.Helmet;
+import cz.meko.Items.EquippableItems.Backpack;
+import cz.meko.Items.EquippableItems.Pants;
+import cz.meko.Items.EquippableItems.Boots;
+import cz.meko.Items.EquippableItems.Chestplate;
+import cz.meko.Items.EquippableItems.Helmet;
 import cz.meko.Items.Weapons.CloseRangeWeapon;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -38,7 +38,6 @@ public class Item {
         this.description = description;
     }
 
-    // THE FIX: Add the standard public getter methods back to the class.
     public String getName() { return name; }
     public String getType() { return type; }
     public double getWeight() { return weight; }

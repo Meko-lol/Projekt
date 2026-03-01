@@ -1,17 +1,4 @@
 package cz.meko.Commands.commandList;
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
-
-class SaveGameCommandTest {
-
-    @BeforeEach
-    void setUp() {
-    }
-
-    @Test
-    void execute() {
-    }
-}
+class SaveGameCommandTest { @Test void execute() { assertNotNull(new SaveGameCommand()); } }

@@ -1,0 +1,16 @@
+{
+  "player" : null,
+  "gameMap" : null,
+  "xCordinate" : 5,
+  "yCordinate" : 5,
+  "settings" : {
+    "mapWidth" : 8,
+    "mapHeight" : 8,
+    "npcSpawnChance" : 50,
+    "enemySpawnChance" : 33,
+    "itemSpawnChance" : 50,
+    "difficulty" : "Normal"
+  },
+  "xcordinate" : 5,
+  "ycordinate" : 5
+}

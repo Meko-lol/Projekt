@@ -1,6 +1,5 @@
-package cz.meko.Items.Items.EquippableItems;
+package cz.meko.Items.EquippableItems;
 
-import cz.meko.Items.EquippableItems.EquippableItem;
 import cz.meko.Items.Item;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +18,4 @@ public class Backpack extends EquippableItem {
         super();
         this.items = new ArrayList<>();
     }
-    
-    // The equip() and unequip() methods have been REMOVED.
 }

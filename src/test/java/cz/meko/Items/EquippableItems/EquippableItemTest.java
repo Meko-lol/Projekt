@@ -1,21 +1,14 @@
 package cz.meko.Items.EquippableItems;
 
-import org.junit.jupiter.api.BeforeEach;
+import cz.meko.Items.EquippableItems.Helmet; // THE FIX: Correct package
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class EquippableItemTest {
 
-    @BeforeEach
-    void setUp() {
-    }
-
     @Test
     void getSlot() {
-    }
-
-    @Test
-    void setSlot() {
+        Helmet helmet = new Helmet("Helmet", 1, 100, "Test", 5);
+        assertEquals("head", helmet.getSlot());
     }
 }

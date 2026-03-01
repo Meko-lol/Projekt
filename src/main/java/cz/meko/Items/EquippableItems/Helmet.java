@@ -1,6 +1,4 @@
-package cz.meko.Items.Items.EquippableItems;
-
-import cz.meko.Items.EquippableItems.EquippableItem;
+package cz.meko.Items.EquippableItems;
 
 public class Helmet extends EquippableItem {
     private double defense;
@@ -13,6 +11,4 @@ public class Helmet extends EquippableItem {
     public Helmet() {
         super();
     }
-    
-    // The equip() and unequip() methods have been REMOVED.
 }

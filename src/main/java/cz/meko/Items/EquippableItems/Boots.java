@@ -1,6 +1,4 @@
-package cz.meko.Items.Items.EquippableItems;
-
-import cz.meko.Items.EquippableItems.EquippableItem;
+package cz.meko.Items.EquippableItems;
 
 public class Boots extends EquippableItem {
     private double speedBonus;
@@ -13,6 +11,4 @@ public class Boots extends EquippableItem {
     public Boots() {
         super();
     }
-    
-    // The equip() and unequip() methods have been REMOVED.
 }
